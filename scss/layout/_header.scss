@@ -1,0 +1,33 @@
+.header {
+    background-color: #eee;
+}
+// Không lồng top-bar vào header
+// Vì lồng vào như vậy sẽ bị quá dài
+// chỉ lồng khi khi cần thiết
+.top-bar {
+    display: flex;
+    align-items: center;
+}
+
+.navbar {
+    margin-left: 144px;
+
+    &__list {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    &__link {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: 500;
+        line-height: 1.47;
+    }
+
+    &__arrow {
+        margin-top: 3px;
+    }
+}

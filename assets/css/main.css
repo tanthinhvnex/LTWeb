@@ -148,6 +148,11 @@ body {
   font-family: Gordita, sans-serif;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 .row > *, .container-fluid, .container {
   padding-left: calc(var(--grid-gutter-x) * 0.5);
   padding-right: calc(var(--grid-gutter-x) * 0.5);
@@ -1178,6 +1183,45 @@ body {
   .gy-xxl-5 {
     --grid-gutter-y: 90px;
   }
+}
+.header {
+  background-color: #eee;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+}
+
+.navbar {
+  margin-left: 144px;
+}
+.navbar__list {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.navbar__link {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.47;
+}
+.navbar__arrow {
+  margin-top: 3px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.logo__title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.45;
 }
 
 /*# sourceMappingURL=main.css.map */

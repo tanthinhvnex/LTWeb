@@ -1,3 +1,30 @@
+.header {
+  background-color: #eee;
+}
 
+.top-bar {
+  display: flex;
+  align-items: center;
+}
+
+.navbar {
+  margin-left: 144px;
+}
+.navbar__list {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.navbar__link {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.47;
+}
+.navbar__arrow {
+  margin-top: 3px;
+}
 
 /*# sourceMappingURL=index.css.map */
