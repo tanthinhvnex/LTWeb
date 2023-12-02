@@ -4,14 +4,6 @@
     box-sizing: border-box;
 }
 
-:root {
-    --text-color: #1a162e;
-    // Vì là ảnh nên không dùng giá trị màu hex được
-    // Mà phải biến đổi thành css filter generator
-    --icon-color: brightness(0) saturate(100%) invert(8%) sepia(16%) saturate(2166%) hue-rotate(210deg) brightness(97%)
-        contrast(97%);
-}
-
 html {
     font-size: 62.5%;
 }
