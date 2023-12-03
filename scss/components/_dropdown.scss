@@ -1,14 +1,17 @@
+@use "../abstracts";
 .dropdown {
     position: absolute;
     left: 0;
     // Không đặt top/ bottom vì sẽ tạo ra khoảng không gian
     // Hover vào sẽ bị giật giật
     padding-top: 54px;
+    width: min(1240px, 100%);
     display: none;
 
     &__inner {
+        --inner-padding: 30px;
         position: relative;
-        padding: 30px;
+        padding: var(--inner-padding);
         border-radius: 20px;
         background: var(--dropdown-bg-color);
         box-shadow: 0px 40px 90px 20px var(--dropdown-shadow-color);
@@ -22,4 +25,104 @@
             filter: var(--dropdown-arrow-color);
         }
     }
+}
+
+.top-menu {
+    position: relative;
+    --main-column-width: 292px;
+    // Trừ đi thêm inner-padding * 2 vì
+    // Nếu không trừ thì nó sẽ có kích thước bằng với inner
+    // Mà padding thêm 30px
+    // Trên dưới là 60px
+    // Nên nó bị tràn ra ngoài inner-padding * 2 (60px)
+    // Vì vậy để nằm trọn bên trong
+    // Sẽ trừ inner-padding * 2
+    &__main {
+        overflow-y: auto;
+        width: var(--main-column-width);
+        height: calc(min(582px, 100vh - 158px) - var(--inner-padding) * 2);
+        border-right: 1px solid var(--top-menu-border-color);
+    }
+}
+
+.menu-column {
+    display: flex;
+    gap: 14px;
+
+    + .menu-column {
+        margin-top: 22px;
+    }
+
+    &__icon {
+        position: relative;
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+
+        @include abstracts.breakpoint(xl) {
+            display: none;
+        }
+    }
+
+    &__content {
+        // Chiếm hết độ rộng còn lại
+        flex: 1;
+    }
+
+    &__icon-1 {
+        // Để không bị mất chi tiết ảnh
+        object-fit: contain;
+        width: 30px;
+        height: 30px;
+    }
+    &__icon-2 {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        object-fit: cover;
+        width: 24px;
+        height: 24px;
+        filter: var(--menu-column-icon-color);
+    }
+
+    &__heading {
+        margin-top: 4px;
+        font-size: 1.6rem;
+        font-weight: 500;
+        line-height: 150%;
+    }
+
+    &__list {
+        margin-top: 19px;
+    }
+    &__item {
+        &:hover .sub-menu {
+            display: grid;
+        }
+    }
+
+    &__item:hover > &__link {
+        color: #0071dc;
+        font-weight: 500;
+    }
+    &__link {
+        display: block;
+        // Dùng padding để tăng vùng bấm
+        padding: 7px 0;
+        font-size: 1.4rem;
+        line-height: 142.857%;
+    }
+}
+
+.sub-menu {
+    position: absolute;
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--inner-padding);
+    overflow-y: auto;
+    // Sau khi làm xong mở devtools lên
+    // Sẽ thấy top-menu__main rộng --main-column-width
+    // Nên left 292px
+    inset: 0 0 0 var(--main-column-width);
+    padding-left: var(--inner-padding);
 }

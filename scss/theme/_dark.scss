@@ -1,3 +1,5 @@
+@use "../abstracts";
+
 html.dark {
     --text-color: #ffffff;
     // Vì là ảnh nên không dùng giá trị màu hex được
@@ -11,9 +13,16 @@ html.dark {
     --top-act-group-shadow: rgba(0, 0, 0, 0.2);
     --top-act-group-separate: #ededf6;
 
+    @include abstracts.breakpoint(lg) {
+        --header-shadow-color: rgba(237, 237, 246, 0.2);
+    }
+
     // Dropdown
     --dropdown-bg-color: #2f3441;
     --dropdown-shadow-color: rgba(23, 28, 40, 0.4);
     --dropdown-arrow-color: brightness(0) saturate(100%) invert(12%) sepia(3%) saturate(6390%) hue-rotate(186deg)
         brightness(92%) contrast(76%);
+    --top-menu-border-color: #171c28;
+    --menu-column-icon-color: brightness(0) saturate(100%) invert(93%) sepia(1%) saturate(288%) hue-rotate(202deg)
+        brightness(106%) contrast(98%);
 }

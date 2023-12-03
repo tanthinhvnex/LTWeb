@@ -11,6 +11,14 @@ html.dark {
   --dropdown-shadow-color: rgba(23, 28, 40, 0.4);
   --dropdown-arrow-color: brightness(0) saturate(100%) invert(12%) sepia(3%) saturate(6390%) hue-rotate(186deg)
       brightness(92%) contrast(76%);
+  --top-menu-border-color: #171c28;
+  --menu-column-icon-color: brightness(0) saturate(100%) invert(93%) sepia(1%) saturate(288%) hue-rotate(202deg)
+      brightness(106%) contrast(98%);
+}
+@media (max-width: 991.98px) {
+  html.dark {
+    --header-shadow-color: rgba(237, 237, 246, 0.2);
+  }
 }
 
 html {
@@ -24,10 +32,14 @@ html {
   --top-act-group-separate: #ededf6;
   --dropdown-bg-color: #fff;
   --dropdown-shadow-color: rgba(23, 28, 40, 0.4);
+  --top-menu-border-color: #d2d1d6;
+  --menu-column-icon-color: brightness(0) saturate(100%) invert(9%) sepia(9%) saturate(3571%) hue-rotate(210deg)
+      brightness(89%) contrast(97%);
 }
 @media (max-width: 991.98px) {
   html {
     --header-bg-color: #fff;
+    --header-shadow-color: rgba(0, 0, 0, 0.2);
   }
 }
 
