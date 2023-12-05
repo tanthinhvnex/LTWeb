@@ -43,16 +43,23 @@
     z-index: 9;
     padding: 20px 0;
     margin-left: 0;
-    background-color: #fff;
+    border-radius: 0px 20px 20px 0px;
+    background-color: var(--sidebar-bg);
     translate: -100%;
     transition: translate 0.5s;
   }
   .navbar.show {
     translate: 0;
+    box-shadow: 0px 40px 90px 20px var(--sidebar-shadow);
   }
   .navbar.show ~ .navbar__overlay {
     visibility: visible;
     opacity: 1;
+  }
+}
+@media (max-width: 575.98px) {
+  .navbar {
+    inset: 0 20% 0 0;
   }
 }
 .navbar__close-btn {
@@ -62,6 +69,11 @@
   .navbar__close-btn {
     display: block;
     padding: 10px 40px;
+  }
+}
+@media (max-width: 575.98px) {
+  .navbar__close-btn {
+    padding: 0px 20px 10px;
   }
 }
 .navbar__overlay {
@@ -82,6 +94,19 @@
   .navbar__list {
     flex-direction: column;
     align-items: flex-start;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    height: calc(100% - 40px);
+  }
+}
+@media (max-width: 767.98px) {
+  .navbar__list {
+    height: calc(100% - 142px);
+  }
+}
+@media (max-width: 575.98px) {
+  .navbar__list {
+    height: calc(100% - 124px);
   }
 }
 .navbar__item:hover .dropdown {
@@ -93,6 +118,9 @@
   }
   .navbar__item:hover .dropdown {
     display: none;
+  }
+  .navbar__item--active .dropdown {
+    display: block !important;
   }
 }
 .navbar__link {
@@ -111,8 +139,23 @@
     justify-content: space-between;
   }
 }
+@media (max-width: 575.98px) {
+  .navbar__link {
+    padding: 0 20px;
+    height: 44px;
+  }
+}
 .navbar__arrow {
   margin-top: 3px;
+}
+@media (max-width: 991.98px) {
+  .navbar__arrow {
+    rotate: -90deg;
+    transition: rotate 0.3s;
+  }
+}
+.navbar__item--active .navbar__arrow {
+  rotate: 0deg;
 }
 
 .top-act {
@@ -140,13 +183,11 @@
   padding: 13px;
 }
 .top-act__btn {
-  padding: 13px;
   gap: 10px;
   padding: 13px 20px;
   cursor: pointer;
 }
 .top-act__title {
-  color: #1a162e;
   font-size: 1.5rem;
   font-weight: 500;
   line-height: 1.47;
@@ -160,10 +201,29 @@
   display: block;
   width: 50px;
   height: 50px;
-  object-fit: cover;
   border-radius: 8px;
-  box-shadow: 0px 4px 14px 2px rgba(0, 0, 0, 0.08);
   cursor: pointer;
+}
+
+.nav-btn {
+  height: 50px;
+  align-items: center;
+  padding: 0 40px;
+}
+@media (max-width: 575.98px) {
+  .nav-btn {
+    padding: 0 20px;
+    height: 44px;
+  }
+}
+.nav-btn__title, .nav-btn__qnt {
+  margin-left: 16px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 146.667%;
+}
+.nav-btn__qnt {
+  margin-left: auto;
 }
 
 /*# sourceMappingURL=index.css.map */

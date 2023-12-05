@@ -14,6 +14,8 @@ html.dark {
   --top-menu-border-color: #171c28;
   --menu-column-icon-color: brightness(0) saturate(100%) invert(93%) sepia(1%) saturate(288%) hue-rotate(202deg)
       brightness(106%) contrast(98%);
+  --sidebar-bg: #292e39;
+  --sidebar-shadow: rgba(23, 28, 40, 0.4);
 }
 @media (max-width: 991.98px) {
   html.dark {
@@ -35,6 +37,8 @@ html {
   --top-menu-border-color: #d2d1d6;
   --menu-column-icon-color: brightness(0) saturate(100%) invert(9%) sepia(9%) saturate(3571%) hue-rotate(210deg)
       brightness(89%) contrast(97%);
+  --sidebar-bg: #fff;
+  --sidebar-shadow: rgba(200, 200, 200, 0.4);
 }
 @media (max-width: 991.98px) {
   html {
