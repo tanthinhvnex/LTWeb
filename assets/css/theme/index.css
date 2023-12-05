@@ -16,6 +16,9 @@ html.dark {
       brightness(106%) contrast(98%);
   --sidebar-bg: #292e39;
   --sidebar-shadow: rgba(23, 28, 40, 0.4);
+  --cate-item-bg: #171c28;
+  --cate-item-thumb-bg: #292e39;
+  --cate-item-title-color: #fff;
 }
 @media (max-width: 991.98px) {
   html.dark {
@@ -39,11 +42,19 @@ html {
       brightness(89%) contrast(97%);
   --sidebar-bg: #fff;
   --sidebar-shadow: rgba(200, 200, 200, 0.4);
+  --cate-item-bg: #eee;
+  --cate-item-thumb-bg: #fff;
+  --cate-item-title-color: #000;
 }
 @media (max-width: 991.98px) {
   html {
     --header-bg-color: #fff;
     --header-shadow-color: rgba(0, 0, 0, 0.2);
+  }
+}
+@media (max-width: 991.98px) {
+  html {
+    --cate-item-bg: #fff;
   }
 }
 

@@ -2,11 +2,7 @@
 
 .slideshow {
     position: relative;
-    padding-top: 40px;
 
-    @include abstracts.screen(md) {
-        margin: 30px 0;
-    }
     &__inner {
         overflow: hidden;
         display: flex;
