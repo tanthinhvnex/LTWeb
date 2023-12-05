@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="en" class="dark">
 
 <head>
     <meta charset=" UTF-8">
@@ -33,16 +33,28 @@
     </script>
 
     <div class="container">
+        <!-- Slideshow -->
+        <div class="slideshow">
+            <div class="slideshow__inner">
+                <div class="slideshow__item">
+                    <picture>
+                        <source media="(max-width: 767.98px)" srcset="./assets/img/slideshow/item-1-md.png">
+                        <img src="./assets/img/slideshow/item-1.png" alt="" class="slideshow__img" />
+                    </picture>
+                </div>
+            </div>
 
-
-        <!-- Main -->
-        <h1>Main</h1>
-
+            <div class="slideshow__page">
+                <span class="slideshow__num">1</span>
+                <span class="slideshow__slider"></span>
+                <span class="slideshow__num">5</span>
+            </div>
+        </div>
 
         <!-- Footer -->
         <footer id="footer"></footer>
         <script>
-            load("#footer", "./templates/footer.html")
+            load("#footer", "./templates/footer.html");
         </script>
     </div>
 </body>
