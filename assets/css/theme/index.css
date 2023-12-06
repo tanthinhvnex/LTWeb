@@ -53,6 +53,9 @@ html {
   --filter-btn-bg: #fff;
   --product-card-bg: #fff;
   --product-card-shadow: rgba(237, 237, 246, 0.2);
+  --filter-form-bg: #fff;
+  --filter-form-shadow: rgba(200, 200, 200, 0.4);
+  --filter-form-tag-bg: #f8f8f8;
 }
 @media (max-width: 991.98px) {
   html {

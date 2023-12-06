@@ -1,0 +1,145 @@
+.filter-wrap {
+    position: relative;
+    z-index: 1;
+}
+.filter {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    padding: 30px;
+    background-color: var(--filter-form-bg);
+    box-shadow: 0px 40px 90px var(--filter-form-shadow);
+    border-radius: 20px;
+    &__heading {
+        font-size: 2.2rem;
+        font-weight: 500;
+        line-height: 145.455%;
+    }
+
+    &__form {
+        margin-top: 30px;
+
+        &-label {
+            // Thẻ label với input đều là inline
+            // Nên để đảm bảo 2 cái này phải khác dòng
+            // Thì đặt label là block
+            display: block;
+            font-size: 2.2rem;
+            font-weight: 500;
+            line-height: 145.455%;
+
+            &--small {
+                font-size: 1.4rem;
+                font-weight: 500;
+                line-height: 142.857%;
+                margin-bottom: 10px;
+            }
+        }
+
+        &-group {
+            margin-top: 20px;
+
+            &--inline {
+                display: flex;
+                column-gap: 30px;
+            }
+        }
+        &-slider {
+            position: relative;
+            width: 100%;
+            height: 2px;
+            background-color: #d2d1d6;
+
+            &::before,
+            &::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                translate: 0 -50%;
+                display: block;
+                width: 22px;
+                height: 22px;
+                border: 6px solid #ffb700;
+                border-radius: 50%;
+                background-color: var(--filter-form-bg);
+            }
+
+            &::before {
+                left: var(--min-value);
+            }
+
+            &::after {
+                left: var(--max-value);
+            }
+        }
+
+        &-input,
+        &-select-wrap {
+            border-radius: 6px;
+            border: 1px solid #d2d1d6;
+        }
+        &-input {
+            width: 121px;
+            height: 36px;
+            padding: 0 12px;
+        }
+
+        &-select-wrap {
+            display: flex;
+            align-items: center;
+            height: 45px;
+        }
+        &-select {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 14px;
+            min-width: var(--width, 108px);
+            font-size: 1.4rem;
+            font-weight: 500;
+            line-height: 142.857%;
+            height: calc(100% - 10px);
+
+            cursor: pointer;
+        }
+
+        &-select + &-select {
+            border-left: 1px solid #d2d1d6;
+        }
+
+        &-tags {
+            display: flex;
+            align-items: center;
+            gap: 10px 20px;
+            flex-wrap: wrap;
+        }
+        &-tag {
+            padding: 6px 12px;
+            font-size: 1.4rem;
+            font-weight: 500;
+            line-height: 142.857%;
+            background-color: var(--filter-form-tag-bg);
+            border-radius: 6px;
+            color: #9e9da8;
+            transition: color 0.25s;
+
+            &:hover {
+                color: var(--text-color);
+            }
+        }
+    }
+    // End filter-form end form
+
+    &__row {
+        display: flex;
+    }
+
+    &__separate {
+        // Không đặt chiều cao
+        // Thì chiều cao sẽ tự động lắp đầy flex-item
+        // Tính sketch
+        width: 1px;
+        background-color: #eee;
+        margin: 0 30px;
+    }
+}

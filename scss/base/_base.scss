@@ -37,8 +37,9 @@ textarea,
 select {
     font-family: inherit;
     color: inherit;
-    // Để không bị hightlight lên khi nhấn vào
+    // Để không bị hightlight nền lên khi nhấn vào
     -webkit-tap-highlight-color: transparent;
+    outline: none;
 }
 
 .icon {
