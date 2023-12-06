@@ -23,6 +23,11 @@ html.dark {
   --filter-btn-bg: #171c28;
   --product-card-bg: #171c28;
   --product-card-shadow: rgba(0, 0, 0, 0.2);
+  --filter-form-bg: #292e39;
+  --filter-form-shadow: rgba(0, 0, 0, 0.4);
+  --filter-form-tag-bg: #171c28;
+  --filter-form-arrow: brightness(0) saturate(100%) invert(14%) sepia(24%) saturate(572%) hue-rotate(183deg)
+      brightness(92%) contrast(88%);
 }
 @media (max-width: 991.98px) {
   html.dark {
