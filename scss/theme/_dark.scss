@@ -38,6 +38,7 @@ html.dark {
     // Buttons
     --filter-btn-color: #fff;
     --filter-btn-bg: #171c28;
+    --button-bg-color: #292e39;
 
     // Product card
     --product-card-bg: #171c28;
@@ -51,4 +52,8 @@ html.dark {
     // Vì mặc định nó đã có màu trắng rồi
     --filter-form-arrow: brightness(0) saturate(100%) invert(14%) sepia(24%) saturate(572%) hue-rotate(183deg)
         brightness(92%) contrast(88%);
+
+    // Footer
+    --footer-bg-color: #171c28;
+    --footer-social-bg-color: #fff;
 }

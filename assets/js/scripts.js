@@ -156,6 +156,7 @@ function initJsToggle() {
         }
         button.onclick = (e) => {
             e.preventDefault();
+
             if (!$(target)) {
                 return (document.body.innerText = `Không tìm thấy phần tử "${target}"`);
             }
@@ -166,7 +167,6 @@ function initJsToggle() {
                 $(target).classList.toggle("show", isHidden);
             });
         };
-
         document.onclick = function (e) {
             if (!e.target.closest(target)) {
                 const isHidden = $(target).classList.contains("hide");
@@ -177,6 +177,7 @@ function initJsToggle() {
         };
     });
 }
+
 window.addEventListener("template-loaded", () => {
     const links = $$(".js-dropdown-list > li > a");
 

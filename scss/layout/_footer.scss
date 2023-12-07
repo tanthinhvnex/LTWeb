@@ -1,0 +1,117 @@
+@use "../abstracts";
+.footer {
+    margin-top: 80px;
+    padding: 30px 0 50px;
+    background-color: var(--footer-bg-color);
+
+    &-wrap {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+
+        @include abstracts.screen(md) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__heading {
+        font-size: 2.4rem;
+        font-weight: 500;
+
+        &-wrap {
+            @include abstracts.screen(md) {
+                margin-top: 20px;
+            }
+            @include abstracts.screen(sm) {
+                flex-direction: column;
+                gap: 16px !important;
+            }
+        }
+    }
+    &-social {
+        &__list {
+            margin-top: 34px;
+            display: flex;
+            gap: 12px;
+        }
+        &__link {
+            display: block;
+            height: 34px;
+            width: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--footer-social-bg-color);
+            // cursor: pointer;
+        }
+    }
+    &-title {
+        &-wrap {
+            margin-top: 36px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        &__item {
+            display: block;
+            font-size: 1.6rem;
+            margin-top: 12px;
+        }
+    }
+    &__heading-wrap {
+        display: flex;
+        gap: 30px;
+    }
+    &__desc {
+        margin-top: 52px;
+        font-size: 1.6rem;
+
+        @include abstracts.screen(md) {
+            margin-top: 20px;
+        }
+    }
+}
+
+.input {
+    &-wrap {
+        margin-top: 8px;
+    }
+    &-text-btn {
+        width: 360px;
+
+        @include abstracts.screen(lg) {
+            max-width: 260px;
+        }
+        @include abstracts.screen(sm) {
+            max-width: 90%;
+        }
+    }
+    &-btn {
+        @include abstracts.screen(sm) {
+            margin-top: 12px;
+            margin-left: 0 !important;
+        }
+    }
+}
+
+.pay {
+    &-wrap {
+        margin-top: 18px;
+    }
+    &-title {
+        font-size: 1.6rem;
+    }
+    &-list {
+        margin-top: 8px;
+        display: flex;
+        gap: 12px;
+    }
+    &-item {
+        display: block;
+        width: 48px;
+        height: 30px;
+    }
+}
+.footer__author {
+    text-align: center;
+    margin-top: 20px;
+}
