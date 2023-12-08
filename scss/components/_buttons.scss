@@ -41,6 +41,11 @@
 // Đây là button trung tính, dùng nó sẽ không ra được 1 nút
 // nào giống với bản thiết kế cả, nó chỉ mang tính phổ biến thôi
 .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
     height: 46px;
     padding: 0 20px;
     border-radius: 6px;
@@ -51,7 +56,9 @@
     user-select: none;
 
     + .btn {
-        margin-left: 20px;
+        &:not(.btn--no-margin) {
+            margin-left: 20px;
+        }
     }
 
     &--text {

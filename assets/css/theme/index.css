@@ -67,6 +67,7 @@ html {
   --filter-form-tag-bg: #f8f8f8;
   --footer-bg-color: #eee;
   --footer-social-bg-color: #fff;
+  --auth-content-bg: #fff;
 }
 @media (max-width: 991.98px) {
   html {
