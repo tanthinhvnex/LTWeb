@@ -2,7 +2,14 @@
 .auth {
     display: flex;
     min-height: 100vh;
-
+    // Khi sử dụng safari sẽ bị xảy ra vấn đề
+    // ios 100vh vertical scrollbar
+    // câu lệnh sau kiểm tra
+    // nếu là trình duyệt safari
+    // thì sẽ dùng min-height: -webkit-fill-available
+    @supports (-webkit-touch-callout: none) {
+        min-height: -webkit-fill-available;
+    }
     &__intro,
     &__content {
         flex: 1;
@@ -17,6 +24,7 @@
         justify-content: center;
         flex-direction: column;
         gap: 50px;
+        background-color: var(--auth-intro-bg);
 
         &-logo,
         &-next {
@@ -44,6 +52,10 @@
             font-size: 1.8rem;
             font-weight: 500;
             line-height: 144.444%;
+            color: var(--auth-intro-text-color);
+            @include abstracts.screen(md) {
+                font-size: 1.5rem;
+            }
         }
     }
 
@@ -70,6 +82,10 @@
             align-items: center;
             text-align: center;
             width: min(460px, 100%);
+
+            @include abstracts.screen(md) {
+                padding: 32px 0;
+            }
         }
     }
     &__heading {
@@ -77,6 +93,11 @@
         font-size: 3rem;
         font-weight: 500;
         line-height: 146.667%;
+        color: var(--auth-heading-color);
+        @include abstracts.screen(md) {
+            margin-top: 40px;
+            font-size: 2.2rem;
+        }
     }
 
     &__desc {
@@ -85,12 +106,20 @@
         font-weight: 500;
         line-height: 146.667%;
         color: #9e9da8;
-        padding: 0 30px;
+        padding: 0 20px;
+
+        @include abstracts.screen(md) {
+            font-size: 1.4rem;
+        }
     }
 
     &__form {
         width: 100%;
         margin-top: 30px;
+
+        @include abstracts.screen(md) {
+            margin-top: 0;
+        }
     }
 
     &__link {
@@ -98,6 +127,10 @@
         font-size: 1.5rem;
         font-weight: 500;
         line-height: 146.667%;
+
+        @include abstracts.screen(md) {
+            font-size: 1.4rem;
+        }
     }
 
     &__btn-group {
@@ -105,6 +138,11 @@
         flex-direction: column;
         gap: 30px;
         margin-top: 50px;
+
+        @include abstracts.screen(md) {
+            margin-top: 40px;
+            gap: 20px;
+        }
     }
 
     &__btn {
@@ -112,12 +150,18 @@
     }
 
     &__text {
-        margin-top: 108px;
+        margin-top: 70px;
         font-size: 1.8rem;
         line-height: 144.444%;
         color: #9e9da8;
-    }
-    &__text &__link {
-        font-size: 1.8rem;
+
+        @include abstracts.screen(md) {
+            font-size: 1.6rem;
+            margin-top: 40px;
+        }
+
+        &-link {
+            font-size: inherit;
+        }
     }
 }

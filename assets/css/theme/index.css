@@ -31,6 +31,11 @@ html.dark {
       brightness(92%) contrast(88%);
   --footer-bg-color: #171c28;
   --footer-social-bg-color: #fff;
+  --auth-content-bg: #292e39;
+  --auth-intro-bg: #171c28;
+  --auth-intro-text-color: #b9babe;
+  --auth-heading-color: #b9babe;
+  --form-placeholder-color: #b9babe;
 }
 @media (max-width: 991.98px) {
   html.dark {
@@ -68,6 +73,7 @@ html {
   --footer-bg-color: #eee;
   --footer-social-bg-color: #fff;
   --auth-content-bg: #fff;
+  --form-placeholder-color: #d2d1d6;
 }
 @media (max-width: 991.98px) {
   html {
@@ -78,6 +84,11 @@ html {
 @media (max-width: 991.98px) {
   html {
     --cate-item-bg: #fff;
+  }
+}
+@media (max-width: 767.98px) {
+  html {
+    --auth-intro-bg: #fff;
   }
 }
 
