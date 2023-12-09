@@ -1363,6 +1363,9 @@ html.dark {
   --auth-intro-text-color: #b9babe;
   --auth-heading-color: #b9babe;
   --form-placeholder-color: #b9babe;
+  --product-detail-bg: #292e39;
+  --breadcrumbs-bg: #171c28;
+  --breadcrumbs-shadow: rgba(23, 28, 40, 0.2);
 }
 @media (max-width: 991.98px) {
   html.dark {
@@ -1401,6 +1404,9 @@ html {
   --footer-social-bg-color: #fff;
   --auth-content-bg: #fff;
   --form-placeholder-color: #d2d1d6;
+  --product-detail-bg: #fff;
+  --breadcrumbs-bg: #f6f6f6;
+  --breadcrumbs-shadow: rgba(237, 237, 246, 0.2);
 }
 @media (max-width: 991.98px) {
   html {
@@ -1743,7 +1749,13 @@ html {
 }
 
 .input-wrap {
+  display: flex;
   margin-top: 8px;
+}
+@media (max-width: 575.98px) {
+  .input-wrap {
+    flex-direction: column;
+  }
 }
 .input-text-btn {
   width: 360px;
@@ -1762,6 +1774,7 @@ html {
   .input-btn {
     margin-top: 12px;
     margin-left: 0 !important;
+    width: 150px;
   }
 }
 
@@ -2616,6 +2629,54 @@ html {
   top: 5px;
 }
 
+.message {
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  width: 100%;
+  text-align: left;
+}
+.message--success {
+  border: 1.5px solid #46a05c;
+  background-color: rgba(39, 243, 117, 0.2);
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px;
+  min-height: 64px;
+  border-radius: 10px;
+  background: var(--breadcrumbs-bg);
+  box-shadow: 0px 20px 60px 10px var(--breadcrumbs-shadow);
+  gap: 20px;
+}
+@media (max-width: 767.98px) {
+  .breadcrumbs {
+    gap: 16px;
+  }
+}
+.breadcrumbs__link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 150%;
+  color: #9e9da8;
+}
+@media (max-width: 767.98px) {
+  .breadcrumbs__link {
+    font-size: 1.4rem;
+  }
+}
+.breadcrumbs__link--current {
+  color: inherit;
+}
+
 .home__container {
   margin-top: 40px;
 }
@@ -2683,7 +2744,7 @@ html {
   top: 80px;
 }
 .auth__intro-img {
-  max-width: 100%;
+  width: min(424px, 100%);
 }
 .auth__intro-text {
   text-align: center;
@@ -2754,9 +2815,15 @@ html {
     font-size: 1.4rem;
   }
 }
+.auth__message {
+  margin-top: 30px;
+}
 .auth__form {
   width: 100%;
   margin-top: 30px;
+}
+.auth__form-forgot {
+  margin-top: 10px;
 }
 @media (max-width: 767.98px) {
   .auth__form {
@@ -2803,6 +2870,17 @@ html {
 }
 .auth__text-link {
   font-size: inherit;
+}
+
+.product-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+  background: var(--product-detail-bg);
+}
+
+.product-container {
+  margin-top: 30px;
 }
 
 /*# sourceMappingURL=main.css.map */

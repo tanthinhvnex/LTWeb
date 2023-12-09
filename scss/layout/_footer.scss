@@ -73,7 +73,11 @@
 
 .input {
     &-wrap {
+        display: flex;
         margin-top: 8px;
+        @include abstracts.screen(sm) {
+            flex-direction: column;
+        }
     }
     &-text-btn {
         width: 360px;
@@ -89,6 +93,7 @@
         @include abstracts.screen(sm) {
             margin-top: 12px;
             margin-left: 0 !important;
+            width: 150px;
         }
     }
 }

@@ -1,0 +1,13 @@
+.product-page {
+    // Dùng display để khắc phục margin collapse
+    // khi margin-top product-container
+    // sẽ lấy thêm màu của product-container lắp lên trên
+    // để không bị lắp như thế thì phải flex
+    display: flex;
+    flex-direction: column;
+    min-height: 80vh;
+    background: var(--product-detail-bg);
+}
+.product-container {
+    margin-top: 30px;
+}

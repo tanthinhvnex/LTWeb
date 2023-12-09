@@ -322,7 +322,13 @@
 }
 
 .input-wrap {
+  display: flex;
   margin-top: 8px;
+}
+@media (max-width: 575.98px) {
+  .input-wrap {
+    flex-direction: column;
+  }
 }
 .input-text-btn {
   width: 360px;
@@ -341,6 +347,7 @@
   .input-btn {
     margin-top: 12px;
     margin-left: 0 !important;
+    width: 150px;
   }
 }
 
