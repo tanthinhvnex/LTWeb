@@ -47,23 +47,6 @@
     &__form {
         margin-top: 30px;
 
-        &-label {
-            // Thẻ label với input đều là inline
-            // Nên để đảm bảo 2 cái này phải khác dòng
-            // Thì đặt label là block
-            display: block;
-            font-size: 2.2rem;
-            font-weight: 500;
-            line-height: 145.455%;
-
-            &--small {
-                font-size: 1.4rem;
-                font-weight: 500;
-                line-height: 142.857%;
-                margin-bottom: 10px;
-            }
-        }
-
         &-group {
             margin-top: 20px;
 
@@ -102,8 +85,7 @@
             }
         }
 
-        &-text-input,
-        &-select-wrap {
+        &-text-input {
             border-radius: 6px;
             border: 1px solid #d2d1d6;
         }
@@ -153,57 +135,6 @@
 
         &-input-icon {
             margin-left: 12px;
-        }
-
-        &-select-wrap {
-            display: flex;
-            align-items: center;
-            height: 45px;
-        }
-        &-select {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 14px;
-            min-width: var(--width, 108px);
-            font-size: 1.4rem;
-            font-weight: 500;
-            line-height: 142.857%;
-            height: calc(100% - 10px);
-
-            cursor: pointer;
-
-            @include abstracts.screen(xl) {
-                flex: 1;
-            }
-        }
-
-        &-select + &-select {
-            border-left: 1px solid #d2d1d6;
-        }
-
-        &-tags {
-            display: flex;
-            align-items: center;
-            gap: 10px 20px;
-            flex-wrap: wrap;
-            @include abstracts.screen(sm) {
-                gap: 10px;
-            }
-        }
-        &-tag {
-            padding: 6px 12px;
-            font-size: 1.4rem;
-            font-weight: 500;
-            line-height: 142.857%;
-            background-color: var(--filter-form-tag-bg);
-            border-radius: 6px;
-            color: #9e9da8;
-            transition: color 0.25s;
-
-            &:hover {
-                color: var(--text-color);
-            }
         }
     }
     // End filter-form end form

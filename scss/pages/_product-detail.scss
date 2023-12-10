@@ -60,3 +60,99 @@
         }
     }
 }
+
+.prod-info {
+    padding: 60px;
+    background-color: #f6f6f6;
+
+    &__heading {
+        font-size: 2.6rem;
+        font-weight: 500;
+        line-height: 138.462%;
+        color: #1a162e;
+        max-width: 630px;
+    }
+    &__label {
+        margin-top: 30px;
+    }
+
+    &__tag {
+        background-color: #ededf6;
+    }
+}
+
+.prod-props {
+    margin-left: 30px;
+}
+
+.prod-prop {
+    display: flex;
+    gap: 16px;
+    margin-top: 30px;
+
+    &__icon {
+        // Icon đang bị căng giữa
+        // Để cho icon phía trên thì dùng align-self
+        align-self: flex-start;
+    }
+
+    &__title {
+        font-size: 1.8rem;
+        font-weight: 500;
+        line-height: 144.444%;
+        color: #1a162e;
+    }
+
+    &__desc {
+        margin-top: 4px;
+        font-size: 1.4rem;
+        line-height: 142.857%;
+    }
+}
+
+.prod-info {
+    &__card {
+        margin-top: 30px;
+        padding: 20px;
+        border-radius: 6px;
+        border: 1px solid #b9babe;
+    }
+    &__row {
+        display: flex;
+        align-items: center;
+    }
+    &__price {
+        font-size: 1.6rem;
+        font-weight: 500;
+        line-height: 150%;
+    }
+
+    &__tax {
+        padding: 2px 8px;
+        margin-left: 10px;
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), #67b044;
+        color: #67b044;
+        font-size: 1.4rem;
+        font-weight: 500;
+        line-height: 142.857%;
+    }
+    &__total-price {
+        margin: 20px 0;
+        font-size: 2.6rem;
+        font-weight: 500;
+        line-height: 138.462%;
+    }
+    &__add-to-cart {
+        // Chỗ này dễ lấy width để vào lắm
+        // Nhìn kĩ lại thì thấy là nó căng hết ra
+        // nên dùng flex:1 cho dễ responsive
+        flex: 1;
+    }
+    &__like-btn {
+        width: 46px;
+        height: 46px;
+        margin-left: 19px;
+        border-radius: 6px;
+        // background-color: transparent;
+    }
+}
