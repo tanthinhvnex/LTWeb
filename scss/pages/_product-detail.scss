@@ -235,9 +235,6 @@
             color: inherit;
         }
     }
-    &__contents {
-        padding-top: 20px;
-    }
 
     &__content {
         display: none;
@@ -245,5 +242,15 @@
         &--current {
             display: block;
         }
+    }
+}
+
+.prod-content {
+    margin-top: 20px;
+    &__heading {
+        font-size: 2.4rem;
+        font-weight: 700;
+        line-height: 141.667%;
+        margin-bottom: 30px;
     }
 }
