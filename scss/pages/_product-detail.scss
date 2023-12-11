@@ -1,8 +1,10 @@
+@use "../abstracts";
 .product-page {
     // Dùng display để khắc phục margin collapse
     // khi margin-top product-container
     // sẽ lấy thêm màu của product-container lắp lên trên
     // để không bị lắp như thế thì phải flex
+    padding-bottom: 50px;
     display: flex;
     flex-direction: column;
     min-height: 80vh;
@@ -10,12 +12,32 @@
 }
 .product-container {
     margin-top: 30px;
+    @include abstracts.screen(md) {
+        margin-top: 20px;
+    }
+}
+
+.product-info-content {
+    border-radius: 20px;
+    background-color: var(--product-detail-info-content-bg);
 }
 .prod-preview {
     padding: 0 30px;
+
+    @include abstracts.screen(lg) {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    @include abstracts.screen(md) {
+        padding: 16px;
+    }
     &__list {
         display: flex;
         overflow: hidden;
+
+        @include abstracts.screen(lg) {
+            flex: 1;
+        }
     }
     &__item {
         position: relative;
@@ -37,6 +59,14 @@
         justify-content: center;
         gap: 16px;
         padding: 30px;
+        @include abstracts.screen(lg) {
+            flex-direction: column;
+            padding-left: 0;
+        }
+
+        @include abstracts.screen(md) {
+            display: none;
+        }
     }
     &__thumb-img {
         width: 65px;
@@ -48,9 +78,9 @@
         opacity: 0.9;
         transition: opacity, border-color;
         transition-duration: 0.3s;
-        cursor: pointer;
-        &:hover {
+        &:not(&--current):hover {
             opacity: 1;
+            cursor: pointer;
             border-color: #9e9da8;
         }
 
@@ -63,13 +93,24 @@
 
 .prod-info {
     padding: 60px;
-    background-color: #f6f6f6;
+    background-color: var(--product-detail-info-bg);
+
+    @include abstracts.screen(xxl) {
+        padding: 40px;
+    }
+    @include abstracts.screen(lg) {
+        margin-top: 30px;
+    }
+    @include abstracts.screen(md) {
+        border-radius: 20px;
+        padding: 0 16px 16px;
+        margin-top: 0;
+    }
 
     &__heading {
         font-size: 2.6rem;
         font-weight: 500;
         line-height: 138.462%;
-        color: #1a162e;
         max-width: 630px;
     }
     &__label {
@@ -77,12 +118,20 @@
     }
 
     &__tag {
-        background-color: #ededf6;
+        background-color: var(--product-detail-tag-bg);
     }
 }
 
 .prod-props {
-    margin-left: 30px;
+    padding-left: 30px;
+
+    @include abstracts.screen(xxl) {
+        padding-left: 10px;
+    }
+
+    @include abstracts.screen(lg) {
+        padding-left: 0;
+    }
 }
 
 .prod-prop {
@@ -100,7 +149,6 @@
         font-size: 1.8rem;
         font-weight: 500;
         line-height: 144.444%;
-        color: #1a162e;
     }
 
     &__desc {
@@ -111,6 +159,9 @@
 }
 
 .prod-info {
+    padding: 60px;
+    border-radius: 10px;
+    background-color: var(--product-detail-info-bg);
     &__card {
         margin-top: 30px;
         padding: 20px;
@@ -129,8 +180,9 @@
 
     &__tax {
         padding: 2px 8px;
+        border-radius: 4px;
         margin-left: 10px;
-        background: linear-gradient(0deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), #67b044;
+        background: rgb(103 176 68 / 20%);
         color: #67b044;
         font-size: 1.4rem;
         font-weight: 500;
@@ -154,5 +206,44 @@
         margin-left: 19px;
         border-radius: 6px;
         // background-color: transparent;
+    }
+}
+
+.prod-tab {
+    margin-top: 20px;
+
+    &__list,
+    &__contents {
+        display: flex;
+        align-items: center;
+    }
+
+    &__list {
+        gap: 40px;
+    }
+
+    &__item {
+        font-size: 2.2rem;
+        font-weight: 500;
+        line-height: 145.455%;
+        color: #9e9da8;
+        padding: 10px;
+        // Do padding thì tạo 2 khoảng hở 2 bên
+        // vì vậy margin để lắp khoảng hở lại
+        margin: 0 -10px;
+        &--current {
+            color: inherit;
+        }
+    }
+    &__contents {
+        padding-top: 20px;
+    }
+
+    &__content {
+        display: none;
+
+        &--current {
+            display: block;
+        }
     }
 }

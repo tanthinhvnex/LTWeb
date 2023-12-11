@@ -1,0 +1,29 @@
+.search-bar {
+    align-items: center;
+    // không đặt padding-top-bottom
+    // mà đặt height
+    // để input w100%
+    // sẽ giúp input được cao hơn
+    height: 50px;
+    border-radius: 20px;
+    background-color: var(--search-bar-bg);
+
+    &__input {
+        width: 100%;
+        flex: 1;
+        padding-left: 15px;
+        font-size: 1.4rem;
+        font-weight: 500;
+        line-height: 142.857%;
+        &::placeholder {
+            color: #9e9da8;
+            font-weight: 400;
+        }
+    }
+    &__submit {
+        height: 100%;
+        // Để tăng phạm vi bấm
+        // và tạo khoảng trống
+        padding: 0 15px;
+    }
+}

@@ -12,6 +12,7 @@
 
     @include abstracts.screen(md) {
         gap: 16px;
+        radius: 20px;
     }
     &__link {
         display: flex;
