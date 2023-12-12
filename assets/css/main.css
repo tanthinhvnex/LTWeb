@@ -1383,6 +1383,8 @@ html.dark {
   --breadcrumbs-bg: #171c28;
   --breadcrumbs-shadow: rgba(23, 28, 40, 0.2);
   --search-bar-bg: #171c28;
+  --review-card-bg: #171c28;
+  --text-content-hr-bg: #3e4043;
 }
 @media (max-width: 991.98px) {
   html.dark {
@@ -1441,6 +1443,7 @@ html {
   --breadcrumbs-shadow: rgba(237, 237, 246, 0.2);
   --search-bar-bg: #fff;
   --review-card-bg: #fafafd;
+  --text-content-hr-bg: #ebebeb;
 }
 @media (max-width: 991.98px) {
   html {
@@ -1467,6 +1470,11 @@ html {
 @media (max-width: 767.98px) {
   html {
     --breadcrumbs-bg: #fff;
+  }
+}
+@media (max-width: 767.98px) {
+  html {
+    --review-card-bg: #fff;
   }
 }
 
@@ -2876,13 +2884,13 @@ html {
   text-align: center;
 }
 .text-content a {
-  color: red;
+  color: #0071dc;
   text-decoration: underline;
 }
 .text-content blockquote {
   padding: 20px;
-  background-color: #ebebeb;
-  border-left: 3px solid #ffb700;
+  background-color: rgba(119, 218, 230, 0.1);
+  border-left: 3px solid #77dae6;
 }
 .text-content blockquote p {
   margin: 0;
@@ -2891,7 +2899,7 @@ html {
   border: none;
   height: 1.5px;
   margin: 40px 0;
-  background-color: #ebebeb;
+  background-color: var(--text-content-hr-bg);
 }
 
 .home {
@@ -3344,8 +3352,8 @@ html {
   margin-top: 20px;
 }
 .prod-content__heading {
-  font-size: 2.4rem;
-  font-weight: 700;
+  font-size: 2.2rem;
+  font-weight: 600;
   line-height: 141.667%;
   margin-bottom: 30px;
 }
