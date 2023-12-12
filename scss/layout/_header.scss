@@ -337,6 +337,11 @@
         border-style: solid;
     }
 
+    &__separate {
+        margin: 20px 0;
+        border: 1.5px solid var(--header-act-dropdown-border-color);
+    }
+
     &__row {
         display: flex;
         justify-content: space-between;
