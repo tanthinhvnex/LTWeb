@@ -5,6 +5,10 @@
 ::after {
     box-sizing: border-box;
 }
+* {
+    // Để không bị hightlight nền lên khi nhấn vào
+    -webkit-tap-highlight-color: transparent;
+}
 
 html {
     font-size: 62.5%;
@@ -39,8 +43,6 @@ select {
     padding: 0;
     font-family: inherit;
     color: inherit;
-    // Để không bị hightlight nền lên khi nhấn vào
-    -webkit-tap-highlight-color: transparent;
     outline: none;
     border: none;
 }
@@ -57,4 +59,14 @@ input {
         padding-left: 20px !important;
         padding-right: 20px !important;
     }
+}
+
+i,
+em {
+    font-style: italic;
+}
+
+b,
+strong {
+    font-weight: 600;
 }

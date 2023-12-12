@@ -107,7 +107,7 @@
                                 <div class="row">
                                     <div class="col-5 col-xxl-6 col-xl-12">
                                         <div class="prod-prop">
-                                            <img src="./assets/icons/star.svg" alt="" class="prod-prop__icon icon" />
+                                            <img src="./assets/icons/star.svg" alt="" class="prod-prop__icon" />
                                             <h4 class="prod-prop__title">(3.5) 1100 reviews</h4>
                                         </div>
                                         <label for="" class="form__label prod-info__label">Size/Weight</label>
@@ -183,21 +183,66 @@
 
             <!-- Product content -->
             <div class="product-container">
-                <div class="prod-tab">
+                <div class="prod-tab js-tabs">
                     <ul class="prod-tab__list">
-                        <li class="prod-tab__item">Description</li>
-                        <li class="prod-tab__item">Features</li>
+                        <li class="prod-tab__item prod-tab__item--current">Description</li>
                         <li class="prod-tab__item">Review (1100)</li>
-                        <li class="prod-tab__item prod-tab__item--current">Similar</li>
+                        <li class="prod-tab__item ">Similar</li>
                     </ul>
 
                     <div class="prod-tab__contents">
-                        <div class="prod-tab__content">Content 1</div>
-                        <div class="prod-tab__content">Content 2</div>
+                        <div class="prod-tab__content prod-tab__content--current">
+                            <div class="row">
+                                <div class="col-8 offset-2 col-xl-10 offset-xl-1 col-lg-12 offset-lg-0">
+                                    <div class="text-content">
+                                        <h2>Lorem ipsum dolor sit amet.</h2>
+                                        <p>Lorem ipsum dolor sit amet <a href="#!">consectetur</a>, adipisicing elit.
+                                            Esse
+                                            dolor
+                                            vero ad
+                                            doloribus sint totam animi consequatur <a href="#!">beatae</a> et officia.
+                                            Lorem
+                                            ipsum dolor sit, amet consectetur adipisicing elit. Quos, laboriosam. Lorem
+                                            ipsum
+                                            dolor sit amet consectetur adipisicing elit. Nam dolorem veritatis ex
+                                            reiciendis
+                                            aliquam perspiciatis temporibus dolorum provident quasi asperiores?</p>
+
+                                        <h3>Lorem ipsum dolor sit amet.</h3>
+                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse dolor vero ad
+                                            doloribus sint totam animi consequatur beatae et officia.</p>
+                                        <h3>Lorem ipsum dolor sit amet.</h3>
+                                        <blockquote>
+                                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse dolor vero
+                                                ad
+                                                doloribus sint totam animi consequatur beatae et officia.</p>
+                                        </blockquote>
+                                        <p><img src="./assets/img/product/item-1.png" alt="">
+                                            <em>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis,
+                                                fugiat!</em>
+                                        </p>
+                                        <hr>
+
+                                        <h2>Lorem ipsum dolor sit amet.</h2>
+                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse dolor vero ad
+                                            doloribus sint totam animi consequatur beatae et officia.</p>
+                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse dolor vero ad
+                                            doloribus sint totam animi consequatur beatae et officia.</p>
+                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse dolor vero ad
+                                            doloribus sint totam animi consequatur beatae et officia.</p>
+                                        <p><img src="./assets/img/product/item-1.png" alt="">
+                                            <em>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis,
+                                                fugiat!</em>
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="prod-tab__content">
                             <div class="prod-content">
                                 <h2 class="prod-content__heading">What our customers are saying</h2>
-                                <div class="row row-cols-3">
+                                <div class="row row-cols-3 gx-lg-2 row-cols-md-1 gy-md-3">
                                     <!-- Review card 1 -->
                                     <div class="col">
 
@@ -212,13 +257,15 @@
                                                 </div>
                                             </div>
                                             <div class="review-card__rating">
-                                                <img src="./assets/icons/star.svg" alt="" class="review-card__star">
-                                                <img src="./assets/icons/star.svg" alt="" class="review-card__star">
-                                                <img src="./assets/icons/star.svg" alt="" class="review-card__star">
-                                                <img src="./assets/icons/star-half.svg" alt=""
-                                                    class="review-card__star">
-                                                <img src="./assets/icons/star-blank.svg" alt=""
-                                                    class="review-card__star">
+                                                <div class="review-card__star-list">
+                                                    <img src="./assets/icons/star.svg" alt="" class="review-card__star">
+                                                    <img src="./assets/icons/star.svg" alt="" class="review-card__star">
+                                                    <img src="./assets/icons/star.svg" alt="" class="review-card__star">
+                                                    <img src="./assets/icons/star-half.svg" alt=""
+                                                        class="review-card__star">
+                                                    <img src="./assets/icons/star-blank.svg" alt=""
+                                                        class="review-card__star">
+                                                </div>
                                                 <span class="review-card__rating-title">(3.5) Review</span>
                                             </div>
                                         </div>
@@ -238,13 +285,15 @@
                                                 </div>
                                             </div>
                                             <div class="review-card__rating">
-                                                <img src="./assets/icons/star.svg" alt="" class="review-card__star">
-                                                <img src="./assets/icons/star.svg" alt="" class="review-card__star">
-                                                <img src="./assets/icons/star.svg" alt="" class="review-card__star">
-                                                <img src="./assets/icons/star-half.svg" alt=""
-                                                    class="review-card__star">
-                                                <img src="./assets/icons/star-blank.svg" alt=""
-                                                    class="review-card__star">
+                                                <div class="review-card__star-list">
+                                                    <img src="./assets/icons/star.svg" alt="" class="review-card__star">
+                                                    <img src="./assets/icons/star.svg" alt="" class="review-card__star">
+                                                    <img src="./assets/icons/star.svg" alt="" class="review-card__star">
+                                                    <img src="./assets/icons/star-half.svg" alt=""
+                                                        class="review-card__star">
+                                                    <img src="./assets/icons/star-blank.svg" alt=""
+                                                        class="review-card__star">
+                                                </div>
                                                 <span class="review-card__rating-title">(3.5) Review</span>
                                             </div>
                                         </div>
@@ -263,13 +312,15 @@
                                                 </div>
                                             </div>
                                             <div class="review-card__rating">
-                                                <img src="./assets/icons/star.svg" alt="" class="review-card__star">
-                                                <img src="./assets/icons/star.svg" alt="" class="review-card__star">
-                                                <img src="./assets/icons/star.svg" alt="" class="review-card__star">
-                                                <img src="./assets/icons/star-half.svg" alt=""
-                                                    class="review-card__star">
-                                                <img src="./assets/icons/star-blank.svg" alt=""
-                                                    class="review-card__star">
+                                                <div class="review-card__star-list">
+                                                    <img src="./assets/icons/star.svg" alt="" class="review-card__star">
+                                                    <img src="./assets/icons/star.svg" alt="" class="review-card__star">
+                                                    <img src="./assets/icons/star.svg" alt="" class="review-card__star">
+                                                    <img src="./assets/icons/star-half.svg" alt=""
+                                                        class="review-card__star">
+                                                    <img src="./assets/icons/star-blank.svg" alt=""
+                                                        class="review-card__star">
+                                                </div>
                                                 <span class="review-card__rating-title">(3.5) Review</span>
                                             </div>
                                         </div>
@@ -277,7 +328,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="prod-tab__content prod-tab__content--current">
+                        <div class="prod-tab__content ">
                             <div class="prod-content">
                                 <h2 class="prod-content__heading">Similar items you might like</h2>
                                 <div class="row row-cols-6 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-3">
