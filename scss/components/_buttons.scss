@@ -55,6 +55,11 @@
     // Không cho bôi đen chữ ở nút
     user-select: none;
 
+    &--small {
+        height: 40px;
+        padding: 0 16px;
+    }
+
     + .btn {
         &:not(.btn--no-margin) {
             margin-left: 20px;
@@ -63,7 +68,6 @@
 
     &--text {
         background-color: transparent;
-        color: #9e9da8;
         font-weight: 400;
     }
 
