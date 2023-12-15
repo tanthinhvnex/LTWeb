@@ -383,6 +383,9 @@
         &-input {
             // Loại bỏ các style mặc định của các thẻ trong form
             appearance: none;
+            // Khi them light/dark
+            // cần phải đổi màu ảnh
+            // nên viết filter vào đây
             &:not(:checked):before {
                 filter: var(--icon-color);
             }

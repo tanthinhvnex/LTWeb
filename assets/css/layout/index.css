@@ -4,6 +4,8 @@
 }
 
 .header {
+  position: relative;
+  z-index: 2;
   background-color: var(--header-bg-color);
 }
 @media (max-width: 991.98px) {

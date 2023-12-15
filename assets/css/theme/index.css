@@ -37,8 +37,11 @@ html.dark {
   --auth-content-bg: #292e39;
   --auth-intro-bg: #171c28;
   --auth-intro-text-color: #b9babe;
-  --auth-heading-color: #b9babe;
+  --auth-heading-color: #292e39;
   --form-placeholder-color: #b9babe;
+  --form-select-dialog-shadow: rgba($color: #fff, $alpha: 0.15);
+  --form-select-dialog-bg: #2f3441;
+  --form-option-hover-bg: #171c28;
   --product-detail-bg: #292e39;
   --product-detail-info-bg: #171c28;
   --product-detail-info-content-bg: transparent;
@@ -53,8 +56,8 @@ html.dark {
   --checkout-cart-info-shadow: rgba(23, 28, 40, 0.2);
   --checkout-border-color: #292e39;
   --checkout-gift-shadow: rgba(23, 28, 40, 0.2);
-  --dialog-bg: #2f3441;
-  --dialog-shadow: rgba(23, 28, 40, 0.4);
+  --modal-bg: #2f3441;
+  --modal-shadow: rgba(23, 28, 40, 0.4);
 }
 @media (max-width: 991.98px) {
   html.dark {
@@ -108,6 +111,9 @@ html {
   --footer-social-bg-color: #fff;
   --auth-content-bg: #fff;
   --form-placeholder-color: #d2d1d6;
+  --form-select-dialog-shadow: rgba($color: #000, $alpha: 0.15);
+  --form-select-dialog-bg: #fff;
+  --form-option-hover-bg: #ebebeb;
   --product-detail-bg: #fff;
   --product-detail-info-bg: #f6f6f6;
   --product-detail-info-content-bg: #fff;
@@ -122,8 +128,8 @@ html {
   --checkout-cart-info-shadow: rgba(237, 237, 246, 0.2);
   --checkout-border-color: #d2d1d6;
   --checkout-gift-shadow: rgba(237, 237, 246, 0.2);
-  --dialog-bg: #fff;
-  --dialog-shadow: rgba(237, 237, 246, 0.2);
+  --modal-bg: #fff;
+  --modal-shadow: rgba(237, 237, 246, 0.2);
 }
 @media (max-width: 991.98px) {
   html {

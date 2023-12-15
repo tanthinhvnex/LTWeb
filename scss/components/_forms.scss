@@ -2,9 +2,36 @@
 $error-color: #ed4337;
 
 .form {
+    // cái invalid này bị lỗi khi class form
+    // lồng quá nhiều cấp mới đến class submit-btn
+    // này là lỗi trình duyệt
+    // để không xảy ra lỗi này
+    // thì phân cấp từ form vào submit-btn không được quá 4 cấp
+    // mà của mình đang là 5 cấp nên sẽ bị như thế
+    // khi mà điền các trường input vào rồi nhưng nút btn vẫn không sáng lên
+    // để thử lỗi này thì vào nút có nội dung create thêm class form__submit-btn
     &:has(:invalid) &__submit-btn {
         opacity: 0.5;
         pointer-events: none;
+    }
+
+    &__row {
+        display: flex;
+        gap: 30px;
+
+        @include abstracts.screen(md) {
+            gap: 20px;
+        }
+        @include abstracts.screen(sm) {
+            flex-direction: column;
+            gap: 0;
+        }
+
+        // Các thẻ con trực tiếp của row
+        // sẽ có flex bằng 1
+        > * {
+            flex: 1;
+        }
     }
 
     &__group {
@@ -39,40 +66,178 @@ $error-color: #ed4337;
         }
     }
 
+    &__text-area,
     &__text-input {
         display: flex;
-        max-width: 460px;
-        height: 50px;
-        padding: 12px;
-        gap: 10px;
+        align-items: center;
+        padding: 0 12px;
         border-radius: 10px;
         border: 1.5px solid #d2d1d6;
 
         &:focus-within {
             border-color: #77dae6;
         }
+    }
 
+    &__text-area {
+        height: 100px;
+        padding: 12px;
+        &-input {
+            resize: none;
+        }
+    }
+
+    &__text-input {
+        position: relative;
+        max-width: 460px;
+        height: 50px;
+
+        gap: 10px;
+
+        &--small {
+            height: 42px;
+        }
         @include abstracts.screen(md) {
             height: 48px;
         }
     }
-    &__input {
+
+    &__input,
+    &__text-area-input {
         flex: 1;
+        width: 100%;
         height: 100%;
         font-size: 1.8rem;
         font-weight: 500;
         line-height: 144.444%;
-
-        &-icon {
-            margin-left: 12px;
-            width: 24px;
-        }
-
         &::placeholder {
             color: var(--form-placeholder-color);
         }
 
         @include abstracts.screen(md) {
+            font-size: 1.6rem;
+        }
+    }
+
+    &__input {
+        &-icon {
+            margin-left: 12px;
+            width: 24px;
+        }
+    }
+
+    &__select-dialog {
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        background: var(--form-select-dialog-bg);
+        padding-bottom: 10px;
+        border: 1px solid #d2d1d6;
+        border-radius: 10px;
+        box-shadow: 0 0 5px var(--form-dialog-shadow);
+        bottom: 44px;
+        left: 10px;
+        max-height: 310px;
+        min-width: 230px;
+
+        visibility: hidden;
+        opacity: 0;
+        translate: 0 8px;
+        transition: visibility opacity translate;
+        transition-duration: 0.3s;
+
+        &.show {
+            opacity: 1;
+            visibility: visible;
+            translate: 0;
+        }
+
+        @include abstracts.screen(sm) {
+            position: fixed;
+            inset: 0;
+            max-width: initial;
+            max-height: initial;
+            border-radius: 0;
+        }
+    }
+
+    &__dialog-heading {
+        padding: 20px;
+        font-size: 1.8rem;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    &__close-dialog {
+        position: absolute;
+        padding: 12px 18px;
+        top: 0;
+        right: 0;
+        opacity: 0.8;
+        font-size: 3rem;
+    }
+
+    &__search {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #d2d1d6;
+        height: 38px;
+        flex-shrink: 0;
+        padding: 0 20px;
+        &-input {
+            flex: 1;
+            height: 100%;
+            font-size: 1.6rem;
+        }
+        &-icon {
+            width: 16px;
+            margin-left: 10px;
+        }
+
+        @include abstracts.screen(lg) {
+            height: 48px;
+
+            &-icon {
+                width: 20px;
+            }
+        }
+        @include abstracts.screen(sm) {
+            padding: 0 14px;
+            border: 1px solid #d2d1d6;
+            margin: 10px 30px 0;
+            border-radius: 10px;
+        }
+    }
+
+    &__options-list {
+        flex: 1;
+        margin-top: 10px;
+        overflow-y: auto;
+        // để cuộn hết rồi không bị cuộn bên ngoài trang
+        scroll-behavior: contain;
+
+        // Để khi dùng iphone khi bàn phím hiển thị lên
+        // sẽ không bị mất nội dung
+        @supports (-webkit-touch-callout: none) {
+            padding-bottom: 300px;
+        }
+    }
+
+    &__option {
+        padding: 8px 20px;
+        font-size: 1.4rem;
+        &--current {
+            font-weight: 500;
+            background-color: rgba($color: #ffb700, $alpha: 0.6);
+        }
+        &:not(&--current):hover {
+            background-color: var(--form-option-hover-bg);
+            cursor: pointer;
+        }
+
+        @include abstracts.screen(lg) {
+            padding: 18px 30px;
             font-size: 1.6rem;
         }
     }

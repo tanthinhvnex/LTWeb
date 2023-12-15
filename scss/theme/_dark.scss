@@ -66,10 +66,13 @@ html.dark {
     --auth-content-bg: #292e39;
     --auth-intro-bg: #171c28;
     --auth-intro-text-color: #b9babe;
-    --auth-heading-color: #b9babe;
+    --auth-heading-color: #292e39;
 
     // Forms
     --form-placeholder-color: #b9babe;
+    --form-select-dialog-shadow: rgba($color: #fff, $alpha: 0.15);
+    --form-select-dialog-bg: #2f3441;
+    --form-option-hover-bg: #171c28;
 
     // Product detail
     --product-detail-bg: #292e39;
@@ -105,7 +108,7 @@ html.dark {
     --checkout-border-color: #292e39;
     --checkout-gift-shadow: rgba(23, 28, 40, 0.2);
 
-    // Dialog
-    --dialog-bg: #2f3441;
-    --dialog-shadow: rgba(23, 28, 40, 0.4);
+    // modal
+    --modal-bg: #2f3441;
+    --modal-shadow: rgba(23, 28, 40, 0.4);
 }
