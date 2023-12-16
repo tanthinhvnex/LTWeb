@@ -7,7 +7,7 @@
     // Lấy chiều cao của thằng cao nhất làm chuẩn
     height: 100%;
     align-items: center;
-    padding: 20px 26px;
+    padding: 20px;
     border-radius: 16px;
     background: var(--cate-item-bg);
 
@@ -20,8 +20,8 @@
     }
 
     &__thumb {
-        width: 116px;
-        height: 116px;
+        width: 100px;
+        height: 100px;
         // Không dùng cover
         // Vì ảnh sản phẩm phải thấy tổng thể
         object-fit: contain;

@@ -194,7 +194,7 @@
   position: relative;
   flex-shrink: 0;
   width: 100%;
-  padding-top: 34%;
+  padding-top: 26%;
 }
 @media (max-width: 767.98px) {
   .slideshow__item {
@@ -272,7 +272,7 @@
   gap: 20px;
   height: 100%;
   align-items: center;
-  padding: 20px 26px;
+  padding: 20px;
   border-radius: 16px;
   background: var(--cate-item-bg);
 }
@@ -287,8 +287,8 @@
   }
 }
 .cate-item__thumb {
-  width: 116px;
-  height: 116px;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
   background-color: var(--cate-item-thumb-bg);
   border-radius: 8px;
@@ -718,7 +718,7 @@
 .form__text-input {
   position: relative;
   max-width: 460px;
-  height: 50px;
+  height: 48px;
   gap: 10px;
 }
 .form__text-input--small {

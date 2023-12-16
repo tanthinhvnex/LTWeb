@@ -14,7 +14,7 @@
         flex-shrink: 0;
         width: 100%;
         // Tạo ra 1 khoảng trống để để cái slideshow
-        padding-top: 34%;
+        padding-top: 26%;
 
         @include abstracts.screen(md) {
             padding-top: 50%;
