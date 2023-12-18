@@ -1,7 +1,7 @@
 @use "../abstracts";
 
 html.dark {
-    --text-color: #ffffff;
+    --text-color: #fff;
     // Vì là ảnh nên không dùng giá trị màu hex được
     // Mà phải biến đổi thành css filter generator
     --icon-color: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7424%) hue-rotate(221deg)
