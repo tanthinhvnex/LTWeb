@@ -17,8 +17,8 @@ function load(selector, path) {
     }
 
     fetch(path)
-        .then((res) => res.text())
-        .then((html) => {
+        .then(res => res.text())
+        .then(html => {
             if (html !== cached) {
                 $(selector).innerHTML = html;
                 localStorage.setItem(path, html);
@@ -77,7 +77,7 @@ const calArrowPos = debounce(() => {
 
     const items = $$(".js-dropdown-list > li");
 
-    items.forEach((item) => {
+    items.forEach(item => {
         const arrowPos = item.offsetLeft + item.offsetWidth / 2;
         item.style.setProperty("--arrow-left-pos", `${arrowPos}px`);
     });
@@ -104,19 +104,19 @@ function handleActiveMenu() {
     const menus = $$(".js-menu-list");
     const activeClass = "menu-column__item--active";
 
-    const removeActive = (menu) => {
+    const removeActive = menu => {
         menu.querySelector(`.${activeClass}`)?.classList.remove(activeClass);
     };
 
     const init = () => {
-        menus.forEach((menu) => {
+        menus.forEach(menu => {
             const items = menu.children;
             if (!items.length) return;
 
             removeActive(menu);
             if (window.innerWidth > 991) items[0].classList.add(activeClass);
 
-            Array.from(items).forEach((item) => {
+            Array.from(items).forEach(item => {
                 item.onmouseenter = () => {
                     if (window.innerWidth <= 991) return;
                     removeActive(menu);
@@ -134,7 +134,7 @@ function handleActiveMenu() {
 
     init();
 
-    dropdowns.forEach((dropdown) => {
+    dropdowns.forEach(dropdown => {
         dropdown.onmouseleave = () => init();
     });
 }
@@ -149,12 +149,12 @@ function handleActiveMenu() {
 window.addEventListener("template-loaded", initJsToggle);
 
 function initJsToggle() {
-    $$(".js-toggle").forEach((button) => {
+    $$(".js-toggle").forEach(button => {
         const target = button.getAttribute("toggle-target");
         if (!target) {
             document.body.innerText = `Cần thêm toggle-target cho: ${button.outerHTML}`;
         }
-        button.onclick = (e) => {
+        button.onclick = e => {
             e.preventDefault();
 
             if (!$(target)) {
@@ -181,7 +181,7 @@ function initJsToggle() {
 window.addEventListener("template-loaded", () => {
     const links = $$(".js-dropdown-list > li > a");
 
-    links.forEach((link) => {
+    links.forEach(link => {
         link.onclick = () => {
             if (window.innerWidth > 991) return;
             const item = link.closest("li");
@@ -198,13 +198,17 @@ window.addEventListener("template-loaded", () => {
     const contentActive = `${contentsSelector}--current`;
 
     const tabContainers = $$(".js-tabs");
-    tabContainers.forEach((tabContainer) => {
+    tabContainers.forEach(tabContainer => {
         const tabs = tabContainer.querySelectorAll(`.${tabsSelector}`);
         const contents = tabContainer.querySelectorAll(`.${contentsSelector}`);
         tabs.forEach((tab, index) => {
             tab.onclick = () => {
-                tabContainer.querySelector(`.${tabActive}`)?.classList.remove(tabActive);
-                tabContainer.querySelector(`.${contentActive}`)?.classList.remove(contentActive);
+                tabContainer
+                    .querySelector(`.${tabActive}`)
+                    ?.classList.remove(tabActive);
+                tabContainer
+                    .querySelector(`.${contentActive}`)
+                    ?.classList.remove(contentActive);
                 tab.classList.add(tabActive);
                 contents[index].classList.add(contentActive);
             };
@@ -219,12 +223,128 @@ window.addEventListener("template-loaded", () => {
             const isDark = localStorage.dark === "true";
             document.querySelector("html").classList.toggle("dark", !isDark);
             localStorage.setItem("dark", !isDark);
-            switchBtn.querySelector("span").textContent = isDark ? "Dark mode" : "Light mode";
+            switchBtn.querySelector("span").textContent = isDark
+                ? "Dark mode"
+                : "Light mode";
         };
         const isDark = localStorage.dark === "true";
-        switchBtn.querySelector("span").textContent = isDark ? "Light mode" : "Dark mode";
+        switchBtn.querySelector("span").textContent = isDark
+            ? "Light mode"
+            : "Dark mode";
     }
 });
 
 const isDark = localStorage.dark === "true";
 document.querySelector("html").classList.toggle("dark", isDark);
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Dùng để lấy dữ liệu, tạo một đối tượng JSON, gọi API
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector(".filter__form");
+        const minPriceInput = form.querySelector(
+            '.filter__form-text-input--small input[placeholder="Min"]'
+        );
+        const maxPriceInput = form.querySelector(
+            '.filter__form-text-input--small input[placeholder="Max"]'
+        );
+        const sizeRadioInputs = form.querySelectorAll('input[name="size"]');
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const data = {
+                minPrice: minPriceInput.value,
+                maxPrice: maxPriceInput.value,
+                size: Array.from(sizeRadioInputs).find(input => input.checked)
+                    .value,
+            };
+
+            // Gửi dữ liệu với fetch
+            fetch("url_cua_api", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error("Network response was not ok.");
+                })
+                .then(data => {
+                    var productArray = data.map(function (product) {
+                        return `
+                        <div class="col">
+                            <article class="product-card">
+                                <div class="product-card__img-wrap">
+                                    <a href="./product-detail.html">
+                                        <img
+                                            src="./assets/img/product/${product.title}"
+                                            alt=""
+                                            class="product-card__thumb"
+                                        />
+                                    </a>
+                                    <button class="like-btn like-btn--liked product-card__like-btn">
+                                        <img
+                                            src="./assets/icons/heart.svg"
+                                            alt=""
+                                            class="like-btn__icon icon"
+                                        />
+                                        <img
+                                            src="./assets/icons/heart-red.svg"
+                                            alt=""
+                                            class="like-btn__icon"
+                                        />
+                                    </button>
+                                </div>
+                                <h3 class="product-card__title">
+                                    <a href="./product-detail.html">
+                                        ${product.name}
+                                    </a>
+                                </h3>
+                                <div class="product-card__row">
+                                    <span class="product-card__price">
+                                        ${product.price}
+                                    </span>
+                                    <img
+                                        src="./assets/icons/star.svg"
+                                        alt=""
+                                        class="product-card__star"
+                                    />
+                                    <span class="product-card__score">
+                                        ${product.ranking}
+                                    </span>
+                                </div>
+                            </article>
+                        </div>
+                    `;
+                    });
+                    productAns = productArray.join("");
+                    document.getElementById("productList").innerHTML =
+                        productAns;
+                })
+                .catch(error => {
+                    console.error(
+                        "There was a problem with the fetch operation:",
+                        error
+                    );
+                });
+        });
+    });
+    // Hình trái tim
+    var likeButtons = document.querySelectorAll(
+        ".like-btn.prod-info__like-btn, .like-btn.product-card__like-btn"
+    );
+    // Hàm để toggle class 'like-btn--liked'
+    function toggleLike(event) {
+        event.preventDefault();
+        this.classList.toggle("like-btn--liked");
+    }
+
+    // Thêm sự kiện click cho mỗi button
+    likeButtons.forEach(function (button) {
+        button.addEventListener("click", toggleLike);
+    });
+});

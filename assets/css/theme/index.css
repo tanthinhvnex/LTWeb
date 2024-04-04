@@ -1,5 +1,5 @@
 html.dark {
-  --text-color: #ffffff;
+  --text-color: #fff;
   --icon-color: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7424%) hue-rotate(221deg)
       brightness(110%) contrast(102%);
   --body-bg: #292e39;
