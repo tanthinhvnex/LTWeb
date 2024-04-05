@@ -72,7 +72,7 @@
                         <div class="cart-info">
                             <h1 class="cart-info__heading">1. Shipping, arrives between Mon, May 16—Tue, May 24</h1>
                             <div class="cart-info__separate"></div>
-
+                            
                             <!-- Checkout address -->
                             <div class="user-address">
                                 <div class="user-address__top">
@@ -161,9 +161,17 @@
                             <div class="cart-info__separate"></div>
 
                             <h2 class="cart-info__sub-heading">Items details</h2>
+                            <div class="cart-info__check-all">
+                                <label class="cart-info__checkbox">
+                                    <input onChange="checkAll()" id="check-all" type="checkbox" name="shipping-adress" class="cart-info__checkbox-input" />
+                                </label>
+                            </div>
                             <div class="cart-info__list">
                                 <!-- Cart item 1 -->
                                 <article class="cart-item">
+                                    <label class="cart-info__checkbox">
+                                        <input name="check-item" type="checkbox" name="shipping-adress" class="cart-info__checkbox-input" />
+                                    </label>
                                     <a href="./product-detail.html">
                                         <img src="./assets/img/product/item-1.png" alt="" class="cart-item__thumb" />
                                     </a>
@@ -178,16 +186,17 @@
                                                 $47.00 | <span class="cart-item__status">In Stock</span>
                                             </p>
                                             <div class="cart-item__ctrl cart-item__ctrl--md-block">
-                                                <div class="cart-item__input">
+                                                <!-- <div class="cart-item__input">
                                                     LavAzza
                                                     <img class="icon" src="./assets/icons/arrow-down-2.svg" alt="" />
-                                                </div>
+                                                </div> -->
                                                 <div class="cart-item__input">
-                                                    <button class="cart-item__input-btn">
+                                                    <button class="cart-item__input-btn" onclick="descreaseQuantity(1)">
                                                         <img class="icon" src="./assets/icons/minus.svg" alt="" />
                                                     </button>
-                                                    <span>1</span>
-                                                    <button class="cart-item__input-btn">
+                                                    <!-- <span style="width: 20px; text-align: center;" id="quantity1">1</span> -->
+                                                    <input type="number" onchange="handleQuantityInput(1)" class="quantity-input" id="quantity1" value="1" min="1"/>
+                                                    <button class="cart-item__input-btn" onclick="increaseQuantity(1)">
                                                         <img class="icon" src="./assets/icons/plus.svg" alt="" />
                                                     </button>
                                                 </div>
@@ -212,6 +221,9 @@
 
                                 <!-- Cart item 2 -->
                                 <article class="cart-item">
+                                    <label class="cart-info__checkbox">
+                                        <input name="check-item" type="checkbox" name="shipping-adress" class="cart-info__checkbox-input" />
+                                    </label>
                                     <a href="./product-detail.html">
                                         <img src="./assets/img/product/item-2.png" alt="" class="cart-item__thumb" />
                                     </a>
@@ -226,16 +238,18 @@
                                                 $53.00 | <span class="cart-item__status">In Stock</span>
                                             </p>
                                             <div class="cart-item__ctrl cart-item__ctrl--md-block">
-                                                <div class="cart-item__input">
+                                                <!-- <div class="cart-item__input">
                                                     LavAzza
-                                                    <img class="icon" src="./assets/icons/arrow-down-2.svg" alt="" />
-                                                </div>
+                                                    <img src="./assets/icons/arrow-down-2.svg" alt="" />
+                                                </div> -->
                                                 <div class="cart-item__input">
-                                                    <button class="cart-item__input-btn">
+                                                    <button class="cart-item__input-btn" onclick="descreaseQuantity(2)">
                                                         <img class="icon" src="./assets/icons/minus.svg" alt="" />
                                                     </button>
-                                                    <span>1</span>
-                                                    <button class="cart-item__input-btn">
+                                                    <!-- <span id="quantity2">1</span> -->
+                                                    <!-- <span style="width: 20px; text-align: center;" id="quantity2">1</span> -->
+                                                    <input type="number" onchange="handleQuantityInput(2)" class="quantity-input" id="quantity2" value="1" min="1"/>
+                                                    <button class="cart-item__input-btn" onclick="increaseQuantity(2)">
                                                         <img class="icon" src="./assets/icons/plus.svg" alt="" />
                                                     </button>
                                                 </div>
@@ -260,6 +274,9 @@
 
                                 <!-- Cart item 3 -->
                                 <article class="cart-item">
+                                    <label class="cart-info__checkbox">
+                                        <input name="check-item" type="checkbox" name="shipping-adress" class="cart-info__checkbox-input" />
+                                    </label>
                                     <a href="./product-detail.html">
                                         <img src="./assets/img/product/item-3.png" alt="" class="cart-item__thumb" />
                                     </a>
@@ -274,16 +291,18 @@
                                                 $38.65 | <span class="cart-item__status">In Stock</span>
                                             </p>
                                             <div class="cart-item__ctrl cart-item__ctrl--md-block">
-                                                <div class="cart-item__input">
+                                                <!-- <div class="cart-item__input">
                                                     LavAzza
-                                                    <img class="icon" src="./assets/icons/arrow-down-2.svg" alt="" />
-                                                </div>
+                                                    <img src="./assets/icons/arrow-down-2.svg" alt="" />
+                                                </div> -->
                                                 <div class="cart-item__input">
-                                                    <button class="cart-item__input-btn">
+                                                    <button class="cart-item__input-btn" onclick="descreaseQuantity(3)">
                                                         <img class="icon" src="./assets/icons/minus.svg" alt="" />
                                                     </button>
-                                                    <span>1</span>
-                                                    <button class="cart-item__input-btn">
+                                                    <!-- <span id="quantity3">1</span> -->
+                                                    <!-- <span style="width: 20px; text-align: center;" id="quantity3">1</span> -->
+                                                    <input type="number" onchange="handleQuantityInput(3)" class="quantity-input" id="quantity3" value="1" min="1"/>
+                                                    <button class="cart-item__input-btn" onclick="increaseQuantity(3)">
                                                         <img class="icon" src="./assets/icons/plus.svg" alt="" />
                                                     </button>
                                                 </div>
@@ -306,7 +325,15 @@
                                     </div>
                                 </article>
                             </div>
+
                             <div class="cart-info__bottom d-md-none">
+                                <button class="selected-delete btn btn--danger btn--rounded js-toggle"
+                                    style="float: right; margin-bottom: 20px;"
+                                    toggle-target="#delete-selected-confirm"
+                                    disabled>
+                                    Delete (0)
+                                </button>
+                                <div style="clear: right;"></div>
                                 <div class="row">
                                     <div class="col-8 col-xxl-7">
                                         <div class="cart-info__continue">
@@ -401,6 +428,22 @@
             </div>
         </div>
         <div class="modal__overlay js-toggle" toggle-target="#delete-confirm"></div>
+    </div>
+
+    <div id="delete-selected-confirm" class="modal modal--small hide">
+        <div class="modal__content">
+            <p class="selected-modal__text">Do you want to remove selected items from favourite list?</p>
+            <div class="modal__bottom">
+                <button class="btn btn--small btn--outline modal__btn js-toggle" toggle-target="#delete-selected-confirm">
+                    Cancel
+                </button>
+                <button class="btn btn--small btn--danger btn--primary modal__btn btn--no-margin js-toggle"
+                    toggle-target="#delete-selected-confirm">
+                    Delete
+                </button>
+            </div>
+        </div>
+        <div class="modal__overlay js-toggle" toggle-target="#delete-selected-confirm"></div>
     </div>
 
     <!-- Modal: address new shipping address -->
@@ -518,6 +561,17 @@
         </div>
         <div class="modal__overlay"></div>
     </div>
+
+    <script>
+        var checkItems = document.getElementsByName("check-item");
+        for (var i = 0; i < checkItems.length; i++) {
+            checkItems[i].addEventListener('change', handleCheck);
+        }
+        
+        document.querySelector('.cart-info__checkout-all').addEventListener('click', function() {
+            window.location.href = './checkout.html';
+        });
+    </script>
 </body>
 
 </html>

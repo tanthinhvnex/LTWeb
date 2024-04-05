@@ -26,6 +26,22 @@
         .delete-checkout-button-container {
             display: flex;
         }
+        .quantity-input {
+            width: 28px;
+            text-align: center;
+            font-weight: bold;
+        }
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
     </style>
 </head>
 
@@ -34,55 +50,6 @@
     <header id="header" class="header"></header>
     <script>
         load("#header", "./templates/header-logined.html");
-
-        function checkAll() {
-            checkItems = document.getElementsByName("check-item");
-            isChecked = document.getElementById("check-all").checked;
-
-            var deleteButton = document.querySelector('.selected-delete');
-            var selectedCheckoutButton = document.querySelector('.selected-checkout');
-
-            
-            if (isChecked) {
-                deleteButton.innerHTML = "Delete (" + checkItems.length + ")";
-                selectedCheckoutButton.innerHTML = "Checkout (" + checkItems.length + ")";
-            }
-            else {
-                deleteButton.innerHTML = "Delete (0)";
-                selectedCheckoutButton.innerHTML = "Checkout (0)";
-            }
-            
-            deleteButton.disabled = !isChecked;
-            selectedCheckoutButton.disabled = !isChecked;
-            
-            for (var i = 0; i < checkItems.length; i++) {
-                checkItems[i].checked = isChecked;
-            }
-        }
-        function checkSelection() {
-            var checkItems = document.getElementsByName("check-item");
-            var checkedCount = Array.from(checkItems).filter(item => item.checked).length;
-
-            var deleteButton = document.querySelector('.selected-delete');
-            var selectedCheckoutButton = document.querySelector('.selected-checkout');
-            deleteButton.innerHTML = "Delete (" + checkedCount + ")";
-            selectedCheckoutButton.innerHTML = "Checkout (" + checkedCount + ")";
-            
-            var atLeastOneChecked = Array.from(checkItems).some(item => item.checked);
-            if (atLeastOneChecked) {
-                if (checkedCount == 3) document.getElementById("check-all").checked = true;
-                else document.getElementById("check-all").checked = false;
-                
-                var modalText = document.querySelector('.selected-modal__text');
-                modalText.textContent = "Do you want to remove " + ((checkedCount > 1) ? checkedCount + " items" : 1 + " item") + " from favourite list?";
-
-                deleteButton.disabled = false;
-                selectedCheckoutButton.disabled = false;
-            } else {
-                deleteButton.disabled = true;
-                selectedCheckoutButton.disabled = true;
-            }
-        }
     </script>
 
     <!-- MAIN -->
@@ -146,17 +113,18 @@
                                             </p>
                                             <div class="cart-item__ctrl-wrap">
                                                 <div class="cart-item__ctrl cart-item__ctrl--md-block">
-                                                    <div class="cart-item__input">
+                                                    <!-- <div class="cart-item__input">
                                                         LavAzza
                                                         <img class="icon" src="./assets/icons/arrow-down-2.svg"
                                                             alt="" />
-                                                    </div>
+                                                    </div> -->
                                                     <div class="cart-item__input">
-                                                        <button class="cart-item__input-btn">
+                                                        <button class="cart-item__input-btn" onclick="descreaseQuantity(1)">
                                                             <img class="icon" src="./assets/icons/minus.svg" alt="" />
                                                         </button>
-                                                        <span>1</span>
-                                                        <button class="cart-item__input-btn">
+                                                        <!-- <span style="width: 20px; text-align: center;" id="quantity1">1</span> -->
+                                                        <input type="number" onchange="handleQuantityInput(1)" class="quantity-input" id="quantity1" value="1" min="1"/>
+                                                        <button class="cart-item__input-btn" onclick="increaseQuantity(1)">
                                                             <img class="icon" src="./assets/icons/plus.svg" alt="" />
                                                         </button>
                                                     </div>
@@ -203,17 +171,19 @@
                                             </p>
                                             <div class="cart-item__ctrl-wrap">
                                                 <div class="cart-item__ctrl cart-item__ctrl--md-block">
-                                                    <div class="cart-item__input">
+                                                    <!-- <div class="cart-item__input">
                                                         LavAzza
                                                         <img class="icon" src="./assets/icons/arrow-down-2.svg"
                                                             alt="" />
-                                                    </div>
+                                                    </div> -->
                                                     <div class="cart-item__input">
-                                                        <button class="cart-item__input-btn">
+                                                        <button class="cart-item__input-btn" onclick="descreaseQuantity(2)">
                                                             <img class="icon" src="./assets/icons/minus.svg" alt="" />
                                                         </button>
-                                                        <span>1</span>
-                                                        <button class="cart-item__input-btn">
+                                                        <!-- <span id="quantity2">1</span> -->
+                                                        <!-- <span style="width: 20px; text-align: center;" id="quantity2">1</span> -->
+                                                        <input type="number" onchange="handleQuantityInput(2)" class="quantity-input" id="quantity2" value="1" min="1"/>
+                                                        <button class="cart-item__input-btn" onclick="increaseQuantity(2)">
                                                             <img class="icon" src="./assets/icons/plus.svg" alt="" />
                                                         </button>
                                                     </div>
@@ -260,17 +230,19 @@
                                             </p>
                                             <div class="cart-item__ctrl-wrap">
                                                 <div class="cart-item__ctrl cart-item__ctrl--md-block">
-                                                    <div class="cart-item__input">
+                                                    <!-- <div class="cart-item__input">
                                                         LavAzza
                                                         <img class="icon" src="./assets/icons/arrow-down-2.svg"
                                                             alt="" />
-                                                    </div>
+                                                    </div> -->
                                                     <div class="cart-item__input">
-                                                        <button class="cart-item__input-btn">
+                                                        <button class="cart-item__input-btn" onclick="descreaseQuantity(3)">
                                                             <img class="icon" src="./assets/icons/minus.svg" alt="" />
                                                         </button>
-                                                        <span>1</span>
-                                                        <button class="cart-item__input-btn">
+                                                        <!-- <span id="quantity3">1</span> -->
+                                                        <!-- <span style="width: 20px; text-align: center;" id="quantity3">1</span> -->
+                                                        <input type="number" onchange="handleQuantityInput(3)" class="quantity-input" id="quantity3" value="1" min="1"/>
+                                                        <button class="cart-item__input-btn" onclick="increaseQuantity(3)">
                                                             <img class="icon" src="./assets/icons/plus.svg" alt="" />
                                                         </button>
                                                     </div>
@@ -367,7 +339,7 @@
     <script>
         var checkItems = document.getElementsByName("check-item");
         for (var i = 0; i < checkItems.length; i++) {
-            checkItems[i].addEventListener('change', checkSelection);
+            checkItems[i].addEventListener('change', handleCheck);
         }
         
         document.querySelector('.cart-info__checkout-all').addEventListener('click', function() {
