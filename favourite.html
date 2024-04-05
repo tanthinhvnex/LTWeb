@@ -22,6 +22,11 @@
 
     <!-- Scripts -->
     <script src="./assets/js/scripts.js"></script>
+    <style>
+        .delete-checkout-button-container {
+            display: flex;
+        }
+    </style>
 </head>
 
 <body>
@@ -29,11 +34,35 @@
     <header id="header" class="header"></header>
     <script>
         load("#header", "./templates/header-logined.html");
+
         function checkAll() {
             checkItems = document.getElementsByName("check-item");
             isChecked = document.getElementById("check-all").checked;
+            document.querySelector('.selected-delete').disabled = !isChecked;
+            document.querySelector('.selected-checkout').disabled = !isChecked;
             for (var i = 0; i < checkItems.length; i++) {
                 checkItems[i].checked = isChecked;
+            }
+        }
+
+        function checkSelection() {
+            var checkItems = document.getElementsByName("check-item");
+            var deleteButton = document.querySelector('.selected-delete');
+            var selectedCheckoutButton = document.querySelector('.selected-checkout');
+            var modalText = document.querySelector('.selected-modal__text');
+        
+            var atLeastOneChecked = Array.from(checkItems).some(item => item.checked);
+            
+            if (atLeastOneChecked) {
+                var checkedCount = Array.from(checkItems).filter(item => item.checked).length;
+                if (checkedCount == 3) document.getElementById("check-all").checked = true;
+                else document.getElementById("check-all").checked = false;
+                modalText.textContent = "Do you want to remove " + ((checkedCount>1) ? checkedCount + " items" : 1 + " item") + " from favourite list?";
+                deleteButton.disabled = false;
+                selectedCheckoutButton.disabled = false;
+            } else {
+                deleteButton.disabled = true;
+                selectedCheckoutButton.disabled = true;
             }
         }
     </script>
@@ -259,9 +288,17 @@
                                             Continue Shopping
                                         </a>
                                     </div>
-                                    <a href="./checkout.html"
-                                        class="cart-info__checkout-all btn btn--primary btn--rounded">All Check
-                                        Out</a>
+                                    <div class="delete-checkout-button-container">
+                                        <button class="selected-delete btn btn--danger btn--rounded js-toggle"
+                                            toggle-target="#delete-selected-confirm"
+                                            disabled>
+                                            Delete selected item
+                                        </button>
+                                        <button class="selected-checkout cart-info__checkout-all btn btn--primary btn--rounded"
+                                            disabled>
+                                            Check out selected item
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -280,7 +317,7 @@
     <!-- Modal: confirm remove shopping cart item -->
     <div id="delete-confirm" class="modal modal--small hide">
         <div class="modal__content">
-            <p class="modal__text">Do you want to remove this item from shopping cart?</p>
+            <p class="modal__text">Do you want to remove this item from favourite list?</p>
             <div class="modal__bottom">
                 <button class="btn btn--small btn--outline modal__btn js-toggle" toggle-target="#delete-confirm">
                     Cancel
@@ -293,6 +330,32 @@
         </div>
         <div class="modal__overlay js-toggle" toggle-target="#delete-confirm"></div>
     </div>
+
+    <div id="delete-selected-confirm" class="modal modal--small hide">
+        <div class="modal__content">
+            <p class="selected-modal__text">Do you want to remove selected items from favourite list?</p>
+            <div class="modal__bottom">
+                <button class="btn btn--small btn--outline modal__btn js-toggle" toggle-target="#delete-selected-confirm">
+                    Cancel
+                </button>
+                <button class="btn btn--small btn--danger btn--primary modal__btn btn--no-margin js-toggle"
+                    toggle-target="#delete-selected-confirm">
+                    Delete
+                </button>
+            </div>
+        </div>
+        <div class="modal__overlay js-toggle" toggle-target="#delete-selected-confirm"></div>
+    </div>
+    <script>
+        var checkItems = document.getElementsByName("check-item");
+        for (var i = 0; i < checkItems.length; i++) {
+            checkItems[i].addEventListener('change', checkSelection);
+        }
+        
+        document.querySelector('.cart-info__checkout-all').addEventListener('click', function() {
+            window.location.href = './checkout.html';
+        });
+    </script>
 </body>
 
 </html>
