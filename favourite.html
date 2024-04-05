@@ -38,26 +38,44 @@
         function checkAll() {
             checkItems = document.getElementsByName("check-item");
             isChecked = document.getElementById("check-all").checked;
-            document.querySelector('.selected-delete').disabled = !isChecked;
-            document.querySelector('.selected-checkout').disabled = !isChecked;
+
+            var deleteButton = document.querySelector('.selected-delete');
+            var selectedCheckoutButton = document.querySelector('.selected-checkout');
+
+            
+            if (isChecked) {
+                deleteButton.innerHTML = "Delete (" + checkItems.length + ")";
+                selectedCheckoutButton.innerHTML = "Checkout (" + checkItems.length + ")";
+            }
+            else {
+                deleteButton.innerHTML = "Delete (0)";
+                selectedCheckoutButton.innerHTML = "Checkout (0)";
+            }
+            
+            deleteButton.disabled = !isChecked;
+            selectedCheckoutButton.disabled = !isChecked;
+            
             for (var i = 0; i < checkItems.length; i++) {
                 checkItems[i].checked = isChecked;
             }
         }
-
         function checkSelection() {
             var checkItems = document.getElementsByName("check-item");
+            var checkedCount = Array.from(checkItems).filter(item => item.checked).length;
+
             var deleteButton = document.querySelector('.selected-delete');
             var selectedCheckoutButton = document.querySelector('.selected-checkout');
-            var modalText = document.querySelector('.selected-modal__text');
-        
-            var atLeastOneChecked = Array.from(checkItems).some(item => item.checked);
+            deleteButton.innerHTML = "Delete (" + checkedCount + ")";
+            selectedCheckoutButton.innerHTML = "Checkout (" + checkedCount + ")";
             
+            var atLeastOneChecked = Array.from(checkItems).some(item => item.checked);
             if (atLeastOneChecked) {
-                var checkedCount = Array.from(checkItems).filter(item => item.checked).length;
                 if (checkedCount == 3) document.getElementById("check-all").checked = true;
                 else document.getElementById("check-all").checked = false;
-                modalText.textContent = "Do you want to remove " + ((checkedCount>1) ? checkedCount + " items" : 1 + " item") + " from favourite list?";
+                
+                var modalText = document.querySelector('.selected-modal__text');
+                modalText.textContent = "Do you want to remove " + ((checkedCount > 1) ? checkedCount + " items" : 1 + " item") + " from favourite list?";
+
                 deleteButton.disabled = false;
                 selectedCheckoutButton.disabled = false;
             } else {
@@ -292,11 +310,11 @@
                                         <button class="selected-delete btn btn--danger btn--rounded js-toggle"
                                             toggle-target="#delete-selected-confirm"
                                             disabled>
-                                            Delete selected item
+                                            Delete (0)
                                         </button>
                                         <button class="selected-checkout cart-info__checkout-all btn btn--primary btn--rounded"
                                             disabled>
-                                            Check out selected item
+                                            Check out (0)
                                         </button>
                                     </div>
                                 </div>
