@@ -173,7 +173,7 @@
                                                 class="form__label prod-info__label"
                                                 >Number</label
                                             >
-                                            <div
+                                            <!--<div
                                                 class="filter__form-group filter__form-group--inline">
                                                 <div>
                                                     <div
@@ -186,6 +186,15 @@
                                                             value="1" />
                                                     </div>
                                                 </div>
+                                            </div>-->
+                                            <div class="cart-item__input" style="border: none !important; padding-left: 0px !important;">
+                                                <button class="cart-item__input-btn" id ="minus" type="button">
+                                                    <img class="icon" src="./assets/icons/minus.svg" alt="" />
+                                                </button>
+                                                <span id = "number">0</span>
+                                                <button class="cart-item__input-btn" id = "plus" type = "button">
+                                                    <img class="icon" src="./assets/icons/plus.svg" alt="" />
+                                                </button>
                                             </div>
 
                                             <label
@@ -1230,5 +1239,6 @@
         <script>
             load("#footer", "./templates/footer.html");
         </script>
+        <script src="./assets/js/product-detail.js"></script>
     </body>
 </html>

@@ -4598,5 +4598,7 @@ html {
   display: flex;
   justify-content: flex-end;
 }
-
+.hidden {
+  display: none;
+}
 /*# sourceMappingURL=main.css.map */
