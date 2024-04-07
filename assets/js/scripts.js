@@ -1,6 +1,16 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
+document.addEventListener("click", function(event) {
+    console.log('cliecked');
+    const clickTarget = event.target;
+    const cityInput = document.getElementById("city");
+    const cityDialog = document.getElementById("city-dialog");
 
+    if (!clickTarget.closest("#city-dialog") && clickTarget !== cityInput) {
+        cityDialog.classList.remove("show");
+        cityDialog.classList.add("hide");
+    }
+});
 /**
  * Hàm tải template
  *
