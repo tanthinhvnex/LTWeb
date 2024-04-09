@@ -4602,3 +4602,25 @@ html {
   display: none;
 }
 /*# sourceMappingURL=main.css.map */
+.review-form .review-card__rating {
+  height: 50px; /* Adjust as needed */
+}
+.review-form .form__text-area-input {
+  padding: 10px !important;
+  margin-bottom: 10px !important;
+  height: 100px;
+  background-color: var(--review-card-bg);
+  
+}
+.rating-label{
+  margin:0;
+  display: flex;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 144.444%;
+}
+.review-form .btn-ctn{
+  display: flex;
+  justify-content: flex-end;
+}
