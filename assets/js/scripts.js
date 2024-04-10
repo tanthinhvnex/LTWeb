@@ -223,19 +223,20 @@ window.addEventListener("template-loaded", () => {
             const isDark = localStorage.dark === "true";
             document.querySelector("html").classList.toggle("dark", !isDark);
             localStorage.setItem("dark", !isDark);
-            switchBtn.querySelector("span").textContent = isDark
-                ? "Dark mode"
-                : "Light mode";
         };
-        const isDark = localStorage.dark === "true";
-        switchBtn.querySelector("span").textContent = isDark
-            ? "Light mode"
-            : "Dark mode";
     }
 });
 
 const isDark = localStorage.dark === "true";
 document.querySelector("html").classList.toggle("dark", isDark);
+
+function showSpinner() {
+    document.getElementById('spinner').style.display = 'flex';
+}
+
+function hideSpinner() {
+    document.getElementById('spinner').style.display = 'none';
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     // Dùng để lấy dữ liệu, tạo một đối tượng JSON, gọi API
@@ -259,92 +260,92 @@ document.addEventListener("DOMContentLoaded", function () {
                     .value,
             };
 
-            // Gửi dữ liệu với fetch
-            fetch("url_cua_api", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                    throw new Error("Network response was not ok.");
-                })
-                .then(data => {
-                    var productArray = data.map(function (product) {
-                        return `
-                        <div class="col">
-                            <article class="product-card">
-                                <div class="product-card__img-wrap">
-                                    <a href="./product-detail.html">
-                                        <img
-                                            src="./assets/img/product/${product.title}"
-                                            alt=""
-                                            class="product-card__thumb"
-                                        />
-                                    </a>
-                                    <button class="like-btn like-btn--liked product-card__like-btn">
-                                        <img
-                                            src="./assets/icons/heart.svg"
-                                            alt=""
-                                            class="like-btn__icon icon"
-                                        />
-                                        <img
-                                            src="./assets/icons/heart-red.svg"
-                                            alt=""
-                                            class="like-btn__icon"
-                                        />
-                                    </button>
-                                </div>
-                                <h3 class="product-card__title">
-                                    <a href="./product-detail.html">
-                                        ${product.name}
-                                    </a>
-                                </h3>
-                                <div class="product-card__row">
-                                    <span class="product-card__price">
-                                        ${product.price}
-                                    </span>
-                                    <img
-                                        src="./assets/icons/star.svg"
-                                        alt=""
-                                        class="product-card__star"
-                                    />
-                                    <span class="product-card__score">
-                                        ${product.ranking}
-                                    </span>
-                                </div>
-                            </article>
-                        </div>
-                    `;
-                    });
-                    productAns = productArray.join("");
-                    document.getElementById("productList").innerHTML =
-                        productAns;
-                })
-                .catch(error => {
-                    console.error(
-                        "There was a problem with the fetch operation:",
-                        error
-                    );
-                });
+            // // Product card Fetch
+            // fetch("url_cua_api", {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(data),
+            // })
+            //     .then(response => {
+            //         if (response.ok) {
+            //             return response.json();
+            //         }
+            //         throw new Error("Network response was not ok.");
+            //     })
+            //     .then(data => {
+            //         var productArray = data.map(function (product) {
+            //             return `
+            //             <div class="col">
+            //                 <article class="product-card">
+            //                     <div class="product-card__img-wrap">
+            //                         <a href="./product-detail.html">
+            //                             <img
+            //                                 src="./assets/img/product/${product.title}"
+            //                                 alt=""
+            //                                 class="product-card__thumb"
+            //                             />
+            //                         </a>
+            //                         <button class="like-btn like-btn--liked product-card__like-btn">
+            //                             <img
+            //                                 src="./assets/icons/heart.svg"
+            //                                 alt=""
+            //                                 class="like-btn__icon icon"
+            //                             />
+            //                             <img
+            //                                 src="./assets/icons/heart-red.svg"
+            //                                 alt=""
+            //                                 class="like-btn__icon"
+            //                             />
+            //                         </button>
+            //                     </div>
+            //                     <h3 class="product-card__title">
+            //                         <a href="./product-detail.html">
+            //                             ${product.name}
+            //                         </a>
+            //                     </h3>
+            //                     <div class="product-card__row">
+            //                         <span class="product-card__price">
+            //                             ${product.price}
+            //                         </span>
+            //                         <img
+            //                             src="./assets/icons/star.svg"
+            //                             alt=""
+            //                             class="product-card__star"
+            //                         />
+            //                         <span class="product-card__score">
+            //                             ${product.ranking}
+            //                         </span>
+            //                     </div>
+            //                 </article>
+            //             </div>
+            //         `;
+            //         });
+            //         productAns = productArray.join("");
+            //         document.getElementById("productList").innerHTML =
+            //             productAns;
+            //     })
+            //     .catch(error => {
+            //         console.error(
+            //             "There was a problem with the fetch operation:",
+            //             error
+            //         );
+            //     });
         });
     });
-    // Hình trái tim
-    var likeButtons = document.querySelectorAll(
-        ".like-btn.prod-info__like-btn, .like-btn.product-card__like-btn"
-    );
-    // Hàm để toggle class 'like-btn--liked'
-    function toggleLike(event) {
-        event.preventDefault();
-        this.classList.toggle("like-btn--liked");
-    }
+    // // Heart (liked)
+    // var likeButtons = document.querySelectorAll(
+    //     ".like-btn.prod-info__like-btn, .like-btn.product-card__like-btn"
+    // );
+    // // Hàm để toggle class 'like-btn--liked'
+    // function toggleLike(event) {
+    //     event.preventDefault();
+    //     this.classList.toggle("like-btn--liked");
+    // }
 
-    // Thêm sự kiện click cho mỗi button
-    likeButtons.forEach(function (button) {
-        button.addEventListener("click", toggleLike);
-    });
+    // // Thêm sự kiện click cho mỗi button
+    // likeButtons.forEach(function (button) {
+    //     button.addEventListener("click", toggleLike);
+    // });
 });

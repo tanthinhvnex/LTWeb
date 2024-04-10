@@ -2,24 +2,23 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign up Grocery Mart</title>
 
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="assets/favicon/site.webmanifest">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="assets/favicon/site.webmanifest" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="./assets/fonts/stylesheet.css">
-
+    <link rel="stylesheet" href="./assets/fonts/stylesheet.css" />
 
     <!-- Styles -->
-    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/main.css" />
 
     <!-- Scripts -->
     <script src="./assets/js/scripts.js"></script>
@@ -31,14 +30,16 @@
         <div class="auth__intro">
             <!-- Logo -->
             <a href="./" class="logo d-none d-md-flex auth__intro-logo">
-                <img src="./assets/icons/logo.svg" alt="grocery" class="logo__img">
-                <h1 class="logo__title">Grocery </h1>
+                <img src="./assets/icons/logo.svg" alt="grocery" class="logo__img" />
+                <h1 class="logo__title">Grocery</h1>
             </a>
-            <img src="./assets/img/auth/intro.svg" alt="" class="auth__intro-img"></img>
-            <p class="auth__intro-text">The best of luxury brand values, high quality products, and innovative services
+            <img src="./assets/img/auth/intro.svg" alt="" class="auth__intro-img" />
+            <p class="auth__intro-text">
+                The best of luxury brand values, high quality products, and innovative
+                services
             </p>
             <button class="auth__intro-next d-none d-md-flex js-toggle" toggle-target="#auth__content">
-                <img src="./assets/img/auth/intro-arrow.svg" alt="">
+                <img src="./assets/img/auth/intro-arrow.svg" alt="" />
             </button>
         </div>
 
@@ -47,62 +48,188 @@
             <div class="auth__content-inner">
                 <!-- Logo -->
                 <a href="./" class="logo">
-                    <img src="./assets/icons/logo.svg" alt="grocery" class="logo__img">
-                    <h1 class="logo__title">Grocery </h1>
+                    <img src="./assets/icons/logo.svg" alt="grocery" class="logo__img" />
+                    <h1 class="logo__title">Grocery</h1>
                 </a>
                 <h1 class="auth__heading">Sign Up</h1>
-                <p class="auth__desc">Let’s create your account and Shop like a pro and save money.</p>
-                <form action="./index-logined.html" class="form auth__form">
+                <form action="#" class="form auth__form" id="signup-form">
                     <div class="form__group">
                         <div class="form__text-input">
-                            <input type="email" autofocus placeholder="Email" class="form__input" required>
-                            <img src="./assets/icons/message.svg" alt="" class="form__input-icon">
-                            <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error">
+                            <input type="text" placeholder="Full Name" class="form__input" id="input_full_name"
+                                required />
+                        </div>
+                        <p class="form__error">Full name must be at least 1 character</p>
+                    </div>
+                    <div class="form__group">
+                        <div class="form__text-input">
+                            <input type="text" placeholder="Account" class="form__input" id="input_account" required />
+                        </div>
+                        <p class="form__error">Account must be at least 1 character</p>
+                    </div>
+                    <div class="form__group">
+                        <div class="form__text-input">
+                            <input type="email" placeholder="Email" class="form__input" id="input_email" required />
+                            <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                         </div>
                         <p class="form__error">Email is not in correct format</p>
                     </div>
                     <div class="form__group">
                         <div class="form__text-input">
-                            <input type="password" placeholder="Password" class="form__input" required minlength="6">
-                            <img src="./assets/icons/lock.svg" alt="" class="form__input-icon">
-                            <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error">
+                            <input type="password" placeholder="Password" class="form__input" id="input_password"
+                                required minlength="6" />
+                            <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                         </div>
                         <p class="form__error">Password at least 6 characters</p>
                     </div>
                     <div class="form__group">
                         <div class="form__text-input">
-                            <input type="password" placeholder="Confirm Password" class="form__input" required
-                                minlength="6">
-                            <img src="./assets/icons/lock.svg" alt="" class="form__input-icon">
-                            <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error">
+                            <input type="password" placeholder="Confirm Password" class="form__input"
+                                id="input_confirm_password" required minlength="6" />
+                            <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                         </div>
-                        <p class="form__error">Password at least 6 characters</p>
-                    </div>
-                    <div class="form__group form__group--inline">
-                        <!-- Bỏ đi thuộc tính for của label -->
-                        <!-- thì nó sẽ for cho các thẻ con của nó -->
-                        <label class="form__checkbox">
-                            <input type="checkbox" name="" id="" class="form__checkbox-input d-none">
-                            <span class="form__checkbox-label">Set as default card</span>
-                        </label>
+                        <p class="form__error">Confirm Password does not match Password</p>
                     </div>
 
                     <div class="form__group auth__btn-group">
-                        <button class="btn btn--primary auth__btn form__submit-btn">Sign Up</button>
-                        <button class="btn btn--outline auth__btn btn--no-margin">
-                            <img src="./assets/icons/google.svg" alt="" class="btn__icon icon">
-                            Sign in with Google
+                        <button class="btn btn--primary auth__btn form__submit-btn">
+                            Sign Up
                         </button>
                     </div>
                 </form>
 
-                <p class="auth__text">You have an account yet?
+                <p class="auth__text">
+                    You have an account yet?
                     <a href="./sign-in.html" class="auth__link auth__text-link">Sign In</a>
                 </p>
             </div>
         </div>
     </main>
-    <script>window.dispatchEvent(new Event("template-loaded"));</script>
+    <div id="spinner" class="spinner-container" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+    <script>
+        window.dispatchEvent(new Event("template-loaded"));
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('signup-form');
+            const inputFullName = document.getElementById("input_full_name");
+            const inputAccount = document.getElementById("input_account");
+            const inputEmail = document.getElementById('input_email');
+            const inputPassword = document.getElementById('input_password');
+            const inputConfirmPassword = document.getElementById('input_confirm_password');
+
+            function validateEmail(email) {
+                return /\S+@\S+\.\S+/.test(email);
+            }
+
+            function displayError(input) {
+                const errorElement = input.parentNode.parentNode.querySelector('.form__error');
+                errorElement.style.display = 'block';
+            }
+
+            function hideError(input) {
+                const errorElement = input.parentNode.parentNode.querySelector('.form__error');
+                errorElement.style.display = 'none';
+            }
+
+            // When user inputting, hide error
+            function addInputEventListener(input) {
+                input.addEventListener('input', function () {
+                    hideError(this);
+                });
+            }
+
+            [inputFullName, inputAccount, inputEmail, inputPassword, inputConfirmPassword].forEach(function (input) {
+                addInputEventListener(input);
+            });
+
+            inputFullName.addEventListener('blur', function () {
+                if (this.value.trim().length === 0) {
+                    displayError(this);
+                } else {
+                    hideError(this);
+                }
+            });
+            inputAccount.addEventListener('blur', function () {
+                if (this.value.trim().length === 0) {
+                    displayError(this);
+                } else {
+                    hideError(this);
+                }
+            });
+
+            inputEmail.addEventListener('blur', function () {
+                if (!validateEmail(this.value)) {
+                    displayError(this);
+                } else {
+                    hideError(this);
+                }
+            });
+
+            inputPassword.addEventListener('blur', function () {
+                if (this.value.length < 6) {
+                    displayError(this);
+                } else {
+                    hideError(this);
+                }
+            });
+
+            inputConfirmPassword.addEventListener('blur', function () {
+                if (this.value !== inputPassword.value) {
+                    displayError(this);
+                } else {
+                    hideError(this);
+                }
+            });
+
+            // If form has error, return false, else return true
+            function validateForm() {
+                let isValid = true;
+                [inputFullName, inputAccount, inputEmail, inputPassword, inputConfirmPassword].forEach(input => {
+                    const errorElement = input.parentNode.parentNode.querySelector('.form__error');
+                    if (errorElement && errorElement.style.display === 'block') {
+                        isValid = false;
+                    }
+                });
+                return isValid;
+            }
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const isFormValid = validateForm(); // Validate form
+                if (!isFormValid) {
+                    alert('Please correct the errors in the form before submitting.');
+                } else {
+                    showSpinner();
+                    account = inputAccount.value.trim();
+                    password = inputPassword.value;
+                    fullName = inputFullName.value.trim();
+                    const body = {
+                        account: account,
+                        password: password,
+                        full_name: fullName,
+                    };
+
+                    fetch(`https://be-dacnpm.onrender.com/users`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Access-Control-Allow-Origin": "*",
+                        },
+                        body: JSON.stringify(body),
+                    })
+                        .then((response) => {
+                            window.location.href = "./sign-in.html";
+                        })
+                        .catch((error) => {
+                            alert("Sign up failed, please sign up again!");
+                        })
+                        .finally(() => {
+                            hideSpinner();
+                        });
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

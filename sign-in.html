@@ -1,162 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Sign in Grocery Mart</title>
 
-        <!-- Favicon -->
-        <link
-            rel="apple-touch-icon"
-            sizes="76x76"
-            href="assets/favicon/apple-touch-icon.png" />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="assets/favicon/favicon-32x32.png" />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="assets/favicon/favicon-16x16.png" />
-        <link rel="manifest" href="assets/favicon/site.webmanifest" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in Grocery Mart</title>
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="./assets/fonts/stylesheet.css" />
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="./assets/css/main.css" />
+    <!-- Fonts -->
+    <link rel="stylesheet" href="./assets/fonts/stylesheet.css">
 
-        <!-- Scripts -->
-        <script src="./assets/js/scripts.js"></script>
-    </head>
+    <!-- Styles -->
+    <link rel="stylesheet" href="./assets/css/main.css">
 
-    <body>
-        <main class="auth">
-            <!-- Auth intro -->
-            <div class="auth__intro d-md-none">
-                <img
-                    src="./assets/img/auth/intro.svg"
-                    alt=""
-                    class="auth__intro-img" />
-                <p class="auth__intro-text">
-                    The best of luxury brand values, high quality products, and
-                    innovative services
+    <!-- Scripts -->
+    <script src="./assets/js/scripts.js"></script>
+</head>
+
+<body>
+    <main class="auth">
+        <!-- Auth intro -->
+        <div class="auth__intro d-md-none">
+            <img src="./assets/img/auth/intro.svg" alt="" class="auth__intro-img">
+            <p class="auth__intro-text">
+                The best of luxury brand values, high quality products, and innovative services
+            </p>
+        </div>
+
+        <!-- Auth content -->
+        <div class="auth__content">
+            <div class="auth__content-inner">
+                <!-- Logo -->
+                <a href="./" class="logo">
+                    <img src="./assets/icons/logo.svg" alt="grocery" class="logo__img">
+                    <h2 class="logo__title">Grocery</h2>
+                </a>
+                <h1 class="auth__heading">Hello Again!</h1>
+                <p class="auth__desc">
+                    Welcome back to sign in. As a returning customer, you have access to your
+                    previously saved all information.
+                </p>
+                <form id="signin-form" action="#" class="form auth__form">
+                    <div class="form__group">
+                        <div class="form__text-input">
+                            <input placeholder="Account" class="form__input" required id="input_account">
+                        </div>
+                        <p class="form__error">Account must be at least 1 character</p>
+                    </div>
+                    <div class="form__group">
+                        <div class="form__text-input">
+                            <input type="password" placeholder="Password" class="form__input" required minlength="6"
+                                id="input_password">
+                        </div>
+                        <p class="form__error">Password at least 6 characters</p>
+                    </div>
+                    <div class="form__group form__group--inline">
+                        <a href="./reset-password.html" class="auth__link form__pull-right">Forgot Password</a>
+                    </div>
+
+                    <div class="form__group auth__btn-group">
+                        <button class="btn btn--primary auth__btn form__submit-btn">
+                            Login
+                        </button>
+                    </div>
+                </form>
+
+                <p class="auth__text">
+                    Don’t have an account yet?
+                    <a href="./sign-up.html" class="auth__link auth__text-link">Sign Up</a>
                 </p>
             </div>
+        </div>
+    </main>
+    <div id="spinner" class="spinner-container" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+    <script>
+        window.dispatchEvent(new Event("template-loaded"));
 
-            <!-- Auth content -->
-            <div class="auth__content">
-                <div class="auth__content-inner">
-                    <!-- Logo -->
-                    <a href="./" class="logo">
-                        <img
-                            src="./assets/icons/logo.svg"
-                            alt="grocery"
-                            class="logo__img" />
-                        <h2 class="logo__title">Grocery</h2>
-                    </a>
-                    <h1 class="auth__heading">Hello Again!</h1>
-                    <p class="auth__desc">
-                        Welcome back to sign in. As a returning customer, you
-                        have access to your previously saved all information.
-                    </p>
-                    <form action="./index-logined.html" class="form auth__form">
-                        <div class="form__group">
-                            <div class="form__text-input">
-                                <input
-                                    type="email"
-                                    autofocus
-                                    placeholder="Email"
-                                    class="form__input"
-                                    required />
-                                <img
-                                    src="./assets/icons/message.svg"
-                                    alt=""
-                                    class="form__input-icon" />
-                                <img
-                                    src="./assets/icons/form-error.svg"
-                                    alt=""
-                                    class="form__input-icon-error" />
-                            </div>
-                            <p class="form__error">
-                                Email is not in correct format
-                            </p>
-                        </div>
-                        <div class="form__group">
-                            <div class="form__text-input">
-                                <input
-                                    type="password"
-                                    placeholder="Password"
-                                    class="form__input"
-                                    required
-                                    minlength="6" />
-                                <img
-                                    src="./assets/icons/lock.svg"
-                                    alt=""
-                                    class="form__input-icon" />
-                                <img
-                                    src="./assets/icons/form-error.svg"
-                                    alt=""
-                                    class="form__input-icon-error" />
-                            </div>
-                            <p class="form__error">
-                                Password at least 6 characters
-                            </p>
-                        </div>
-                        <div class="form__group form__group--inline">
-                            <!-- Bỏ đi thuộc tính for của label -->
-                            <!-- thì nó sẽ for cho các thẻ con của nó -->
-                            <label class="form__checkbox">
-                                <input
-                                    type="checkbox"
-                                    name=""
-                                    id=""
-                                    class="form__checkbox-input d-none" />
-                                <span class="form__checkbox-label"
-                                    >Set as default card</span
-                                >
-                            </label>
 
-                            <a
-                                href="./reset-password.html"
-                                class="auth__link form__pull-right"
-                                >Forgot Password</a
-                            >
-                        </div>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('signin-form');
+            const inputAccount = document.getElementById("input_account");
+            const inputPassword = document.getElementById('input_password');
 
-                        <div class="form__group auth__btn-group">
-                            <button
-                                class="btn btn--primary auth__btn form__submit-btn">
-                                Login
-                            </button>
-                            <button
-                                class="btn btn--outline auth__btn btn--no-margin">
-                                <img
-                                    src="./assets/icons/google.svg"
-                                    alt=""
-                                    class="btn__icon icon" />
-                                Sign in with Google
-                            </button>
-                        </div>
-                    </form>
+            function displayError(input) {
+                const errorElement = input.parentNode.parentNode.querySelector('.form__error');
+                errorElement.style.display = 'block';
+            }
 
-                    <p class="auth__text">
-                        Don’t have an account yet?
-                        <a
-                            href="./sign-up.html"
-                            class="auth__link auth__text-link"
-                            >Sign Up</a
-                        >
-                    </p>
-                </div>
-            </div>
-        </main>
-        <script>
-            window.dispatchEvent(new Event("template-loaded"));
-        </script>
-    </body>
+            function hideError(input) {
+                const errorElement = input.parentNode.parentNode.querySelector('.form__error');
+                errorElement.style.display = 'none';
+            }
+
+            // When user inputting, hide error
+            function addInputEventListener(input) {
+                input.addEventListener('input', function () {
+                    hideError(this);
+                });
+            }
+
+            [inputAccount, inputPassword].forEach(function (input) {
+                addInputEventListener(input);
+            });
+
+            inputAccount.addEventListener('blur', function () {
+                if (this.value.trim().length === 0) {
+                    displayError(this);
+                } else {
+                    hideError(this);
+                }
+            });
+
+            inputPassword.addEventListener('blur', function () {
+                if (this.value.length < 6) {
+                    displayError(this);
+                } else {
+                    hideError(this);
+                }
+            });
+
+            // If form has error, return false, else return true
+            function validateForm() {
+                let isValid = true;
+                [inputAccount, inputPassword].forEach(input => {
+                    const errorElement = input.parentNode.parentNode.querySelector('.form__error');
+                    if (errorElement && errorElement.style.display === 'block') {
+                        isValid = false;
+                    }
+                });
+                return isValid;
+            }
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const isFormValid = validateForm(); // Validate form
+                if (!isFormValid) {
+                    alert('Please correct the errors in the form before submitting.');
+                    return;
+                } else {
+                    showSpinner();
+                    account = inputAccount.value.trim();
+                    password = inputPassword.value;
+                    const body = {
+                        password: password,
+                    };
+
+                    fetch(`https://be-dacnpm.onrender.com/users/${account}`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(body),
+                    })
+                        .then(response => response.json())
+                        .then((response) => {
+                            window.location.href = "./index-logined.html";
+                        })
+                        .catch((error) => {
+                            alert("Sign in failed, please sign in again!");
+                        })
+                        .finally(() => {
+                            hideSpinner();
+                        });
+                }
+            });
+        });
+
+
+    </script>
+</body>
+
 </html>

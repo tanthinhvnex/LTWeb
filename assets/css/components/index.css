@@ -417,6 +417,12 @@
   opacity: 0.9;
 }
 
+.load-more-btn {
+  margin-top: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .product-card {
   min-height: 386px;
   padding: 16px;
@@ -675,17 +681,13 @@
   display: flex;
   align-items: center;
 }
-.form__group:has(:invalid):has(.form__input:not(:placeholder-shown)) .form__text-input {
-  border-color: #ed4337;
-  background-color: rgba(237, 67, 55, 0.1);
-}
-.form__group:has(:invalid):has(.form__input:not(:placeholder-shown)) .form__error,
-.form__group:has(:invalid):has(.form__input:not(:placeholder-shown)) .form__input-icon-error {
-  display: block;
+.form__group .form__error,
+.form__group .form__input-icon-error {
+  display: none;
   margin-left: 12px;
   animation: shake 0.5s;
 }
-.form__group:has(:invalid):has(.form__input:not(:placeholder-shown)) .form__input-icon {
+.form__group .form__input-icon {
   display: none;
   margin-left: 12px;
 }
@@ -1011,6 +1013,35 @@
   display: none;
 }
 
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border-left-color: #09f;
+  animation: spin 1s ease infinite;
+}
+.spinner-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .message {
   padding: 14px;
   border-radius: 10px;
