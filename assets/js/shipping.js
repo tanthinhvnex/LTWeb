@@ -76,13 +76,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // To Do
     createButton.addEventListener('click', function(event) {
-        
+        event.preventDefault(); 
+
         if (!validateInputs()) {
-            $(target).classList.remove('hide');
+            if (modal.classList.contains('hide')) {
+                modal.classList.remove('hide');
+                modal.classList.add('show');
+            }
         } else {
-            
+            if (modal.classList.contains('show')) {
+                modal.classList.remove('show');
+                modal.classList.add('hide');
+            }
         }
     });
 
