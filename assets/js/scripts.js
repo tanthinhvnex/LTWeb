@@ -359,6 +359,87 @@ document.addEventListener("DOMContentLoaded", function () {
         button.addEventListener("click", toggleLike);
     });
 });
+
+//check vào ô check-all thì mấy ô kia cũng được check
+function checkAll() {
+    checkItems = document.getElementsByName("check-item");
+    isChecked = document.getElementById("check-all").checked;
+
+    //update nội dung 2 nút selected delete/checkout ứng với số item được check
+    var selectedDeleteButton = document.querySelector('.selected-delete');
+    var selectedCheckoutButton = document.querySelector('.selected-checkout');
+    //disable nút khi không có item nào được check
+    selectedDeleteButton.disabled = !isChecked;
+    if (isChecked) {
+        selectedDeleteButton.innerHTML = "Delete (" + checkItems.length + ")";
+        var modalText = document.querySelector('.selected-modal__text');
+        modalText.textContent = "Do you want to remove " + ((checkItems.length > 1) ? checkItems.length + " items" : 1 + " item") + " from favourite list?";
+    }
+    else {
+        selectedDeleteButton.innerHTML = "Delete (0)";
+    }
+    if (selectedCheckoutButton) {
+        if (isChecked) {
+            selectedCheckoutButton.innerHTML = "Checkout (" + checkItems.length + ")";
+        }
+        else {
+            selectedCheckoutButton.innerHTML = "Checkout (0)";
+        }
+        //disable nút khi không có item nào được check
+        selectedCheckoutButton.disabled = !isChecked;
+    }
+
+    for (var i = 0; i < checkItems.length; i++) {
+        checkItems[i].checked = isChecked;
+    }
+}
+function handleCheck() {
+    var checkItems = document.getElementsByName("check-item");
+    var checkedCount = Array.from(checkItems).filter(item => item.checked).length;
+
+    var selectedDeleteButton = document.querySelector('.selected-delete');
+    var selectedCheckoutButton = document.querySelector('.selected-checkout');
+    selectedDeleteButton.innerHTML = "Delete (" + checkedCount + ")";
+
+    if (selectedCheckoutButton) selectedCheckoutButton.innerHTML = "Checkout (" + checkedCount + ")";
+    
+    
+    var atLeastOneChecked = Array.from(checkItems).some(item => item.checked);
+    if (atLeastOneChecked) {
+        if (checkedCount == 3) document.getElementById("check-all").checked = true;
+        else document.getElementById("check-all").checked = false;
+        
+        var modalText = document.querySelector('.selected-modal__text');
+        modalText.textContent = "Do you want to remove " + ((checkedCount > 1) ? checkedCount + " items" : 1 + " item") + " from favourite list?";
+
+        selectedDeleteButton.disabled = false;
+        if (selectedCheckoutButton) selectedCheckoutButton.disabled = false;
+    } else {
+        selectedDeleteButton.disabled = true;
+        if (selectedCheckoutButton) selectedCheckoutButton.disabled = true;
+    }
+}
+
+//validate input của quantity
+function handleQuantityInput(id) {
+    quantity = document.getElementById("quantity" + id);
+    if (quantity.value < 1 || quantity.value == "") {
+        quantity.value = 1;
+    }
+}
+
+//tăng/giảm quantity khi ấn + -
+function descreaseQuantity(id) {
+    quantity = document.getElementById("quantity" + id);
+    if (quantity.value > 1) {
+        quantity.value--;
+    }
+}
+function increaseQuantity(id) {
+    quantity = document.getElementById("quantity" + id);
+    quantity.value++;
+}
+
 // handle review for customer
 document.addEventListener("DOMContentLoaded", function () {
     const reviewForm = document.getElementById('reviewForm');   

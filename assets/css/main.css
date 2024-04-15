@@ -4602,6 +4602,28 @@ html {
   display: none;
 }
 /*# sourceMappingURL=main.css.map */
+
+/*dùng trong các trang favourite/checkout/shipping.html*/
+.delete-checkout-button-container {
+  display: flex;
+}
+.quantity-input {
+  width: 28px;
+  text-align: center;
+  font-weight: bold;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .review-form .review-card__rating {
   height: 50px; /* Adjust as needed */
 }
