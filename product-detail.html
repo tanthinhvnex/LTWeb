@@ -173,7 +173,7 @@
                                                 class="form__label prod-info__label"
                                                 >Number</label
                                             >
-                                            <div
+                                            <!--<div
                                                 class="filter__form-group filter__form-group--inline">
                                                 <div>
                                                     <div
@@ -186,6 +186,15 @@
                                                             value="1" />
                                                     </div>
                                                 </div>
+                                            </div>-->
+                                            <div class="cart-item__input" style="border: none !important; padding-left: 0px !important;">
+                                                <button class="cart-item__input-btn" id ="minus" type="button">
+                                                    <img class="icon" src="./assets/icons/minus.svg" alt="" />
+                                                </button>
+                                                <span id = "number">0</span>
+                                                <button class="cart-item__input-btn" id = "plus" type = "button">
+                                                    <img class="icon" src="./assets/icons/plus.svg" alt="" />
+                                                </button>
                                             </div>
 
                                             <label
@@ -600,6 +609,35 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                      <div class="prod-content " style="max-width: 700px;">
+                                        <h2 class="prod-content__heading">Add Your Review</h2>
+                                        <form id="reviewForm" class="review-form">
+                                            <div class="mb-3 row align-items-center mt-5">
+                                                <label for="rating" class="form-label col-auto rating-label">Rating</label>
+                                                <div class="review-card__rating col">
+                                                    <div class="review-card__star-list d-flex">
+                                                        <img src="./assets/icons/star-blank.svg" alt="" class="review-card__star" data-value="1" />
+                                                        <img src="./assets/icons/star-blank.svg" alt="" class="review-card__star" data-value="2" />
+                                                        <img src="./assets/icons/star-blank.svg" alt="" class="review-card__star" data-value="3" />
+                                                        <img src="./assets/icons/star-blank.svg" alt="" class="review-card__star" data-value="4" />
+                                                        <img src="./assets/icons/star-blank.svg" alt="" class="review-card__star" data-value="5" />
+                                                    </div>
+                                                    <input type="hidden" id="rating" name="rating" value="0">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 mt-5">
+            
+                                                <textarea name="comment" id="comment" placeholder="Leave a comment" class="form__text-area-input" ></textarea>
+                                            </div>
+                                            <div class="mb-3 mt-3 mt-md-5 btn-ctn">
+                                                <button type="submit" class="btn btn--primary">Send</button>
+                                            </div>
+                                        </form>
+                                      </div>
                                     </div>
                                 </div>
                             </div>
@@ -1230,5 +1268,6 @@
         <script>
             load("#footer", "./templates/footer.html");
         </script>
+        <script src="./assets/js/product-detail.js"></script>
     </body>
 </html>

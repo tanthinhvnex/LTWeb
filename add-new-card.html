@@ -250,156 +250,79 @@
                                     <div class="col-12">
                                         <h2 class="cart-info__heading">
                                             <a href="./profile.html">
-                                                <img
-                                                    src="./assets/icons/arrow-left.svg"
-                                                    alt=""
-                                                    class="icon cart-info__back-arrow" />
+                                                <img src="./assets/icons/arrow-left.svg" alt="" class="icon cart-info__back-arrow" />
                                             </a>
                                             Add credit or debit card
                                         </h2>
-
-                                        <form
-                                            action="./profile.html"
-                                            class="form form-card">
+                                        <form action="./profile.html" class="form form-card">
                                             <!-- Form row 1 -->
                                             <div class="form__row">
                                                 <div class="form__group">
-                                                    <label
-                                                        for="last-name"
-                                                        class="form__label form-card__label">
+                                                    <label for="last-name" class="form__label form-card__label">
                                                         Full Name
                                                     </label>
-                                                    <div
-                                                        class="form__text-input">
-                                                        <input
-                                                            type="text"
-                                                            name=""
-                                                            id="last-name"
-                                                            placeholder="Last name"
-                                                            class="form__input"
-                                                            required />
-                                                        <img
-                                                            src="./assets/icons/form-error.svg"
-                                                            alt=""
-                                                            class="form__input-icon-error" />
+                                                    <div class="form__text-input">
+                                                        <input type="text" id="last-name" placeholder="Full name" class="form__input" required />
+                                                        <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                                                     </div>
                                                     <p class="form__error">
-                                                        Please enter your last
-                                                        name
+                                                        Please enter your full name
                                                     </p>
                                                 </div>
                                                 <div class="form__group">
-                                                    <label
-                                                        for="card-cvv"
-                                                        class="form__label form-card__label">
+                                                    <label for="card-cvv" class="form__label form-card__label">
                                                         CVV
                                                     </label>
-                                                    <div
-                                                        class="form__text-input">
-                                                        <input
-                                                            type="text"
-                                                            name=""
-                                                            id="card-cvv"
-                                                            placeholder="123"
-                                                            class="form__input"
-                                                            required />
-                                                        <img
-                                                            src="./assets/icons/form-error.svg"
-                                                            alt=""
-                                                            class="form__input-icon-error" />
+                                                    <div class="form__text-input">
+                                                        <input type="text" id="card-cvv" placeholder="123" class="form__input" required />
+                                                        <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                                                     </div>
-                                                    <p class="form__error">
+                                                    <p class="form__error" id="cvc-error">
                                                         Please enter a valid CVV
                                                     </p>
                                                 </div>
                                             </div>
-
                                             <!-- Form row 2 -->
                                             <div class="form__row">
                                                 <div class="form__group">
-                                                    <label
-                                                        for="card-number"
-                                                        class="form__label form-card__label">
+                                                    <label for="card-number" class="form__label form-card__label">
                                                         Card Number
                                                     </label>
-                                                    <div
-                                                        class="form__text-input">
-                                                        <input
-                                                            type="text"
-                                                            name=""
-                                                            id="card-number"
-                                                            placeholder="Card Number"
-                                                            class="form__input"
-                                                            required />
-                                                        <img
-                                                            src="./assets/icons/form-error.svg"
-                                                            alt=""
-                                                            class="form__input-icon-error" />
+                                                    <div class="form__text-input">
+                                                        <input type="text" id="card-number" placeholder="Card Number" class="form__input" required />
+                                                        <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                                                     </div>
                                                     <p class="form__error">
-                                                        Please enter a valid
-                                                        card number
+                                                        Please enter a valid card number
                                                     </p>
                                                 </div>
                                                 <div class="form__group">
-                                                    <label
-                                                        for="expiration-date"
-                                                        class="form__label form-card__label">
+                                                    <label for="expiration-date" class="form__label form-card__label">
                                                         Expiration Date
                                                     </label>
-                                                    <div
-                                                        class="form__text-input">
-                                                        <input
-                                                            type="text"
-                                                            name=""
-                                                            id="expiration-date"
-                                                            placeholder="Expiration Date"
-                                                            class="form__input"
-                                                            required />
-                                                        <img
-                                                            src="./assets/icons/form-error.svg"
-                                                            alt=""
-                                                            class="form__input-icon-error" />
+                                                    <div class="form__text-input">
+                                                        <input type="date" id="expiration-date" class="form__input" required />
+                                                        <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                                                     </div>
-                                                    <p class="form__error">
-                                                        Please enter a valid
-                                                        expiration date
+                                                    <p class="form__error" id="expiry-error">
+                                                        Please enter a valid expiration date
                                                     </p>
                                                 </div>
                                             </div>
-
                                             <!-- Form row 3 -->
                                             <div class="form__row"></div>
-
                                             <div class="form__group">
-                                                <label
-                                                    for="set-default-card"
-                                                    class="form__label form-card__label">
+                                                <label for="set-default-card" class="form__label form-card__label">
                                                     Card Preferences
                                                 </label>
                                                 <label class="form__checkbox">
-                                                    <input
-                                                        type="checkbox"
-                                                        name=""
-                                                        id="set-default-card"
-                                                        checked
-                                                        class="form__checkbox-input d-none" />
-                                                    <span
-                                                        class="form__checkbox-label"
-                                                        >Set as default
-                                                        card</span
-                                                    >
+                                                    <input type="checkbox" id="set-default-card" checked class="form__checkbox-input d-none" />
+                                                    <span class="form__checkbox-label">Set as default card</span>
                                                 </label>
                                             </div>
-
                                             <div class="form-card__bottom">
-                                                <a
-                                                    class="btn btn--text"
-                                                    href="./profile.html"
-                                                    >Cancel</a
-                                                >
-                                                <button
-                                                    class="btn btn--primary btn--rounded">
+                                                <a class="btn btn--text" href="./profile.html">Cancel</a>
+                                                <button class="btn btn--primary btn--rounded cart-info__next-btn" type="submit">
                                                     Save card
                                                 </button>
                                             </div>
@@ -442,5 +365,6 @@
                 class="modal__overlay js-toggle"
                 toggle-target="#delete-confirm"></div>
         </div>
+        <script src="./assets/js/add-new-cart.js"></script>
     </body>
 </html>

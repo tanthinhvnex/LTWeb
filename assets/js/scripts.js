@@ -1,6 +1,17 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
+document.addEventListener("click", function(event) {
+    const clickTarget = event.target;
+    const cityInput = document.getElementById("city");
+    const cityDialog = document.getElementById("city-dialog");
+
+    // Check if cityDialog exists before accessing its properties
+    if (cityDialog && !clickTarget.closest("#city-dialog") && clickTarget !== cityInput && cityDialog.classList.contains("show")) {
+        cityDialog.classList.remove("show");
+        cityDialog.classList.add("hide");
+    }
+});
 /**
  * Hàm tải template
  *
@@ -428,3 +439,48 @@ function increaseQuantity(id) {
     quantity = document.getElementById("quantity" + id);
     quantity.value++;
 }
+
+// handle review for customer
+document.addEventListener("DOMContentLoaded", function () {
+    const reviewForm = document.getElementById('reviewForm');   
+    const starList = reviewForm.querySelector('.review-card__star-list');
+    const stars = starList.querySelectorAll('.review-card__star');
+    const starImages = starList.querySelectorAll('img');
+    const ratingInput=document.getElementById('rating');
+
+    stars.forEach((star, index) => {
+        star.addEventListener('mouseover', function () {
+            starImages.forEach((image, i) => {
+                if (i <= index) {
+                    image.src = "./assets/icons/star.svg";
+                } else {
+                    image.src = "./assets/icons/star-blank.svg";
+                }
+            });
+        }); 
+    });
+    
+    stars.forEach((star, index) => {
+        star.addEventListener('click', function () {
+            const starValue = parseInt(star.getAttribute('data-value'));
+            console.log(starValue);
+            starImages.forEach((image, i) => {
+                if (i <= starValue-1) {
+                    image.src = "./assets/icons/star.svg";
+                } else {
+                    image.src = "./assets/icons/star-blank.svg";
+                }
+            });
+            ratingInput.value=starValue;
+        }); 
+    });
+    starList.addEventListener('mouseleave', function () {
+        starImages.forEach((image, i) => {
+            if (i <= ratingInput.value - 1) {
+                image.src = "./assets/icons/star.svg";
+            } else {
+                image.src = "./assets/icons/star-blank.svg";
+            }
+        });
+    });
+});
