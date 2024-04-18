@@ -1,0 +1,16 @@
+# Bật chế độ rewrite URL
+RewriteEngine On
+
+# Nếu biến đường dẫn %{REQUEST_URI} (không bao gồm query string) là /BTL_LTW/LTWeb/ thì rewrite URL thành:
+# '/BTL_LTW/LTWeb/public/index.php'
+RewriteCond %{REQUEST_URI} ^/BTL_LTW/LTWeb/$
+RewriteRule ^ /BTL_LTW/LTWeb/public/index.php [L]
+
+# Nếu đường dẫn đến thư mục hay file không tồn tại thì rewrite mọi URL thành:
+# '/BTL_LTW/LTWeb/public/index.php'
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ /BTL_LTW/LTWeb/public/index.php [QSA,L]
+
+# Cờ [L] cho biết: nếu quy tắc này phù hợp, đây sẽ là quy tắc cuối cùng được xem xét cho URL đó, và quá trình rewrite sẽ dừng lại
+# Cờ [QSA] đảm bảo rằng bất kỳ chuỗi truy vấn nào được cung cấp trong URL yêu cầu ban đầu sẽ không bị mất đi sau khi áp dụng quy tắc viết lại
