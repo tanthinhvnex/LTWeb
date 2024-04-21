@@ -1,0 +1,101 @@
+created_at,account,password,full_name,id_user
+2024-03-30 07:50:33.770614+00,peachcobbler,Welcome123,Sophia Taylor,68252ef1-f23c-4fc1-8c15-e652db5303df
+2024-03-30 07:50:33.790354+00,raspberry,Summer20!,Elijah Anderson,037c8299-6ed6-437d-96ab-cb3a25e7d008
+2024-03-30 07:50:33.79647+00,grapefruit,Pa55word,Mason White,a26483c6-14e2-4cbc-8ce2-ac53e2600a44
+2024-03-30 07:50:33.798535+00,watermelon,Secret123,Noah Brown,1852ccf1-ec22-4960-8b9e-bbd0923cc504
+2024-03-30 07:50:33.798954+00,broccolisoup,P@ssw0rd1,Abigail Clark,6d0851f7-e343-4dda-a0af-47704c7f7321
+2024-03-30 07:50:33.800514+00,bananabread,SecurePass12,Liam Johnson,1ecd7f89-7f54-4803-b32f-afeec6d708df
+2024-03-30 07:50:33.806951+00,orangezest,P@55word,Ethan Garcia,971c4db3-e445-48ee-97d8-13a60d3c522f
+2024-03-30 07:50:33.817358+00,spinach,P@$$w0rd,Benjamin Hall,f5463482-58f7-4ee3-9178-ba053227a1a4
+2024-03-30 07:50:33.817935+00,applepie,Password1,Emma Smith,ec246d6d-acdd-40b4-a263-d6382929a928
+2024-03-30 07:50:33.816306+00,mangojuice,Pass1234,Lucas Thomas,c09dd67d-af1b-43f0-adda-fd2b5ad8babb
+2024-03-30 07:50:33.820594+00,pineapple,Passw0rd!,Ava Jones,806b4d52-f279-4dbe-acfc-850918cbc82b
+2024-03-30 07:50:33.831712+00,lemonade,StrongPwd1,Harper Thompson,d678856d-8eaa-4a6f-8a9a-213de55a4adc
+2024-03-30 07:50:33.856629+00,onionrings,Pa55w0rd!,Ella Hernandez,366c67ab-c6df-4a2d-a4e5-190e595d3363
+2024-03-30 07:50:33.859511+00,gingerbread,Summer21!,Ellie Morris,1ad6a210-37bd-4507-a045-ba36adb9d613
+2024-03-30 07:50:33.86237+00,coconutmilk,MyPass123,Logan Martin,142c167a-e316-4c11-8f3b-c5effc88cd51
+2024-03-30 07:50:33.882544+00,peanutbutter,StrongPassword1,Grace Rivera,f9dc0f90-6148-4039-aa7d-594e7ea171c3
+2024-03-30 07:50:33.893243+00,papayapuree,SecureP@ssword1,Eli Carter,c657d5d0-93bf-4d53-a615-567ab4e8da79
+2024-03-30 07:50:33.902861+00,almondmilk,P@$$w0rd1,Aria Mitchell,046baca3-a5e8-4794-bc48-902cd3d01a8c
+2024-03-30 07:50:33.911442+00,olivetapenade,Summer2021,Avery Adams,2bd2fd42-7bfd-45a0-8050-42fa2a5f69a7
+2024-03-30 07:50:33.919208+00,kiwismoothie,SecurePwd1,Charlotte Lee,38796081-e648-4095-b6ed-376249f13857
+2024-03-30 07:50:34.015279+00,apricotpreserve,SecurePa$$123,Julian Foster,4c80a3b3-ab14-49db-b687-004f119925c3
+2024-03-30 07:50:34.042866+00,apricotjam,SuperP@ss,Amelia Harris,e1a11682-63e9-4187-b773-a5faf0d29be2
+2024-03-30 07:50:34.043644+00,sesamecrackers,SecretPwd1,Sebastian Carter,b8ef2165-9c1c-4c86-8230-8218688f0ff4
+2024-03-30 07:50:34.075798+00,blueberrycompote,SecurePa$$w0rd1,Jonathan Butler,6839ff01-6540-49f7-ad84-82b95f6810db
+2024-03-30 07:50:34.25043+00,blackberry,TestPass1,Isabella Martinez,61b1e5b6-835c-4932-979b-b108feb284be
+2024-03-30 07:50:34.250433+00,bellpepper,GoodPa$$,William Young,5634800b-d503-4377-a2a4-2913a8e0b39f
+2024-03-30 07:50:34.252196+00,garlicbread,Test1234,Michael King,e99e02eb-1b30-44f7-b308-94a0c49c4bd3
+2024-03-30 07:50:34.252289+00,cornonthecob,P@ssword1,Madison Wright,75353bd1-f680-4b88-8d36-ba0b423df4f0
+2024-03-30 07:50:34.256278+00,potatosalad,SecurePass1,Daniel Lopez,4c5b6852-cf8c-4fde-8d65-d18806a55ebf
+2024-03-30 07:50:34.25856+00,cinnamonroll,Pa$$w0rd1,Luke Carter,671f0fe6-750d-40c0-9d87-a12deb9a9322
+2024-03-30 07:50:34.258194+00,avocadosalad,Passw0rd123,Emily Lewis,9001d4a2-e059-49c7-8fcd-008bc069589b
+2024-03-30 07:50:34.26031+00,strawberry,P@ssw0rd,Olivia Williams,5064e84c-a3aa-410f-a3a0-b7af1ad9c56a
+2024-03-30 07:50:34.261559+00,quinoasalad,Welcome@1,Jackson Baker,7159a7b3-5893-4bc0-8141-8be26cd622e3
+2024-03-30 07:50:34.263081+00,tomatosauce,Welcome1!,Alexander Rodriguez,84d12fd7-cfb7-4aee-9217-8cb1445866e1
+2024-03-30 07:50:34.264276+00,walnutcake,MySecurePwd1,Matthew Scott,0bc181a3-8806-4a8d-84d9-51a7dab3db1f
+2024-03-30 07:50:34.264605+00,ricepaperrolls,P@ssw0rd!,Sofia Nelson,6dea3746-701a-4a3f-b498-067ffbc295ea
+2024-03-30 07:50:34.269385+00,macadamianuts,Summer2022,Aubrey Flores,ea5bfe26-57de-4c85-9841-9a4a2bfc0876
+2024-03-30 07:50:34.269166+00,zucchinibread,MyP@ssword,Henry Green,f9432e36-6201-431d-a29e-42e60a15aa13
+2024-03-30 07:50:34.26851+00,chestnutroast,SecureP@ss1,Lily Russell,d64eb18a-81dc-46dd-9c2c-5d8546eca6b9
+2024-03-30 07:50:34.271932+00,oatmealcookie,MyP@ssw0rd1,Carter Sanchez,cda5401d-adbc-49ae-adf1-f48cd407470e
+2024-03-30 07:50:34.280682+00,blueberry,Hello1234,Oliver Davis,38ae7ab2-6868-4365-aeef-63f4792bf639
+2024-03-30 07:50:34.281603+00,licorice,MyPa$$w0rd1,Elizabeth Brooks,63c19e26-ab80-46e0-b4e1-1e9c15c33e33
+2024-03-30 07:50:34.291928+00,peppermint,P@ssword123,Isaac Sanders,439bb9a9-8617-42f8-9613-a8ccce7c919f
+2024-03-30 07:50:34.295451+00,gummyworms,TestPass123,Wyatt Murphy,d3637e23-f972-4862-96b5-cef1e174f285
+2024-03-30 07:50:34.302973+00,cucumber,PaSsWord1,Evelyn Martinez,17ecd49c-31f1-4dd2-980a-c08445b3352d
+2024-03-30 07:50:34.307286+00,rockcandy,SecurePa$$word1,Caleb Kim,1cc9a981-af19-4bd4-aa6b-8cabbee4f554
+2024-03-30 07:50:34.312355+00,carrotcake,Secure123,James Robinson,dbe2d6fa-bbac-4e72-a5db-5ee75ae8c57f
+2024-03-30 07:50:34.321291+00,cornsyrup,Summer22!,Paisley Perry,840e68e9-0a38-41bd-9665-744df2a6ebd3
+2024-03-30 07:50:34.321994+00,grapejam,P@$$word!23,Christian Russell,319d8324-1a4d-4a44-92e3-acc88b15c949
+2024-03-30 07:50:34.321904+00,mushroom,123Password,Scarlett Hill,92bc0b15-2289-4f0d-8adb-af20faa60ea0
+2024-03-30 07:50:34.330811+00,gooseberrypie,Passw0rd!123,Sarah Evans,5049a2a7-c539-4991-a69f-6e0e47908a13
+2024-03-30 07:50:34.33162+00,cranberryrelish,MySecurePass1,Adeline Gray,d68108fb-a43a-4255-bddc-3f907ba9193d
+2024-03-30 07:50:34.330699+00,cashewbutter,Pass123!,Aiden Perez,c5c3a95d-cb12-4c8e-a673-32d0dadfb5fc
+2024-03-30 07:50:34.333585+00,pecanpie,GoodPassword1,Chloe Walker,b075020e-b859-4e80-8132-6aa9ef65be6b
+2024-03-30 07:50:34.336052+00,mandarinorange,Pa$$w0rd123!,Maya Powell,ed77e2ba-d585-428b-ab51-50114fd3fbd2
+2024-03-30 07:50:34.337851+00,blackcurrant,Passw0rd12!,Hazel Bryant,771b0f6d-1dfd-4f32-b224-b1638dbcf00f
+2024-03-30 07:50:34.337985+00,agavenectar,P@$$word123,Jayden Rivera,f302c651-5974-43af-8b0b-0da5a23d2912
+2024-03-30 07:50:34.340121+00,lollipop,SecurePa$$1,Lillian Ross,f9e5aca2-bd50-4aaf-9721-a4d3b881b2c6
+2024-03-30 07:50:34.341462+00,cherrypie,StrongPa$$1,Wyatt Alexander,735c19d7-3c18-41b2-9bb7-af3dc61eb581
+2024-03-30 07:50:34.339797+00,lettucewraps,MyPassword1,Mia Allen,32ac01b5-e361-4c67-8da4-f441c60e495f
+2024-03-30 07:50:34.343634+00,strawberryjam,Pa$$w0rd!23,Kylie Washington,58019872-dbc4-4341-84f2-88261669b5d7
+2024-03-30 07:50:34.348354+00,marmalade,Summer2023,Eleanor Ford,a66a9eb1-3354-4d72-86b9-5006680d7aa5
+2024-03-30 07:50:34.348683+00,huckleberryjam,StrongPa$$word1,Aaron Simmons,f1c264b0-c8af-46c8-8360-c9fbbc5dfafa
+2024-03-30 07:50:34.34995+00,rhubarbjelly,Welcome!@1,Hunter Marshall,a8416220-8d83-4be2-ad08-65d20ee87159
+2024-03-30 07:50:34.350801+00,cottoncandy,GoodP@ss1,Owen Morris,86e6189f-5013-45fe-b828-1134b83b27fd
+2024-03-30 07:50:34.352336+00,butterscotch,Summer20!9,Layla Bennett,ac279865-31cb-41c9-b6a4-d0d55fd8d0f9
+2024-03-30 07:50:34.356543+00,honeycomb,Passw0rd!23,Mila James,a3e14285-dced-446c-ac2a-572a5579132d
+2024-03-30 07:50:34.358177+00,caramelcorn,Pa55w0rd1,Addison Perry,0079d79a-b22e-424d-9f2f-8cdcf5125c98
+2024-03-30 07:50:34.359891+00,melonsorbet,Pa$$w0rd!2024,Camila Flores,1da44403-f7cd-444a-991a-464f6f4e2999
+2024-03-30 07:50:34.361413+00,jellybeans,Pa$$w0rd123,Natalie Watson,3fbaaf84-a6f8-4836-97c6-8fdbfc691d4e
+2024-03-30 07:50:34.363049+00,dragonfruit,Summer!2024,Skylar Mitchell,b8655399-e83d-4d1e-bb05-b793044c3a10
+2024-03-30 07:50:34.357869+00,plumcobbler,StrongPassword123,Nicholas Richardson,e43a2a74-2a14-4f9d-9d13-1fe85af29dad
+2024-03-30 07:50:34.372201+00,tangerinetart,MyPa$$word1,Nova Bell,bdd7b41e-8e82-41cd-80a2-faca3e1d2ea2
+2024-03-30 07:50:34.377856+00,shortbread,P@ssw0rd123,Hannah Stewart,8873cd46-ff08-4e77-96fb-6154fd1fa9e7
+2024-03-30 07:50:34.379754+00,chocolatechip,TestPass1!,Gabriel Edwards,adaf5693-ddcc-454e-a234-75b733501ea2
+2024-03-30 07:50:34.38823+00,hazelnutcoffee,P@$$word1,Samuel Hall,def95439-0c31-4799-9708-40d4ff8efd16
+2024-03-30 07:50:34.390384+00,vanillacupcake,Pass1234!,Zoe Phillips,2312d795-cd03-4347-8071-29a196a6fba5
+2024-03-30 07:50:34.394656+00,figjam,Pa$$word123,Claire Long,787bde46-5c74-4066-8a7c-52fb5c961511
+2024-03-30 07:50:34.397412+00,popcornball,P@$$w0rd!,Ryan Cox,bdd6289c-87df-4bda-b63b-18cf0f71843b
+2024-03-30 07:50:34.399659+00,kumquatmarmalade,Summer!23,Hailey Murphy,25ac7c97-2e9e-4afe-a5ad-c7045ff8f451
+2024-03-30 07:50:34.410794+00,pistachiopudding,Welcome123!,David Price,5f0e1ea8-e4b7-4b5a-ac19-8cf0470d39f2
+2024-03-30 07:50:34.446017+00,lycheejelly,Welcome2024,Henry Hill,c3e47534-12a6-4bbb-ba11-f2615477e8fc
+2024-03-30 07:50:34.399747+00,persimmonjam,Passw0rd!2024,Ariana Perry,e9e267a7-8f3f-4d25-82a3-27acd2c721a6
+2024-03-30 07:50:34.416992+00,toffeecaramel,P@$$w0rd1!,Brooklyn Howard,01c12ba3-cb52-4b42-8c60-94171ba8bd0e
+2024-03-30 07:50:34.57837+00,taffycandy,Welcome@123,Nathan Reyes,d8b7eaab-137f-4699-bdd9-6e8aa577ea87
+2024-03-30 07:50:34.401526+00,boysenberry,MyStrongPwd1,Ellie Wright,a69cff54-bf6a-4667-88eb-9c7d3328734c
+2024-03-30 07:50:34.424506+00,datesyrup,Welcome!123,Jack Coleman,c5a49981-5c03-4cda-900e-33bb4fe7e259
+2024-03-30 07:50:34.405182+00,marshmallow,Welcome2022,John Jenkins,ebd6e146-d2d2-44e9-a2c7-19161a4914b9
+2024-03-30 07:50:34.432577+00,maplesyrup,StrongP@ss1,Levi Bailey,6f78aba1-c8e3-464a-8d8a-f19cffff64ae
+2024-04-05 11:49:26.433151+00,huyhuy123@hcmut.edu.vn,huyhuy123,Cao VIet Huy,6a296301-7439-423e-8183-c56ca3687c9b
+2024-04-06 08:45:03.682892+00,caoviethuy22@gmail.com,1234567,Cao Viet Huy,fe5cdfb5-e35f-4fb7-b1dc-06467244e79e
+2024-04-06 08:46:31.102885+00,gewrg@gqegqw,'k.f_QSA2KSk)ja,qwfqwf,2bfe3a8d-d758-42a4-84aa-b4fb681fd4e2
+2024-04-06 08:47:34.361675+00,wfqwfqwf,huyhuy123,SASAS,cd1e4b7a-e75f-4669-ad4a-c027cec8befa
+2024-04-06 08:48:33.57726+00,qwfqw@gqwgfqw,'k.f_QSA2KSk)ja,Moi Nhat ne,f2904a7d-1d23-4d5d-b466-459dbbb7a68e
+2024-04-08 17:58:28.962072+00,cvh181244,123456,Cao Viet Huy,caaf2d9b-abfe-42d2-b8ca-3315fb3b0769
+2024-04-09 13:55:53.494306+00,a,aibietdau,a,ffec7e07-8c89-433d-bb5d-bebcf9f86066
+2024-04-09 13:56:05.046742+00,a,aibietdau,a,4280b255-a8e4-4a9e-843c-572ef2ab4e66
+2024-04-09 13:56:22.791901+00,a,aibietdau,a,e5737121-f4a1-48d2-a850-fe6dbfaec76d
+2024-04-09 13:57:19.594831+00,a,abcdef,a,b29f7293-aa11-4417-b3de-42c5a673dc6b
+2024-04-09 13:57:35.764861+00,abc,123456,avc,81c8fc47-28a1-4014-a0ad-244c98a0ecb8

@@ -79,13 +79,13 @@
                         <p class="form__error">Password at least 6 characters</p>
                     </div>
 
-                    <!-- <div class="form__group auth__btn-group">
+                    <div class="form__group auth__btn-group">
                         <button class="btn btn--primary auth__btn form__submit-btn">Sign Up</button>
-                        <button class="btn btn--outline auth__btn btn--no-margin">
+                        <!-- <button class="btn btn--outline auth__btn btn--no-margin">
                             <img src="/BTL_LTW/LTWeb/public/assets/icons/google.svg" alt="" class="btn__icon icon">
                             Sign in with Google
-                        </button>
-                    </div> -->
+                        </button> -->
+                    </div>
                 </form>
 
                 <p class="auth__text">Already have an account?
