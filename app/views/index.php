@@ -37,9 +37,22 @@
     <body>
         <!-- Header -->
         <header id="header" class="header"></header>
-        <script>
-            load("#header", "/BTL_LTW/LTWeb/app/views/components/header.php");
-        </script>
+        <?php
+            if($_SESSION['user'] ?? FALSE) {
+        ?>
+            <script>
+                load("#header", "/BTL_LTW/LTWeb/app/views/components/header-logined.php");
+            </script>
+        <?php
+            }
+            else {
+        ?>
+                <script>
+                    load("#header", "/BTL_LTW/LTWeb/app/views/components/header.php");
+                </script>
+        <?php   
+            }
+        ?>
         
         <script src="/BTL_LTW/LTWeb/public/assets/js/scripts.js"></script>
 

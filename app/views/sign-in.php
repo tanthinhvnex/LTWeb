@@ -70,6 +70,7 @@
                                 <input
                                     type="email"
                                     autofocus
+                                    name="email"
                                     placeholder="Email"
                                     class="form__input"
                                     required />
@@ -91,6 +92,7 @@
                                 <input
                                     type="password"
                                     placeholder="Password"
+                                    name="password"
                                     class="form__input"
                                     required
                                     minlength="6" />
