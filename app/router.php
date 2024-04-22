@@ -1,4 +1,5 @@
 <?php
+    require_once __DIR__ . '/middlewares/Middleware.php';
     $url = parse_url($_SERVER['REQUEST_URI'])['path'];// lấy đường dẫn đến trang bạn đang truy cập
     $method = $_SERVER['REQUEST_METHOD'];//lấy method
     $routes = require_once __DIR__ . '/routes.php';//chứa thông tin routes
@@ -14,9 +15,11 @@
         if (substr($url, -1) == '/') {//nếu url chứa '/' ở cuối thì xóa '/' để cho nó match với url trong routes
             $url = substr($url, 0, -1);
         }
-        
+
         if (isset($routes[$method]) && array_key_exists($url, $routes[$method])) {
-            require_once $routes[$method][$url];
+            Middleware::drive($routes[$method][$url]['middleware']);
+            
+            require_once $routes[$method][$url]['controller'];
         } else {
             abort();
         }
