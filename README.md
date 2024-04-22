@@ -62,8 +62,12 @@ LTWeb/
 |   │       ├── product-detail.js
 |   │       ├── scripts.js
 |   │       └── shipping.js
+|   ├── csv_data/...
 |   ├── scss/...
+|   ├── xlsx_data/...
 |   └── index.php
+├── sql/
+|   └── create.sql
 ├── .htaccess
 ├── package-lock.json
 ├── package.json
