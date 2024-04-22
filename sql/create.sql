@@ -1,155 +1,274 @@
-CREATE DATABASE IF NOT EXISTS btl_ltw_database;
-USE btl_ltw_database;
-CREATE TABLE IF NOT EXISTS `User`
-(
-	`email` varchar(255) NOT NULL,
-	`encoded_password` varchar(255) NOT NULL,
-    `fullname` varchar(255) NOT NULL,
-    `role` varchar(10) NOT NULL, -- admin, customer
-    `phone` varchar(10), -- vietnam phone
-	PRIMARY KEY (`email`)
-);
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 22, 2024 at 12:44 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
- CREATE TABLE IF NOT EXISTS `Credit_Card`
- (
-	`card_number` varchar(16) NOT NULL,
-    `CVV` varchar(4) NOT NULL,
-    `exp_date` date NOT NULL,
-    `fullname` varchar(255) NOT NULL,
-    `is_default` bool DEFAULT FALSE NOT NULL,
-    `customer_email` varchar(255) NOT NULL,
-    PRIMARY KEY(`card_number`),
-    FOREIGN KEY (`customer_email`) REFERENCES `User`(`email`) ON UPDATE CASCADE ON DELETE RESTRICT
- );
- 
- CREATE TABLE IF NOT EXISTS `Shipping_Address`
- (
-	`customer_email` varchar(255) NOT NULL,
-    `AID` int NOT NULL,
-    `reciever_name` varchar(255) NOT NULL,
-    `reciever_phone` varchar(10) NOT NULL,
-    `city_district_town` varchar(255) NOT NULL,
-    `additional_address_info` varchar(255) NOT NULL,
-    `is_default` bool DEFAULT FALSE NOT NULL,
-    PRIMARY KEY (`customer_email`,`AID`),
-    FOREIGN KEY (`customer_email`) REFERENCES `User`(`email`) ON UPDATE CASCADE ON DELETE RESTRICT
- );
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
-CREATE TABLE IF NOT EXISTS `Bill`
-(
-	`BID` int NOT NULL,
-	`created_at` datetime NOT NULL,
-	`total_price` decimal(10,0) DEFAULT 0 NOT NULL,
-	`shipping_fee` decimal(10,0) DEFAULT 0 NOT NULL,
-    `credit_card_number` varchar(16) NOT NULL,
-    `customer_email` varchar(255) NOT NULL,
-	`AID` int NOT NULL,
-    PRIMARY KEY(`BID`),
-    FOREIGN KEY (`credit_card_number`) REFERENCES `Credit_Card`(`card_number`) ON UPDATE CASCADE ON DELETE RESTRICT,
-	FOREIGN KEY (`customer_email`,`AID`) REFERENCES `Shipping_Address`(`customer_email`,`AID`) ON UPDATE CASCADE ON DELETE RESTRICT
-);
 
- CREATE TABLE IF NOT EXISTS `Product`
- (
-	`PID` int NOT NULL,
-    `name` varchar(255) NOT NULL,
-    `listed_unit_price` decimal(10,0) NOT NULL,
-    `description` varchar(5000) NOT NULL,
-    `size` varchar(255) NOT NULL,
-    `quantity_on_hand` int NOT NULL,
-    `discount` decimal(10,0) NOT NULL,
-    `no_of_reviews` int DEFAULT 0,
-    `average_rating` decimal (2, 1) DEFAULT 0,
-    PRIMARY KEY(`PID`)
- );
- 
- CREATE TABLE IF NOT EXISTS `Review`
- (
-	`PID` int NOT NULL,
-    `customer_email` varchar(255) NOT NULL,
-    `RID` int NOT NULL,
-    `star` int NOT NULL,
-    `content` varchar(255) NOT NULL,
-    PRIMARY KEY(`PID`,`customer_email`,`RID`),
-    FOREIGN KEY (`customer_email`) REFERENCES `User`(`email`) ON UPDATE CASCADE ON DELETE RESTRICT,
-    FOREIGN KEY (`PID`) REFERENCES `Product`(`PID`) ON UPDATE CASCADE ON DELETE RESTRICT
- );
- 
- CREATE TABLE IF NOT EXISTS `Bill_have_Product`
- (
-	`BID` int NOT NULL,
-    `PID` int NOT NULL,
-    `quantity` int NOT NULL,
-    PRIMARY KEY(`BID`,`PID`),
-    FOREIGN KEY (`BID`) REFERENCES `Bill`(`BID`) ON UPDATE CASCADE ON DELETE RESTRICT,
-    FOREIGN KEY (`PID`) REFERENCES `Product`(`PID`) ON UPDATE CASCADE ON DELETE RESTRICT
- );
- 
- CREATE TABLE IF NOT EXISTS `Product_similar_to_Product`
- (
-	`PID` int NOT NULL,
-    `similar_PID` int NOT NULL,
-    PRIMARY KEY (`PID`,`similar_PID`),
-    FOREIGN KEY (`PID`) REFERENCES `Product` (`PID`) ON UPDATE CASCADE ON DELETE RESTRICT,
-    FOREIGN KEY (`similar_PID`) REFERENCES `Product` (`PID`) ON UPDATE CASCADE ON DELETE RESTRICT
- );
-  
-  CREATE TABLE IF NOT EXISTS `Customer_add_to_favourite_Product`
- (
-	`customer_email` varchar(255) NOT NULL,
-    `PID` int NOT NULL,
-    PRIMARY KEY (`customer_email`,`PID`),
-    FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE ON DELETE RESTRICT,
-    FOREIGN KEY (`customer_email`) REFERENCES `User`(`email`) ON UPDATE CASCADE ON DELETE RESTRICT
- );
- 
- CREATE TABLE IF NOT EXISTS `Customer_add_to_cart_Product`
- (
-	`customer_email` varchar(255) NOT NULL,
-    `PID` int NOT NULL,
-    `quantity` int NOT NULL,
-    PRIMARY KEY (`customer_email`,`PID`),
-    FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE ON DELETE RESTRICT,
-    FOREIGN KEY (`customer_email`) REFERENCES `User`(`email`) ON UPDATE CASCADE ON DELETE RESTRICT
- );
- 
- CREATE TABLE IF NOT EXISTS `Product_image_src`
- (
-	`PID` int NOT NULL,
-    `image_src` varchar(255) NOT NULL,
-    PRIMARY KEY (`PID`,`image_src`),
-    FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE ON DELETE RESTRICT
- );
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
--- TRIGGER
-DELIMITER //
-CREATE PROCEDURE show_notification(IN value VARCHAR(255)) -- dump để debug
-BEGIN
-    SIGNAL SQLSTATE '45000'
-    SET MESSAGE_TEXT = value;
-END;//
+--
+-- Database: `btl_ltw_database`
+--
+CREATE DATABASE IF NOT EXISTS `btl_ltw_database` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `btl_ltw_database`;
 
-CREATE TRIGGER insert_Bill_have_Product_trigger
-AFTER INSERT ON Bill_have_Product
-FOR EACH ROW
-BEGIN
-	DECLARE var_listed_unit_price DECIMAL(10, 0);
-    DECLARE var_discount DECIMAL(10, 0);
-    
-    SELECT listed_unit_price, discount INTO var_listed_unit_price, var_discount
-    FROM Product
-    WHERE PID = NEW.PID;
-    
-	UPDATE Bill
-    SET total_price = total_price + (NEW.quantity * (var_listed_unit_price * (100 - var_discount) / 100))
-    WHERE BID = NEW.BID;
-END //
+-- --------------------------------------------------------
 
-DELIMITER //
-CREATE TRIGGER insert_review_trigger
-AFTER INSERT ON Review
-FOR EACH ROW
-BEGIN
+--
+-- Table structure for table `bill`
+--
+-- Creation: Apr 22, 2024 at 02:43 AM
+-- Last update: Apr 22, 2024 at 10:06 AM
+--
+
+DROP TABLE IF EXISTS `bill`;
+CREATE TABLE IF NOT EXISTS `bill` (
+  `BID` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `total_price` decimal(10,0) NOT NULL DEFAULT 0,
+  `shipping_fee` decimal(10,0) NOT NULL DEFAULT 0,
+  `credit_card_number` varchar(16) NOT NULL,
+  `customer_email` varchar(255) NOT NULL,
+  `AID` int(11) NOT NULL,
+  PRIMARY KEY (`BID`),
+  KEY `credit_card_number` (`credit_card_number`),
+  KEY `customer_email` (`customer_email`,`AID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `bill`:
+--   `credit_card_number`
+--       `credit_card` -> `card_number`
+--   `customer_email`
+--       `shipping_address` -> `customer_email`
+--   `AID`
+--       `shipping_address` -> `AID`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bill_have_product`
+--
+-- Creation: Apr 22, 2024 at 10:38 AM
+-- Last update: Apr 22, 2024 at 10:39 AM
+--
+
+DROP TABLE IF EXISTS `bill_have_product`;
+CREATE TABLE IF NOT EXISTS `bill_have_product` (
+  `BID` int(11) NOT NULL,
+  `PID` int(11) NOT NULL,
+  `size` char(20) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`BID`,`PID`,`size`),
+  KEY `PID` (`PID`,`size`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `bill_have_product`:
+--   `BID`
+--       `bill` -> `BID`
+--   `PID`
+--       `product` -> `PID`
+--   `size`
+--       `product` -> `size`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `credit_card`
+--
+-- Creation: Apr 22, 2024 at 02:43 AM
+-- Last update: Apr 22, 2024 at 09:58 AM
+--
+
+DROP TABLE IF EXISTS `credit_card`;
+CREATE TABLE IF NOT EXISTS `credit_card` (
+  `card_number` varchar(16) NOT NULL,
+  `CVV` varchar(4) NOT NULL,
+  `exp_date` date NOT NULL,
+  `fullname` varchar(255) NOT NULL,
+  `is_default` tinyint(1) NOT NULL DEFAULT 0,
+  `customer_email` varchar(255) NOT NULL,
+  PRIMARY KEY (`card_number`),
+  KEY `customer_email` (`customer_email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `credit_card`:
+--   `customer_email`
+--       `user` -> `email`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_add_to_cart_product`
+--
+-- Creation: Apr 22, 2024 at 02:43 AM
+-- Last update: Apr 22, 2024 at 09:09 AM
+--
+
+DROP TABLE IF EXISTS `customer_add_to_cart_product`;
+CREATE TABLE IF NOT EXISTS `customer_add_to_cart_product` (
+  `customer_email` varchar(255) NOT NULL,
+  `PID` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`customer_email`,`PID`),
+  KEY `PID` (`PID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `customer_add_to_cart_product`:
+--   `PID`
+--       `product` -> `PID`
+--   `customer_email`
+--       `user` -> `email`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_add_to_favourite_product`
+--
+-- Creation: Apr 22, 2024 at 02:43 AM
+-- Last update: Apr 22, 2024 at 09:06 AM
+--
+
+DROP TABLE IF EXISTS `customer_add_to_favourite_product`;
+CREATE TABLE IF NOT EXISTS `customer_add_to_favourite_product` (
+  `customer_email` varchar(255) NOT NULL,
+  `PID` int(11) NOT NULL,
+  PRIMARY KEY (`customer_email`,`PID`),
+  KEY `PID` (`PID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `customer_add_to_favourite_product`:
+--   `PID`
+--       `product` -> `PID`
+--   `customer_email`
+--       `user` -> `email`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product`
+--
+-- Creation: Apr 22, 2024 at 04:04 AM
+-- Last update: Apr 22, 2024 at 08:52 AM
+--
+
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE IF NOT EXISTS `product` (
+  `PID` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `listed_unit_price` decimal(10,0) NOT NULL,
+  `description` varchar(5000) NOT NULL,
+  `size` char(20) NOT NULL,
+  `quantity_on_hand` int(11) NOT NULL,
+  `discount` decimal(10,0) NOT NULL,
+  `no_of_reviews` int(11) DEFAULT 0,
+  `average_rating` decimal(2,1) DEFAULT 0.0,
+  PRIMARY KEY (`PID`,`size`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `product`:
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_image_src`
+--
+-- Creation: Apr 22, 2024 at 02:43 AM
+--
+
+DROP TABLE IF EXISTS `product_image_src`;
+CREATE TABLE IF NOT EXISTS `product_image_src` (
+  `PID` int(11) NOT NULL,
+  `image_src` varchar(255) NOT NULL,
+  PRIMARY KEY (`PID`,`image_src`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `product_image_src`:
+--   `PID`
+--       `product` -> `PID`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_similar_to_product`
+--
+-- Creation: Apr 22, 2024 at 02:43 AM
+--
+
+DROP TABLE IF EXISTS `product_similar_to_product`;
+CREATE TABLE IF NOT EXISTS `product_similar_to_product` (
+  `PID` int(11) NOT NULL,
+  `similar_PID` int(11) NOT NULL,
+  PRIMARY KEY (`PID`,`similar_PID`),
+  KEY `similar_PID` (`similar_PID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `product_similar_to_product`:
+--   `PID`
+--       `product` -> `PID`
+--   `similar_PID`
+--       `product` -> `PID`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review`
+--
+-- Creation: Apr 22, 2024 at 02:43 AM
+-- Last update: Apr 22, 2024 at 08:50 AM
+--
+
+DROP TABLE IF EXISTS `review`;
+CREATE TABLE IF NOT EXISTS `review` (
+  `PID` int(11) NOT NULL,
+  `customer_email` varchar(255) NOT NULL,
+  `RID` int(11) NOT NULL,
+  `star` int(11) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  PRIMARY KEY (`PID`,`customer_email`,`RID`),
+  KEY `customer_email` (`customer_email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `review`:
+--   `customer_email`
+--       `user` -> `email`
+--   `PID`
+--       `product` -> `PID`
+--
+
+--
+-- Triggers `review`
+--
+DROP TRIGGER IF EXISTS `insert_review_trigger`;
+DELIMITER $$
+CREATE TRIGGER `insert_review_trigger` AFTER INSERT ON `review` FOR EACH ROW BEGIN
     UPDATE Product
     SET no_of_reviews = no_of_reviews + 1
     WHERE PID = NEW.PID;
@@ -157,25 +276,193 @@ BEGIN
     UPDATE Product
     SET average_rating = (average_rating * (no_of_reviews - 1) + NEW.star) / no_of_reviews
     WHERE PID = NEW.PID;
-END //
+END
+$$
+DELIMITER ;
 
--- Procedure
-CREATE PROCEDURE Login(IN p_email varchar(255), IN p_pass varchar(255))
-BEGIN
-    DECLARE hashed_password varchar(255);
+-- --------------------------------------------------------
 
-    SELECT `encoded_password` INTO hashed_password
-    FROM `User`
-    WHERE `email` = p_email;
+--
+-- Table structure for table `shipping_address`
+--
+-- Creation: Apr 22, 2024 at 02:43 AM
+-- Last update: Apr 22, 2024 at 09:53 AM
+--
 
-    IF hashed_password IS NOT NULL AND hashed_password = SHA2(CONCAT(p_pass, 'fc45c92ac5ad37b42824ea724d2f8f32'), 256) THEN
-        SELECT email, fullname, `role`, phone
-        FROM `User`
-        WHERE `email` = p_email;
-    ELSE
-        SELECT `email`
-        FROM `User`
-        LIMIT 0;
-    END IF;
-END; //
-DELIMITER //
+DROP TABLE IF EXISTS `shipping_address`;
+CREATE TABLE IF NOT EXISTS `shipping_address` (
+  `customer_email` varchar(255) NOT NULL,
+  `AID` int(11) NOT NULL,
+  `reciever_name` varchar(255) NOT NULL,
+  `reciever_phone` varchar(10) NOT NULL,
+  `city_district_town` varchar(255) NOT NULL,
+  `additional_address_info` varchar(255) NOT NULL,
+  `is_default` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`customer_email`,`AID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `shipping_address`:
+--   `customer_email`
+--       `user` -> `email`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+-- Creation: Apr 22, 2024 at 02:43 AM
+-- Last update: Apr 22, 2024 at 08:25 AM
+--
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `email` varchar(255) NOT NULL,
+  `encoded_password` varchar(255) NOT NULL,
+  `fullname` varchar(255) NOT NULL,
+  `role` varchar(10) NOT NULL,
+  `phone` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `user`:
+--
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `bill`
+--
+ALTER TABLE `bill`
+  ADD CONSTRAINT `bill_ibfk_1` FOREIGN KEY (`credit_card_number`) REFERENCES `credit_card` (`card_number`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `bill_ibfk_2` FOREIGN KEY (`customer_email`,`AID`) REFERENCES `shipping_address` (`customer_email`, `AID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `bill_have_product`
+--
+ALTER TABLE `bill_have_product`
+  ADD CONSTRAINT `bill_have_product_ibfk_1` FOREIGN KEY (`BID`) REFERENCES `bill` (`BID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `bill_have_product_ibfk_2` FOREIGN KEY (`PID`,`size`) REFERENCES `product` (`PID`, `size`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `credit_card`
+--
+ALTER TABLE `credit_card`
+  ADD CONSTRAINT `credit_card_ibfk_1` FOREIGN KEY (`customer_email`) REFERENCES `user` (`email`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `customer_add_to_cart_product`
+--
+ALTER TABLE `customer_add_to_cart_product`
+  ADD CONSTRAINT `customer_add_to_cart_product_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `customer_add_to_cart_product_ibfk_2` FOREIGN KEY (`customer_email`) REFERENCES `user` (`email`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `customer_add_to_favourite_product`
+--
+ALTER TABLE `customer_add_to_favourite_product`
+  ADD CONSTRAINT `customer_add_to_favourite_product_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `customer_add_to_favourite_product_ibfk_2` FOREIGN KEY (`customer_email`) REFERENCES `user` (`email`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `product_image_src`
+--
+ALTER TABLE `product_image_src`
+  ADD CONSTRAINT `product_image_src_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `product_similar_to_product`
+--
+ALTER TABLE `product_similar_to_product`
+  ADD CONSTRAINT `product_similar_to_product_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_similar_to_product_ibfk_2` FOREIGN KEY (`similar_PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `review`
+--
+ALTER TABLE `review`
+  ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`customer_email`) REFERENCES `user` (`email`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `review_ibfk_2` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `shipping_address`
+--
+ALTER TABLE `shipping_address`
+  ADD CONSTRAINT `shipping_address_ibfk_1` FOREIGN KEY (`customer_email`) REFERENCES `user` (`email`) ON UPDATE CASCADE;
+
+
+--
+-- Metadata
+--
+USE `phpmyadmin`;
+
+--
+-- Metadata for table bill
+--
+
+--
+-- Dumping data for table `pma__table_uiprefs`
+--
+
+INSERT INTO `pma__table_uiprefs` (`username`, `db_name`, `table_name`, `prefs`, `last_update`) VALUES
+('root', 'btl_ltw_database', 'bill', '{\"sorted_col\":\"`bill`.`credit_card_number` DESC\",\"CREATE_TIME\":\"2024-04-22 09:43:26\",\"col_order\":[0,1,2,3,4,5,6],\"col_visib\":[1,1,1,1,1,1,1]}', '2024-04-22 10:26:02');
+
+--
+-- Metadata for table bill_have_product
+--
+
+--
+-- Metadata for table credit_card
+--
+
+--
+-- Metadata for table customer_add_to_cart_product
+--
+
+--
+-- Metadata for table customer_add_to_favourite_product
+--
+
+--
+-- Metadata for table product
+--
+
+--
+-- Metadata for table product_image_src
+--
+
+--
+-- Metadata for table product_similar_to_product
+--
+
+--
+-- Metadata for table review
+--
+
+--
+-- Dumping data for table `pma__table_uiprefs`
+--
+
+INSERT INTO `pma__table_uiprefs` (`username`, `db_name`, `table_name`, `prefs`, `last_update`) VALUES
+('root', 'btl_ltw_database', 'review', '{\"sorted_col\":\"`review`.`RID` ASC\"}', '2024-04-22 08:51:12');
+
+--
+-- Metadata for table shipping_address
+--
+
+--
+-- Metadata for table user
+--
+
+--
+-- Metadata for database btl_ltw_database
+--
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
