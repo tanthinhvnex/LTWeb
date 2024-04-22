@@ -28,6 +28,10 @@ LTWeb/
 |   │   ├── Home.php
 |   │   ├── ...
 |   │   └── SignUp.php
+│   ├── middlewares/
+|   │   ├── Auth.php
+|   │   ├── Guest.php
+|   │   └── Middleware.php
 │   ├── models/
 |   │   ├── example/...
 |   │   ├── Database.php
@@ -73,8 +77,22 @@ LTWeb/
 ├── package.json
 └── README.md
 ```
-### 3.2 /app/controllers/ *nhận request từ client, phân tích request, gọi tầng Model để lấy dữ liệu và tầng View để tổ chức hiển thị dữ liệu* <br>
+### 3.2.1 /app/controllers/ *nhận request từ client, phân tích request, gọi tầng Model để lấy dữ liệu và tầng View để tổ chức hiển thị dữ liệu* <br>
 - Xem ví dụ trong thư mục ```/app/controllers/example/```
+
+### 3.2.2 /app/middlewares/ *Middleware là bước trung gian để xử lý request trước khi ánh xạ request đó đến controller tương ứng, xem file /app/middlewares/Middleware.php *
+```
+//trong file router.php
+if (isset($routes[$method]) && array_key_exists($url, $routes[$method])) {
+    //ánh xạ đến middleware
+    Middleware::drive($routes[$method][$url]['middleware']);
+    
+    //ánh xạ đến controller
+    require_once $routes[$method][$url]['controller'];
+} else {
+    abort();
+}
+```
 ---
 ### 3.3 /app/models/ *chứa các class tương ứng với các thực thể trong ERD và các model để lưu trữ cũng như truy vấn dữ liệu.*<br>
 - Database.php: *Tạo kết nối đến cơ sở dữ liệu, biến $dbConfig chứa các thông tin liên quan đến username, password, host để kết nối với cơ sở dữ liệu, đặt trong file /config/config.php*<br> 
@@ -84,7 +102,7 @@ LTWeb/
 **NOTE:** Các file nằm trong thư mục templates như filter.html, header.html, footer.html, mình đã đưa vào thư mục /app/views/components/.
 
 ---
-### 3.5 /app/router.php *ánh xạ các request đến controller tương ứng để xử lý request đó*
+### 3.5 /app/router.php *ánh xạ các request đến middleware và controller tương ứng để xử lý request đó*
 ---
 ### 3.6 /app/routes.php *chứa thông tin ánh xạ*
 ---
