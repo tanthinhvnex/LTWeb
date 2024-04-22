@@ -17,8 +17,10 @@
         }
 
         if (isset($routes[$method]) && array_key_exists($url, $routes[$method])) {
+            //ánh xạ đến middleware
             Middleware::drive($routes[$method][$url]['middleware']);
             
+            //ánh xạ đến controller
             require_once $routes[$method][$url]['controller'];
         } else {
             abort();

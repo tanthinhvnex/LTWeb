@@ -2,6 +2,7 @@
     return [
         //nếu có sử dụng phương thức nào khác ngoài GET và POST thì mọi người thêm vào ở đây
         //lưu ý format url_key không chứa '/' ở cuối, ví dụ: /BTL_LTW/LTWeb/sign_in và cũng không chứa phần mở rộng .php
+        //url_key sẽ ánh xạ đến controller và middleware xử lý request đó
         'GET' => [
             '/BTL_LTW/LTWeb' => ['controller' => __DIR__ . '/controllers/Home.php', 'middleware' => null],
             '/BTL_LTW/LTWeb/checkout' => ['controller' => __DIR__ . '/controllers/Checkout.php', 'middleware' => 'auth'],
