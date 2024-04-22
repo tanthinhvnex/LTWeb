@@ -193,3 +193,21 @@ RewriteRule ^ /BTL_LTW/LTWeb/public/index.php [QSA,L]
 $routes = require_once __DIR__ . '/routes.php';//chứa thông tin routes
 ```
 **NOTE:** ```__DIR``` trong ví dụ trên trả về ```C:\xampp\htdocs\BTL_LTW\LTWeb\app```
+
+# 6. ```$_SESSION['user']``` lưu các thông tin ```'email','fullname','phone','role'``` của 1 phiên đăng nhập của người dùng
+```
+//Trong fileSignIn.php, khi đăng nhập thành công
+if(isset($_POST['email'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $model = new LoginModel();
+    $user = $model->login($email,$password);
+    $_SESSION['user'] = $user;
+    header("location: /BTL_LTW/LTWeb");
+    exit();
+} 
+```
+**NOTE: Mọi người sử dụng $_SESSION['user'] để lấy thông tin của phiên đăng nhập hiện tại để truy vấn**
+
+**NOTE: Hiện tại chưa làm cái phân quyền cho admin và customer**
