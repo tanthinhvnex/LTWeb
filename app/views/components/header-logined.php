@@ -4986,9 +4986,10 @@
                                 >
                             </li>
                             <li class="user-menu__separate">
-                                <a href="/BTL_LTW/LTWeb/sign_in" class="user-menu__link"
-                                    >Logout</a
-                                >
+                                <form method='post' action='/BTL_LTW/LTWeb/logout'>
+                                  <button type='submit' class="user-menu__link">
+                                    Logout
+                                </form>
                             </li>
                         </ul>
                     </div>

@@ -18,6 +18,7 @@
             '/BTL_LTW/LTWeb/sign_up' => ['controller' => __DIR__ . '/controllers/SignUp.php', 'middleware' => 'guest'],
         ],
         'POST' => [
+            '/BTL_LTW/LTWeb/logout' => ['controller' => __DIR__ . '/controllers/Logout.php', 'middleware' => null],
             '/BTL_LTW/LTWeb/profile/add_new_card' => ['controller' => __DIR__ . '/controllers/AddNewCart.php', 'middleware' => null],
             '/BTL_LTW/LTWeb/profile/edit_personal_info' => ['controller' => __DIR__ . '/controllers/EditPersonalInfo.php', 'middleware' => null],
             '/BTL_LTW/LTWeb/profile/signout' => ['controller' => __DIR__ . '/controllers/Profile.php', 'middleware' => null],
