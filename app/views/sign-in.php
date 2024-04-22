@@ -73,6 +73,7 @@
                                     name="email"
                                     placeholder="Email"
                                     class="form__input"
+                                    value="phuc.dangphanminh@hcmut.edu.vn"
                                     required />
                                 <img
                                     src="/BTL_LTW/LTWeb/public/assets/icons/message.svg"
@@ -94,6 +95,7 @@
                                     placeholder="Password"
                                     name="password"
                                     class="form__input"
+                                    value="123456"
                                     required
                                     minlength="6" />
                                 <img
