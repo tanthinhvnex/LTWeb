@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2024 at 12:44 PM
+-- Generation Time: Apr 23, 2024 at 12:33 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -23,6 +23,11 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `btl_ltw_database` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `btl_ltw_database`;
 
+--
+-- Truncate table before insert `bill`
+--
+
+TRUNCATE TABLE `bill`;
 --
 -- Dumping data for table `bill`
 --
@@ -126,6 +131,11 @@ INSERT INTO `bill` (`BID`, `created_at`, `total_price`, `shipping_fee`, `credit_
 (96, '2024-04-21 05:19:12', 0, 0, '1154548551258893', 'wfqwfqwf@gmail.com', 286),
 (97, '2024-04-21 05:19:12', 0, 0, '9486984740722776', 'zucchinibread@gmail.com', 291);
 
+--
+-- Truncate table before insert `bill_have_product`
+--
+
+TRUNCATE TABLE `bill_have_product`;
 --
 -- Dumping data for table `bill_have_product`
 --
@@ -424,6 +434,11 @@ INSERT INTO `bill_have_product` (`BID`, `PID`, `size`, `quantity`) VALUES
 (97, 47, 'small', 2);
 
 --
+-- Truncate table before insert `credit_card`
+--
+
+TRUNCATE TABLE `credit_card`;
+--
 -- Dumping data for table `credit_card`
 --
 
@@ -528,302 +543,312 @@ INSERT INTO `credit_card` (`card_number`, `CVV`, `exp_date`, `fullname`, `is_def
 ('9972032519412479', '544', '2024-12-31', 'Evelyn Martinez', 1, 'cucumber@gmail.com');
 
 --
+-- Truncate table before insert `customer_add_to_cart_product`
+--
+
+TRUNCATE TABLE `customer_add_to_cart_product`;
+--
 -- Dumping data for table `customer_add_to_cart_product`
 --
 
-INSERT INTO `customer_add_to_cart_product` (`customer_email`, `PID`, `quantity`) VALUES
-('abc@gmail.com', 9, 1),
-('abc@gmail.com', 36, 2),
-('abc@gmail.com', 42, 1),
-('agavenectar@gmail.com', 15, 2),
-('agavenectar@gmail.com', 34, 3),
-('agavenectar@gmail.com', 49, 2),
-('almondmilk@gmail.com', 14, 1),
-('almondmilk@gmail.com', 15, 2),
-('almondmilk@gmail.com', 29, 2),
-('applepie@gmail.com', 2, 1),
-('applepie@gmail.com', 28, 2),
-('applepie@gmail.com', 49, 2),
-('apricotjam@gmail.com', 27, 2),
-('apricotjam@gmail.com', 32, 1),
-('apricotjam@gmail.com', 42, 3),
-('apricotpreserve@gmail.com', 15, 3),
-('apricotpreserve@gmail.com', 17, 1),
-('apricotpreserve@gmail.com', 31, 1),
-('avocadosalad@gmail.com', 22, 2),
-('avocadosalad@gmail.com', 27, 1),
-('avocadosalad@gmail.com', 36, 3),
-('bananabread@gmail.com', 6, 2),
-('bananabread@gmail.com', 14, 1),
-('bananabread@gmail.com', 36, 1),
-('bellpepper@gmail.com', 6, 3),
-('bellpepper@gmail.com', 20, 3),
-('bellpepper@gmail.com', 48, 1),
-('blackberry@gmail.com', 3, 1),
-('blackberry@gmail.com', 27, 1),
-('blackberry@gmail.com', 33, 2),
-('blackcurrant@gmail.com', 14, 2),
-('blackcurrant@gmail.com', 25, 1),
-('blackcurrant@gmail.com', 33, 1),
-('blueberry@gmail.com', 6, 1),
-('blueberry@gmail.com', 33, 3),
-('blueberry@gmail.com', 49, 2),
-('blueberrycompote@gmail.com', 20, 1),
-('blueberrycompote@gmail.com', 27, 3),
-('blueberrycompote@gmail.com', 42, 3),
-('boysenberry@gmail.com', 29, 2),
-('boysenberry@gmail.com', 40, 1),
-('boysenberry@gmail.com', 48, 3),
-('broccolisoup@gmail.com', 6, 1),
-('broccolisoup@gmail.com', 18, 3),
-('broccolisoup@gmail.com', 33, 2),
-('butterscotch@gmail.com', 5, 2),
-('butterscotch@gmail.com', 10, 1),
-('butterscotch@gmail.com', 53, 1),
-('caoviethuy22@gmail.com@gmail.com', 29, 2),
-('caoviethuy22@gmail.com@gmail.com', 38, 3),
-('caoviethuy22@gmail.com@gmail.com', 41, 3),
-('caramelcorn@gmail.com', 13, 2),
-('caramelcorn@gmail.com', 38, 3),
-('caramelcorn@gmail.com', 47, 3),
-('carrotcake@gmail.com', 3, 1),
-('carrotcake@gmail.com', 7, 1),
-('carrotcake@gmail.com', 34, 2),
-('cashewbutter@gmail.com', 1, 2),
-('cashewbutter@gmail.com', 14, 2),
-('cashewbutter@gmail.com', 47, 2),
-('cherrypie@gmail.com', 2, 1),
-('cherrypie@gmail.com', 26, 3),
-('cherrypie@gmail.com', 52, 3),
-('chestnutroast@gmail.com', 10, 3),
-('chestnutroast@gmail.com', 34, 3),
-('chestnutroast@gmail.com', 48, 1),
-('chocolatechip@gmail.com', 8, 3),
-('chocolatechip@gmail.com', 32, 1),
-('chocolatechip@gmail.com', 48, 1),
-('cinnamonroll@gmail.com', 28, 2),
-('cinnamonroll@gmail.com', 47, 3),
-('cinnamonroll@gmail.com', 48, 1),
-('coconutmilk@gmail.com', 9, 3),
-('coconutmilk@gmail.com', 27, 2),
-('coconutmilk@gmail.com', 48, 2),
-('cornonthecob@gmail.com', 15, 2),
-('cornonthecob@gmail.com', 22, 3),
-('cornonthecob@gmail.com', 29, 3),
-('cornsyrup@gmail.com', 1, 1),
-('cornsyrup@gmail.com', 16, 1),
-('cornsyrup@gmail.com', 52, 2),
-('cottoncandy@gmail.com', 2, 3),
-('cottoncandy@gmail.com', 3, 1),
-('cottoncandy@gmail.com', 34, 1),
-('cranberryrelish@gmail.com', 2, 1),
-('cranberryrelish@gmail.com', 42, 2),
-('cranberryrelish@gmail.com', 48, 1),
-('cucumber@gmail.com', 5, 2),
-('cucumber@gmail.com', 8, 3),
-('cucumber@gmail.com', 27, 2),
-('cvh181244@gmail.com', 6, 2),
-('cvh181244@gmail.com', 10, 3),
-('cvh181244@gmail.com', 33, 2),
-('datesyrup@gmail.com', 17, 2),
-('datesyrup@gmail.com', 29, 2),
-('datesyrup@gmail.com', 48, 3),
-('dragonfruit@gmail.com', 14, 2),
-('dragonfruit@gmail.com', 15, 2),
-('dragonfruit@gmail.com', 47, 2),
-('figjam@gmail.com', 10, 1),
-('figjam@gmail.com', 26, 1),
-('figjam@gmail.com', 29, 2),
-('garlicbread@gmail.com', 36, 1),
-('garlicbread@gmail.com', 38, 1),
-('garlicbread@gmail.com', 43, 2),
-('gewrg@gqegqw@gmail.com', 16, 1),
-('gewrg@gqegqw@gmail.com', 24, 2),
-('gewrg@gqegqw@gmail.com', 57, 3),
-('gingerbread@gmail.com', 13, 3),
-('gingerbread@gmail.com', 23, 1),
-('gingerbread@gmail.com', 33, 3),
-('gooseberrypie@gmail.com', 12, 3),
-('gooseberrypie@gmail.com', 40, 3),
-('gooseberrypie@gmail.com', 52, 2),
-('grapefruit@gmail.com', 10, 3),
-('grapefruit@gmail.com', 23, 3),
-('grapefruit@gmail.com', 32, 3),
-('grapejam@gmail.com', 15, 2),
-('grapejam@gmail.com', 52, 2),
-('grapejam@gmail.com', 54, 3),
-('gummyworms@gmail.com', 5, 3),
-('gummyworms@gmail.com', 10, 1),
-('gummyworms@gmail.com', 48, 1),
-('hazelnutcoffee@gmail.com', 6, 1),
-('hazelnutcoffee@gmail.com', 24, 3),
-('hazelnutcoffee@gmail.com', 44, 1),
-('honeycomb@gmail.com', 3, 2),
-('honeycomb@gmail.com', 14, 3),
-('honeycomb@gmail.com', 27, 1),
-('huckleberryjam@gmail.com', 9, 2),
-('huckleberryjam@gmail.com', 19, 2),
-('huckleberryjam@gmail.com', 42, 3),
-('huyhuy123@hcmut.edu.vn@gmail.com', 7, 1),
-('huyhuy123@hcmut.edu.vn@gmail.com', 16, 3),
-('huyhuy123@hcmut.edu.vn@gmail.com', 25, 3),
-('jellybeans@gmail.com', 5, 1),
-('jellybeans@gmail.com', 20, 3),
-('jellybeans@gmail.com', 51, 2),
-('kiwismoothie@gmail.com', 15, 1),
-('kiwismoothie@gmail.com', 25, 3),
-('kiwismoothie@gmail.com', 36, 3),
-('kumquatmarmalade@gmail.com', 15, 1),
-('kumquatmarmalade@gmail.com', 41, 2),
-('kumquatmarmalade@gmail.com', 48, 3),
-('lemonade@gmail.com', 2, 2),
-('lemonade@gmail.com', 24, 1),
-('lemonade@gmail.com', 49, 2),
-('lettucewraps@gmail.com', 2, 3),
-('lettucewraps@gmail.com', 14, 3),
-('lettucewraps@gmail.com', 29, 3),
-('licorice@gmail.com', 3, 2),
-('licorice@gmail.com', 22, 1),
-('licorice@gmail.com', 25, 2),
-('lollipop@gmail.com', 17, 1),
-('lollipop@gmail.com', 20, 3),
-('lollipop@gmail.com', 33, 3),
-('lycheejelly@gmail.com', 2, 3),
-('lycheejelly@gmail.com', 29, 1),
-('lycheejelly@gmail.com', 51, 1),
-('macadamianuts@gmail.com', 6, 3),
-('macadamianuts@gmail.com', 20, 3),
-('macadamianuts@gmail.com', 54, 2),
-('mandarinorange@gmail.com', 20, 3),
-('mandarinorange@gmail.com', 23, 2),
-('mandarinorange@gmail.com', 27, 1),
-('mangojuice@gmail.com', 22, 2),
-('mangojuice@gmail.com', 28, 2),
-('mangojuice@gmail.com', 33, 3),
-('maplesyrup@gmail.com', 7, 2),
-('maplesyrup@gmail.com', 22, 2),
-('maplesyrup@gmail.com', 27, 3),
-('marmalade@gmail.com', 10, 2),
-('marmalade@gmail.com', 17, 3),
-('marmalade@gmail.com', 20, 2),
-('marshmallow@gmail.com', 13, 3),
-('marshmallow@gmail.com', 27, 1),
-('marshmallow@gmail.com', 28, 3),
-('melonsorbet@gmail.com', 16, 1),
-('melonsorbet@gmail.com', 23, 2),
-('melonsorbet@gmail.com', 27, 2),
-('mushroom@gmail.com', 29, 3),
-('mushroom@gmail.com', 32, 2),
-('mushroom@gmail.com', 38, 1),
-('oatmealcookie@gmail.com', 9, 1),
-('oatmealcookie@gmail.com', 38, 1),
-('oatmealcookie@gmail.com', 48, 1),
-('olivetapenade@gmail.com', 16, 1),
-('olivetapenade@gmail.com', 31, 2),
-('olivetapenade@gmail.com', 57, 1),
-('onionrings@gmail.com', 22, 1),
-('onionrings@gmail.com', 27, 1),
-('onionrings@gmail.com', 32, 3),
-('orangezest@gmail.com', 2, 1),
-('orangezest@gmail.com', 8, 2),
-('orangezest@gmail.com', 20, 1),
-('papayapuree@gmail.com', 17, 3),
-('papayapuree@gmail.com', 23, 3),
-('papayapuree@gmail.com', 25, 1),
-('peachcobbler@gmail.com', 1, 2),
-('peachcobbler@gmail.com', 3, 1),
-('peachcobbler@gmail.com', 24, 2),
-('peanutbutter@gmail.com', 10, 2),
-('peanutbutter@gmail.com', 12, 3),
-('peanutbutter@gmail.com', 16, 1),
-('pecanpie@gmail.com', 22, 1),
-('pecanpie@gmail.com', 33, 3),
-('pecanpie@gmail.com', 47, 1),
-('peppermint@gmail.com', 16, 1),
-('peppermint@gmail.com', 49, 1),
-('peppermint@gmail.com', 53, 2),
-('persimmonjam@gmail.com', 13, 1),
-('persimmonjam@gmail.com', 25, 2),
-('persimmonjam@gmail.com', 53, 2),
-('phuc.dangphanminh@hcmut.edu.vn', 9, 2),
-('phuc.dangphanminh@hcmut.edu.vn', 17, 2),
-('phuc.dangphanminh@hcmut.edu.vn', 24, 3),
-('pineapple@gmail.com', 33, 2),
-('pineapple@gmail.com', 44, 3),
-('pineapple@gmail.com', 53, 1),
-('pistachiopudding@gmail.com', 19, 2),
-('pistachiopudding@gmail.com', 27, 1),
-('pistachiopudding@gmail.com', 29, 1),
-('plumcobbler@gmail.com', 8, 2),
-('plumcobbler@gmail.com', 13, 1),
-('plumcobbler@gmail.com', 49, 1),
-('popcornball@gmail.com', 17, 2),
-('popcornball@gmail.com', 43, 3),
-('popcornball@gmail.com', 57, 3),
-('potatosalad@gmail.com', 7, 3),
-('potatosalad@gmail.com', 16, 1),
-('potatosalad@gmail.com', 24, 1),
-('quinoasalad@gmail.com', 6, 1),
-('quinoasalad@gmail.com', 36, 3),
-('quinoasalad@gmail.com', 51, 1),
-('qwfqw@gqwgfqw@gmail.com', 15, 3),
-('qwfqw@gqwgfqw@gmail.com', 25, 2),
-('qwfqw@gqwgfqw@gmail.com', 42, 1),
-('raspberry@gmail.com', 15, 2),
-('raspberry@gmail.com', 33, 1),
-('raspberry@gmail.com', 36, 2),
-('rhubarbjelly@gmail.com', 27, 3),
-('rhubarbjelly@gmail.com', 43, 3),
-('rhubarbjelly@gmail.com', 57, 3),
-('ricepaperrolls@gmail.com', 1, 2),
-('ricepaperrolls@gmail.com', 20, 2),
-('ricepaperrolls@gmail.com', 24, 2),
-('rockcandy@gmail.com', 13, 1),
-('rockcandy@gmail.com', 14, 3),
-('rockcandy@gmail.com', 15, 2),
-('sesamecrackers@gmail.com', 19, 3),
-('sesamecrackers@gmail.com', 23, 1),
-('sesamecrackers@gmail.com', 24, 3),
-('shortbread@gmail.com', 31, 1),
-('shortbread@gmail.com', 33, 2),
-('shortbread@gmail.com', 36, 2),
-('spinach@gmail.com', 6, 2),
-('spinach@gmail.com', 20, 1),
-('spinach@gmail.com', 25, 1),
-('strawberry@gmail.com', 16, 1),
-('strawberry@gmail.com', 22, 3),
-('strawberry@gmail.com', 31, 2),
-('strawberryjam@gmail.com', 15, 3),
-('strawberryjam@gmail.com', 22, 3),
-('strawberryjam@gmail.com', 57, 3),
-('taffycandy@gmail.com', 10, 3),
-('taffycandy@gmail.com', 17, 2),
-('taffycandy@gmail.com', 53, 3),
-('tangerinetart@gmail.com', 6, 1),
-('tangerinetart@gmail.com', 24, 1),
-('tangerinetart@gmail.com', 44, 2),
-('toffeecaramel@gmail.com', 24, 2),
-('toffeecaramel@gmail.com', 33, 3),
-('toffeecaramel@gmail.com', 51, 2),
-('tomatosauce@gmail.com', 27, 2),
-('tomatosauce@gmail.com', 41, 1),
-('tomatosauce@gmail.com', 54, 1),
-('vanillacupcake@gmail.com', 25, 1),
-('vanillacupcake@gmail.com', 43, 1),
-('vanillacupcake@gmail.com', 44, 1),
-('walnutcake@gmail.com', 15, 1),
-('walnutcake@gmail.com', 31, 1),
-('walnutcake@gmail.com', 52, 2),
-('watermelon@gmail.com', 25, 3),
-('watermelon@gmail.com', 29, 2),
-('watermelon@gmail.com', 34, 2),
-('wfqwfqwf@gmail.com', 14, 2),
-('wfqwfqwf@gmail.com', 24, 1),
-('wfqwfqwf@gmail.com', 41, 1),
-('zucchinibread@gmail.com', 3, 3),
-('zucchinibread@gmail.com', 10, 2),
-('zucchinibread@gmail.com', 48, 3);
+INSERT INTO `customer_add_to_cart_product` (`customer_email`, `PID`, `size`, `quantity`) VALUES
+('abc@gmail.com', 9, 'small', 1),
+('abc@gmail.com', 36, 'small', 2),
+('abc@gmail.com', 42, 'small', 1),
+('agavenectar@gmail.com', 15, 'small', 2),
+('agavenectar@gmail.com', 34, 'small', 3),
+('agavenectar@gmail.com', 49, 'small', 2),
+('almondmilk@gmail.com', 14, 'small', 1),
+('almondmilk@gmail.com', 15, 'small', 2),
+('almondmilk@gmail.com', 29, 'small', 2),
+('applepie@gmail.com', 2, 'small', 1),
+('applepie@gmail.com', 28, 'small', 2),
+('applepie@gmail.com', 49, 'small', 2),
+('apricotjam@gmail.com', 27, 'small', 2),
+('apricotjam@gmail.com', 32, 'small', 1),
+('apricotjam@gmail.com', 42, 'small', 3),
+('apricotpreserve@gmail.com', 15, 'small', 3),
+('apricotpreserve@gmail.com', 17, 'small', 1),
+('apricotpreserve@gmail.com', 31, 'small', 1),
+('avocadosalad@gmail.com', 22, 'small', 2),
+('avocadosalad@gmail.com', 27, 'small', 1),
+('avocadosalad@gmail.com', 36, 'small', 3),
+('bananabread@gmail.com', 6, 'small', 2),
+('bananabread@gmail.com', 14, 'small', 1),
+('bananabread@gmail.com', 36, 'small', 1),
+('bellpepper@gmail.com', 6, 'small', 3),
+('bellpepper@gmail.com', 20, 'small', 3),
+('bellpepper@gmail.com', 48, 'small', 1),
+('blackberry@gmail.com', 3, 'small', 1),
+('blackberry@gmail.com', 27, 'small', 1),
+('blackberry@gmail.com', 33, 'small', 2),
+('blackcurrant@gmail.com', 14, 'small', 2),
+('blackcurrant@gmail.com', 25, 'small', 1),
+('blackcurrant@gmail.com', 33, 'small', 1),
+('blueberry@gmail.com', 6, 'small', 1),
+('blueberry@gmail.com', 33, 'small', 3),
+('blueberry@gmail.com', 49, 'small', 2),
+('blueberrycompote@gmail.com', 20, 'small', 1),
+('blueberrycompote@gmail.com', 27, 'small', 3),
+('blueberrycompote@gmail.com', 42, 'small', 3),
+('boysenberry@gmail.com', 29, 'small', 2),
+('boysenberry@gmail.com', 40, 'small', 1),
+('boysenberry@gmail.com', 48, 'small', 3),
+('broccolisoup@gmail.com', 6, 'small', 1),
+('broccolisoup@gmail.com', 18, 'small', 3),
+('broccolisoup@gmail.com', 33, 'small', 2),
+('butterscotch@gmail.com', 5, 'small', 2),
+('butterscotch@gmail.com', 10, 'small', 1),
+('butterscotch@gmail.com', 53, 'small', 1),
+('caoviethuy22@gmail.com@gmail.com', 29, 'small', 2),
+('caoviethuy22@gmail.com@gmail.com', 38, 'small', 3),
+('caoviethuy22@gmail.com@gmail.com', 41, 'small', 3),
+('caramelcorn@gmail.com', 13, 'small', 2),
+('caramelcorn@gmail.com', 38, 'small', 3),
+('caramelcorn@gmail.com', 47, 'small', 3),
+('carrotcake@gmail.com', 3, 'small', 1),
+('carrotcake@gmail.com', 7, 'small', 1),
+('carrotcake@gmail.com', 34, 'small', 2),
+('cashewbutter@gmail.com', 1, 'small', 2),
+('cashewbutter@gmail.com', 14, 'small', 2),
+('cashewbutter@gmail.com', 47, 'small', 2),
+('cherrypie@gmail.com', 2, 'small', 1),
+('cherrypie@gmail.com', 26, 'small', 3),
+('cherrypie@gmail.com', 52, 'small', 3),
+('chestnutroast@gmail.com', 10, 'small', 3),
+('chestnutroast@gmail.com', 34, 'small', 3),
+('chestnutroast@gmail.com', 48, 'small', 1),
+('chocolatechip@gmail.com', 8, 'small', 3),
+('chocolatechip@gmail.com', 32, 'small', 1),
+('chocolatechip@gmail.com', 48, 'small', 1),
+('cinnamonroll@gmail.com', 28, 'small', 2),
+('cinnamonroll@gmail.com', 47, 'small', 3),
+('cinnamonroll@gmail.com', 48, 'small', 1),
+('coconutmilk@gmail.com', 9, 'small', 3),
+('coconutmilk@gmail.com', 27, 'small', 2),
+('coconutmilk@gmail.com', 48, 'small', 2),
+('cornonthecob@gmail.com', 15, 'small', 2),
+('cornonthecob@gmail.com', 22, 'small', 3),
+('cornonthecob@gmail.com', 29, 'small', 3),
+('cornsyrup@gmail.com', 1, 'small', 1),
+('cornsyrup@gmail.com', 16, 'small', 1),
+('cornsyrup@gmail.com', 52, 'small', 2),
+('cottoncandy@gmail.com', 2, 'small', 3),
+('cottoncandy@gmail.com', 3, 'small', 1),
+('cottoncandy@gmail.com', 34, 'small', 1),
+('cranberryrelish@gmail.com', 2, 'small', 1),
+('cranberryrelish@gmail.com', 42, 'small', 2),
+('cranberryrelish@gmail.com', 48, 'small', 1),
+('cucumber@gmail.com', 5, 'small', 2),
+('cucumber@gmail.com', 8, 'small', 3),
+('cucumber@gmail.com', 27, 'small', 2),
+('cvh181244@gmail.com', 6, 'small', 2),
+('cvh181244@gmail.com', 10, 'small', 3),
+('cvh181244@gmail.com', 33, 'small', 2),
+('datesyrup@gmail.com', 17, 'small', 2),
+('datesyrup@gmail.com', 29, 'small', 2),
+('datesyrup@gmail.com', 48, 'small', 3),
+('dragonfruit@gmail.com', 14, 'small', 2),
+('dragonfruit@gmail.com', 15, 'small', 2),
+('dragonfruit@gmail.com', 47, 'small', 2),
+('figjam@gmail.com', 10, 'small', 1),
+('figjam@gmail.com', 26, 'small', 1),
+('figjam@gmail.com', 29, 'small', 2),
+('garlicbread@gmail.com', 36, 'small', 1),
+('garlicbread@gmail.com', 38, 'small', 1),
+('garlicbread@gmail.com', 43, 'small', 2),
+('gewrg@gqegqw@gmail.com', 16, 'small', 1),
+('gewrg@gqegqw@gmail.com', 24, 'small', 2),
+('gewrg@gqegqw@gmail.com', 57, 'small', 3),
+('gingerbread@gmail.com', 13, 'small', 3),
+('gingerbread@gmail.com', 23, 'small', 1),
+('gingerbread@gmail.com', 33, 'small', 3),
+('gooseberrypie@gmail.com', 12, 'small', 3),
+('gooseberrypie@gmail.com', 40, 'small', 3),
+('gooseberrypie@gmail.com', 52, 'small', 2),
+('grapefruit@gmail.com', 10, 'small', 3),
+('grapefruit@gmail.com', 23, 'small', 3),
+('grapefruit@gmail.com', 32, 'small', 3),
+('grapejam@gmail.com', 15, 'small', 2),
+('grapejam@gmail.com', 52, 'small', 2),
+('grapejam@gmail.com', 54, 'small', 3),
+('gummyworms@gmail.com', 5, 'small', 3),
+('gummyworms@gmail.com', 10, 'small', 1),
+('gummyworms@gmail.com', 48, 'small', 1),
+('hazelnutcoffee@gmail.com', 6, 'small', 1),
+('hazelnutcoffee@gmail.com', 24, 'small', 3),
+('hazelnutcoffee@gmail.com', 44, 'small', 1),
+('honeycomb@gmail.com', 3, 'small', 2),
+('honeycomb@gmail.com', 14, 'small', 3),
+('honeycomb@gmail.com', 27, 'small', 1),
+('huckleberryjam@gmail.com', 9, 'small', 2),
+('huckleberryjam@gmail.com', 19, 'small', 2),
+('huckleberryjam@gmail.com', 42, 'small', 3),
+('huyhuy123@hcmut.edu.vn@gmail.com', 7, 'small', 1),
+('huyhuy123@hcmut.edu.vn@gmail.com', 16, 'small', 3),
+('huyhuy123@hcmut.edu.vn@gmail.com', 25, 'small', 3),
+('jellybeans@gmail.com', 5, 'small', 1),
+('jellybeans@gmail.com', 20, 'small', 3),
+('jellybeans@gmail.com', 51, 'small', 2),
+('kiwismoothie@gmail.com', 15, 'small', 1),
+('kiwismoothie@gmail.com', 25, 'small', 3),
+('kiwismoothie@gmail.com', 36, 'small', 3),
+('kumquatmarmalade@gmail.com', 15, 'small', 1),
+('kumquatmarmalade@gmail.com', 41, 'small', 2),
+('kumquatmarmalade@gmail.com', 48, 'small', 3),
+('lemonade@gmail.com', 2, 'small', 2),
+('lemonade@gmail.com', 24, 'small', 1),
+('lemonade@gmail.com', 49, 'small', 2),
+('lettucewraps@gmail.com', 2, 'small', 3),
+('lettucewraps@gmail.com', 14, 'small', 3),
+('lettucewraps@gmail.com', 29, 'small', 3),
+('licorice@gmail.com', 3, 'small', 2),
+('licorice@gmail.com', 22, 'small', 1),
+('licorice@gmail.com', 25, 'small', 2),
+('lollipop@gmail.com', 17, 'small', 1),
+('lollipop@gmail.com', 20, 'small', 3),
+('lollipop@gmail.com', 33, 'small', 3),
+('lycheejelly@gmail.com', 2, 'small', 3),
+('lycheejelly@gmail.com', 29, 'small', 1),
+('lycheejelly@gmail.com', 51, 'small', 1),
+('macadamianuts@gmail.com', 6, 'small', 3),
+('macadamianuts@gmail.com', 20, 'small', 3),
+('macadamianuts@gmail.com', 54, 'small', 2),
+('mandarinorange@gmail.com', 20, 'small', 3),
+('mandarinorange@gmail.com', 23, 'small', 2),
+('mandarinorange@gmail.com', 27, 'small', 1),
+('mangojuice@gmail.com', 22, 'small', 2),
+('mangojuice@gmail.com', 28, 'small', 2),
+('mangojuice@gmail.com', 33, 'small', 3),
+('maplesyrup@gmail.com', 7, 'small', 2),
+('maplesyrup@gmail.com', 22, 'small', 2),
+('maplesyrup@gmail.com', 27, 'small', 3),
+('marmalade@gmail.com', 10, 'small', 2),
+('marmalade@gmail.com', 17, 'small', 3),
+('marmalade@gmail.com', 20, 'small', 2),
+('marshmallow@gmail.com', 13, 'small', 3),
+('marshmallow@gmail.com', 27, 'small', 1),
+('marshmallow@gmail.com', 28, 'small', 3),
+('melonsorbet@gmail.com', 16, 'small', 1),
+('melonsorbet@gmail.com', 23, 'small', 2),
+('melonsorbet@gmail.com', 27, 'small', 2),
+('mushroom@gmail.com', 29, 'small', 3),
+('mushroom@gmail.com', 32, 'small', 2),
+('mushroom@gmail.com', 38, 'small', 1),
+('oatmealcookie@gmail.com', 9, 'small', 1),
+('oatmealcookie@gmail.com', 38, 'small', 1),
+('oatmealcookie@gmail.com', 48, 'small', 1),
+('olivetapenade@gmail.com', 16, 'small', 1),
+('olivetapenade@gmail.com', 31, 'small', 2),
+('olivetapenade@gmail.com', 57, 'small', 1),
+('onionrings@gmail.com', 22, 'small', 1),
+('onionrings@gmail.com', 27, 'small', 1),
+('onionrings@gmail.com', 32, 'small', 3),
+('orangezest@gmail.com', 2, 'small', 1),
+('orangezest@gmail.com', 8, 'small', 2),
+('orangezest@gmail.com', 20, 'small', 1),
+('papayapuree@gmail.com', 17, 'small', 3),
+('papayapuree@gmail.com', 23, 'small', 3),
+('papayapuree@gmail.com', 25, 'small', 1),
+('peachcobbler@gmail.com', 1, 'small', 2),
+('peachcobbler@gmail.com', 3, 'small', 1),
+('peachcobbler@gmail.com', 24, 'small', 2),
+('peanutbutter@gmail.com', 10, 'small', 2),
+('peanutbutter@gmail.com', 12, 'small', 3),
+('peanutbutter@gmail.com', 16, 'small', 1),
+('pecanpie@gmail.com', 22, 'small', 1),
+('pecanpie@gmail.com', 33, 'small', 3),
+('pecanpie@gmail.com', 47, 'small', 1),
+('peppermint@gmail.com', 16, 'small', 1),
+('peppermint@gmail.com', 49, 'small', 1),
+('peppermint@gmail.com', 53, 'small', 2),
+('persimmonjam@gmail.com', 13, 'small', 1),
+('persimmonjam@gmail.com', 25, 'small', 2),
+('persimmonjam@gmail.com', 53, 'small', 2),
+('phuc.dangphanminh@hcmut.edu.vn', 9, 'small', 2),
+('phuc.dangphanminh@hcmut.edu.vn', 17, 'small', 2),
+('phuc.dangphanminh@hcmut.edu.vn', 24, 'small', 3),
+('pineapple@gmail.com', 33, 'small', 2),
+('pineapple@gmail.com', 44, 'small', 3),
+('pineapple@gmail.com', 53, 'small', 1),
+('pistachiopudding@gmail.com', 19, 'small', 2),
+('pistachiopudding@gmail.com', 27, 'small', 1),
+('pistachiopudding@gmail.com', 29, 'small', 1),
+('plumcobbler@gmail.com', 8, 'small', 2),
+('plumcobbler@gmail.com', 13, 'small', 1),
+('plumcobbler@gmail.com', 49, 'small', 1),
+('popcornball@gmail.com', 17, 'small', 2),
+('popcornball@gmail.com', 43, 'small', 3),
+('popcornball@gmail.com', 57, 'small', 3),
+('potatosalad@gmail.com', 7, 'small', 3),
+('potatosalad@gmail.com', 16, 'small', 1),
+('potatosalad@gmail.com', 24, 'small', 1),
+('quinoasalad@gmail.com', 6, 'small', 1),
+('quinoasalad@gmail.com', 36, 'small', 3),
+('quinoasalad@gmail.com', 51, 'small', 1),
+('qwfqw@gqwgfqw@gmail.com', 15, 'small', 3),
+('qwfqw@gqwgfqw@gmail.com', 25, 'small', 2),
+('qwfqw@gqwgfqw@gmail.com', 42, 'small', 1),
+('raspberry@gmail.com', 15, 'small', 2),
+('raspberry@gmail.com', 33, 'small', 1),
+('raspberry@gmail.com', 36, 'small', 2),
+('rhubarbjelly@gmail.com', 27, 'small', 3),
+('rhubarbjelly@gmail.com', 43, 'small', 3),
+('rhubarbjelly@gmail.com', 57, 'small', 3),
+('ricepaperrolls@gmail.com', 1, 'small', 2),
+('ricepaperrolls@gmail.com', 20, 'small', 2),
+('ricepaperrolls@gmail.com', 24, 'small', 2),
+('rockcandy@gmail.com', 13, 'small', 1),
+('rockcandy@gmail.com', 14, 'small', 3),
+('rockcandy@gmail.com', 15, 'small', 2),
+('sesamecrackers@gmail.com', 19, 'small', 3),
+('sesamecrackers@gmail.com', 23, 'small', 1),
+('sesamecrackers@gmail.com', 24, 'small', 3),
+('shortbread@gmail.com', 31, 'small', 1),
+('shortbread@gmail.com', 33, 'small', 2),
+('shortbread@gmail.com', 36, 'small', 2),
+('spinach@gmail.com', 6, 'small', 2),
+('spinach@gmail.com', 20, 'small', 1),
+('spinach@gmail.com', 25, 'small', 1),
+('strawberry@gmail.com', 16, 'small', 1),
+('strawberry@gmail.com', 22, 'small', 3),
+('strawberry@gmail.com', 31, 'small', 2),
+('strawberryjam@gmail.com', 15, 'small', 3),
+('strawberryjam@gmail.com', 22, 'small', 3),
+('strawberryjam@gmail.com', 57, 'small', 3),
+('taffycandy@gmail.com', 10, 'small', 3),
+('taffycandy@gmail.com', 17, 'small', 2),
+('taffycandy@gmail.com', 53, 'small', 3),
+('tangerinetart@gmail.com', 6, 'small', 1),
+('tangerinetart@gmail.com', 24, 'small', 1),
+('tangerinetart@gmail.com', 44, 'small', 2),
+('toffeecaramel@gmail.com', 24, 'small', 2),
+('toffeecaramel@gmail.com', 33, 'small', 3),
+('toffeecaramel@gmail.com', 51, 'small', 2),
+('tomatosauce@gmail.com', 27, 'small', 2),
+('tomatosauce@gmail.com', 41, 'small', 1),
+('tomatosauce@gmail.com', 54, 'small', 1),
+('vanillacupcake@gmail.com', 25, 'small', 1),
+('vanillacupcake@gmail.com', 43, 'small', 1),
+('vanillacupcake@gmail.com', 44, 'small', 1),
+('walnutcake@gmail.com', 15, 'small', 1),
+('walnutcake@gmail.com', 31, 'small', 1),
+('walnutcake@gmail.com', 52, 'small', 2),
+('watermelon@gmail.com', 25, 'small', 3),
+('watermelon@gmail.com', 29, 'small', 2),
+('watermelon@gmail.com', 34, 'small', 2),
+('wfqwfqwf@gmail.com', 14, 'small', 2),
+('wfqwfqwf@gmail.com', 24, 'small', 1),
+('wfqwfqwf@gmail.com', 41, 'small', 1),
+('zucchinibread@gmail.com', 3, 'small', 3),
+('zucchinibread@gmail.com', 10, 'small', 2),
+('zucchinibread@gmail.com', 48, 'small', 3);
 
+--
+-- Truncate table before insert `customer_add_to_favourite_product`
+--
+
+TRUNCATE TABLE `customer_add_to_favourite_product`;
 --
 -- Dumping data for table `customer_add_to_favourite_product`
 --
@@ -1219,6 +1244,11 @@ INSERT INTO `customer_add_to_favourite_product` (`customer_email`, `PID`) VALUES
 ('zucchinibread@gmail.com', 28);
 
 --
+-- Truncate table before insert `product`
+--
+
+TRUNCATE TABLE `product`;
+--
 -- Dumping data for table `product`
 --
 
@@ -1359,6 +1389,11 @@ INSERT INTO `product` (`PID`, `name`, `listed_unit_price`, `description`, `size`
 (57, 'Mystic Mocha Madness', 3, 'From $14 for 1-2 days', 'medium', 334, 20, 26, 4.1),
 (57, 'Mystic Mocha Madness', 3, 'From $14 for 1-2 days', 'small', 966, 20, 26, 4.1);
 
+--
+-- Truncate table before insert `product_image_src`
+--
+
+TRUNCATE TABLE `product_image_src`;
 --
 -- Dumping data for table `product_image_src`
 --
@@ -1545,6 +1580,11 @@ INSERT INTO `product_image_src` (`PID`, `image_src`) VALUES
 (57, 'https://trungnguyenecoffee.com/wp-content/uploads/2021/07/ST1-340g-1536x1357.jpg'),
 (57, 'https://trungnguyenecoffee.com/wp-content/uploads/2021/07/ST8-250g.jpg');
 
+--
+-- Truncate table before insert `product_similar_to_product`
+--
+
+TRUNCATE TABLE `product_similar_to_product`;
 --
 -- Dumping data for table `product_similar_to_product`
 --
@@ -1799,6 +1839,11 @@ INSERT INTO `product_similar_to_product` (`PID`, `similar_PID`) VALUES
 (57, 9),
 (57, 18);
 
+--
+-- Truncate table before insert `review`
+--
+
+TRUNCATE TABLE `review`;
 --
 -- Dumping data for table `review`
 --
@@ -2212,6 +2257,11 @@ INSERT INTO `review` (`PID`, `customer_email`, `RID`, `star`, `content`) VALUES
 (57, 'zucchinibread@gmail.com', 385, 4, 'This coffee is a real winner in my book. It\'s smooth, bold, and oh-so-delicious.');
 
 --
+-- Truncate table before insert `shipping_address`
+--
+
+TRUNCATE TABLE `shipping_address`;
+--
 -- Dumping data for table `shipping_address`
 --
 
@@ -2509,6 +2559,11 @@ INSERT INTO `shipping_address` (`customer_email`, `AID`, `reciever_name`, `recie
 ('zucchinibread@gmail.com', 291, 'Henry Green', '0541380934', 'Da Nang', '440 Nguyen Van Linh', 0);
 
 --
+-- Truncate table before insert `user`
+--
+
+TRUNCATE TABLE `user`;
+--
 -- Dumping data for table `user`
 --
 
@@ -2610,74 +2665,6 @@ INSERT INTO `user` (`email`, `encoded_password`, `fullname`, `role`, `phone`) VA
 ('watermelon@gmail.com', 'cf38799cb5e58fe29dc18bc563092d33cf262307b736f1e1fa3efd28d6d5161b', 'Noah Brown', 'customer', '0760236188'),
 ('wfqwfqwf@gmail.com', 'cf38799cb5e58fe29dc18bc563092d33cf262307b736f1e1fa3efd28d6d5161b', 'SASAS', 'customer', '0871301160'),
 ('zucchinibread@gmail.com', 'cf38799cb5e58fe29dc18bc563092d33cf262307b736f1e1fa3efd28d6d5161b', 'Henry Green', 'customer', '0488865014');
-
-
---
--- Metadata
---
-USE `phpmyadmin`;
-
---
--- Metadata for table bill
---
-
---
--- Dumping data for table `pma__table_uiprefs`
---
-
-INSERT INTO `pma__table_uiprefs` (`username`, `db_name`, `table_name`, `prefs`, `last_update`) VALUES
-('root', 'btl_ltw_database', 'bill', '{\"sorted_col\":\"`bill`.`credit_card_number` DESC\",\"CREATE_TIME\":\"2024-04-22 09:43:26\",\"col_order\":[0,1,2,3,4,5,6],\"col_visib\":[1,1,1,1,1,1,1]}', '2024-04-22 10:26:02');
-
---
--- Metadata for table bill_have_product
---
-
---
--- Metadata for table credit_card
---
-
---
--- Metadata for table customer_add_to_cart_product
---
-
---
--- Metadata for table customer_add_to_favourite_product
---
-
---
--- Metadata for table product
---
-
---
--- Metadata for table product_image_src
---
-
---
--- Metadata for table product_similar_to_product
---
-
---
--- Metadata for table review
---
-
---
--- Dumping data for table `pma__table_uiprefs`
---
-
-INSERT INTO `pma__table_uiprefs` (`username`, `db_name`, `table_name`, `prefs`, `last_update`) VALUES
-('root', 'btl_ltw_database', 'review', '{\"sorted_col\":\"`review`.`RID` ASC\"}', '2024-04-22 08:51:12');
-
---
--- Metadata for table shipping_address
---
-
---
--- Metadata for table user
---
-
---
--- Metadata for database btl_ltw_database
---
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

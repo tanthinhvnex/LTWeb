@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2024 at 12:44 PM
+-- Generation Time: Apr 23, 2024 at 12:32 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -27,9 +27,6 @@ USE `btl_ltw_database`;
 
 --
 -- Table structure for table `bill`
---
--- Creation: Apr 22, 2024 at 02:43 AM
--- Last update: Apr 22, 2024 at 10:06 AM
 --
 
 DROP TABLE IF EXISTS `bill`;
@@ -61,9 +58,6 @@ CREATE TABLE IF NOT EXISTS `bill` (
 --
 -- Table structure for table `bill_have_product`
 --
--- Creation: Apr 22, 2024 at 10:38 AM
--- Last update: Apr 22, 2024 at 10:39 AM
---
 
 DROP TABLE IF EXISTS `bill_have_product`;
 CREATE TABLE IF NOT EXISTS `bill_have_product` (
@@ -90,9 +84,6 @@ CREATE TABLE IF NOT EXISTS `bill_have_product` (
 --
 -- Table structure for table `credit_card`
 --
--- Creation: Apr 22, 2024 at 02:43 AM
--- Last update: Apr 22, 2024 at 09:58 AM
---
 
 DROP TABLE IF EXISTS `credit_card`;
 CREATE TABLE IF NOT EXISTS `credit_card` (
@@ -117,23 +108,23 @@ CREATE TABLE IF NOT EXISTS `credit_card` (
 --
 -- Table structure for table `customer_add_to_cart_product`
 --
--- Creation: Apr 22, 2024 at 02:43 AM
--- Last update: Apr 22, 2024 at 09:09 AM
---
 
 DROP TABLE IF EXISTS `customer_add_to_cart_product`;
 CREATE TABLE IF NOT EXISTS `customer_add_to_cart_product` (
   `customer_email` varchar(255) NOT NULL,
   `PID` int(11) NOT NULL,
+  `size` char(20) NOT NULL DEFAULT 'small',
   `quantity` int(11) NOT NULL,
-  PRIMARY KEY (`customer_email`,`PID`),
-  KEY `PID` (`PID`)
+  PRIMARY KEY (`customer_email`,`PID`,`size`) USING BTREE,
+  KEY `customer_add_to_cart_product_ibfk_1` (`PID`,`size`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELATIONSHIPS FOR TABLE `customer_add_to_cart_product`:
 --   `PID`
 --       `product` -> `PID`
+--   `size`
+--       `product` -> `size`
 --   `customer_email`
 --       `user` -> `email`
 --
@@ -142,9 +133,6 @@ CREATE TABLE IF NOT EXISTS `customer_add_to_cart_product` (
 
 --
 -- Table structure for table `customer_add_to_favourite_product`
---
--- Creation: Apr 22, 2024 at 02:43 AM
--- Last update: Apr 22, 2024 at 09:06 AM
 --
 
 DROP TABLE IF EXISTS `customer_add_to_favourite_product`;
@@ -167,9 +155,6 @@ CREATE TABLE IF NOT EXISTS `customer_add_to_favourite_product` (
 
 --
 -- Table structure for table `product`
---
--- Creation: Apr 22, 2024 at 04:04 AM
--- Last update: Apr 22, 2024 at 08:52 AM
 --
 
 DROP TABLE IF EXISTS `product`;
@@ -195,8 +180,6 @@ CREATE TABLE IF NOT EXISTS `product` (
 --
 -- Table structure for table `product_image_src`
 --
--- Creation: Apr 22, 2024 at 02:43 AM
---
 
 DROP TABLE IF EXISTS `product_image_src`;
 CREATE TABLE IF NOT EXISTS `product_image_src` (
@@ -215,8 +198,6 @@ CREATE TABLE IF NOT EXISTS `product_image_src` (
 
 --
 -- Table structure for table `product_similar_to_product`
---
--- Creation: Apr 22, 2024 at 02:43 AM
 --
 
 DROP TABLE IF EXISTS `product_similar_to_product`;
@@ -239,9 +220,6 @@ CREATE TABLE IF NOT EXISTS `product_similar_to_product` (
 
 --
 -- Table structure for table `review`
---
--- Creation: Apr 22, 2024 at 02:43 AM
--- Last update: Apr 22, 2024 at 08:50 AM
 --
 
 DROP TABLE IF EXISTS `review`;
@@ -285,9 +263,6 @@ DELIMITER ;
 --
 -- Table structure for table `shipping_address`
 --
--- Creation: Apr 22, 2024 at 02:43 AM
--- Last update: Apr 22, 2024 at 09:53 AM
---
 
 DROP TABLE IF EXISTS `shipping_address`;
 CREATE TABLE IF NOT EXISTS `shipping_address` (
@@ -311,9 +286,6 @@ CREATE TABLE IF NOT EXISTS `shipping_address` (
 
 --
 -- Table structure for table `user`
---
--- Creation: Apr 22, 2024 at 02:43 AM
--- Last update: Apr 22, 2024 at 08:25 AM
 --
 
 DROP TABLE IF EXISTS `user`;
@@ -358,7 +330,7 @@ ALTER TABLE `credit_card`
 -- Constraints for table `customer_add_to_cart_product`
 --
 ALTER TABLE `customer_add_to_cart_product`
-  ADD CONSTRAINT `customer_add_to_cart_product_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `customer_add_to_cart_product_ibfk_1` FOREIGN KEY (`PID`,`size`) REFERENCES `product` (`PID`, `size`) ON UPDATE CASCADE,
   ADD CONSTRAINT `customer_add_to_cart_product_ibfk_2` FOREIGN KEY (`customer_email`) REFERENCES `user` (`email`) ON UPDATE CASCADE;
 
 --
@@ -393,74 +365,6 @@ ALTER TABLE `review`
 --
 ALTER TABLE `shipping_address`
   ADD CONSTRAINT `shipping_address_ibfk_1` FOREIGN KEY (`customer_email`) REFERENCES `user` (`email`) ON UPDATE CASCADE;
-
-
---
--- Metadata
---
-USE `phpmyadmin`;
-
---
--- Metadata for table bill
---
-
---
--- Dumping data for table `pma__table_uiprefs`
---
-
-INSERT INTO `pma__table_uiprefs` (`username`, `db_name`, `table_name`, `prefs`, `last_update`) VALUES
-('root', 'btl_ltw_database', 'bill', '{\"sorted_col\":\"`bill`.`credit_card_number` DESC\",\"CREATE_TIME\":\"2024-04-22 09:43:26\",\"col_order\":[0,1,2,3,4,5,6],\"col_visib\":[1,1,1,1,1,1,1]}', '2024-04-22 10:26:02');
-
---
--- Metadata for table bill_have_product
---
-
---
--- Metadata for table credit_card
---
-
---
--- Metadata for table customer_add_to_cart_product
---
-
---
--- Metadata for table customer_add_to_favourite_product
---
-
---
--- Metadata for table product
---
-
---
--- Metadata for table product_image_src
---
-
---
--- Metadata for table product_similar_to_product
---
-
---
--- Metadata for table review
---
-
---
--- Dumping data for table `pma__table_uiprefs`
---
-
-INSERT INTO `pma__table_uiprefs` (`username`, `db_name`, `table_name`, `prefs`, `last_update`) VALUES
-('root', 'btl_ltw_database', 'review', '{\"sorted_col\":\"`review`.`RID` ASC\"}', '2024-04-22 08:51:12');
-
---
--- Metadata for table shipping_address
---
-
---
--- Metadata for table user
---
-
---
--- Metadata for database btl_ltw_database
---
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
