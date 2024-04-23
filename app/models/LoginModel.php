@@ -12,9 +12,7 @@
             }
             else {
                 echo "<script>alert('Tài khoản hoặc mật khẩu không chính xác')</script>";
-                echo "<script>window.location.href = '/BTL_LTW/LTWeb/sign_in';</script>";
-                // header("location: /BTL_LTW/LTWeb/sign_in");
-                exit();
+                return null;
             }
         }
     }

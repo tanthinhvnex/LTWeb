@@ -32,6 +32,7 @@
 
         <!-- Scripts -->
         <script src="/BTL_LTW/LTWeb/public/assets/js/scripts.js"></script>
+        <script src="/BTL_LTW/LTWeb/public/assets/js/sign-in.js"></script>
     </head>
 
     <body>
@@ -64,16 +65,18 @@
                         Welcome back to sign in. As a returning customer, you
                         have access to your previously saved all information.
                     </p>
-                    <form action="/BTL_LTW/LTWeb/sign_in" class="form auth__form" method="post">
+                    <form action="/BTL_LTW/LTWeb/sign_in" class="form auth__form" method="post" onsubmit="checkSignInInput()">
                         <div class="form__group">
                             <div class="form__text-input">
                                 <input
-                                    type="email"
+                                    type="text"
                                     autofocus
                                     name="email"
                                     placeholder="Email"
+                                    id="inputEmail"
                                     class="form__input"
-                                    value="phuc.dangphanminh@hcmut.edu.vn"
+                                    oninput="validateEmail()"
+                                    value="<?= $_POST['email'] ?? 'phuc.dangphanminh@hcmut.edu.vn'?>"
                                     required />
                                 <img
                                     src="/BTL_LTW/LTWeb/public/assets/icons/message.svg"
@@ -84,7 +87,7 @@
                                     alt=""
                                     class="form__input-icon-error" />
                             </div>
-                            <p class="form__error">
+                            <p id="email_error" class="form__error">
                                 Email is not in correct format
                             </p>
                         </div>
@@ -95,9 +98,12 @@
                                     placeholder="Password"
                                     name="password"
                                     class="form__input"
+                                    id="inputPassword"
                                     value="123456"
+                                    oninput="validatePassword()"
                                     required
-                                    minlength="6" />
+                                    minlength="6"
+                                    maxLength="20" />
                                 <img
                                     src="/BTL_LTW/LTWeb/public/assets/icons/lock.svg"
                                     alt=""
@@ -107,8 +113,8 @@
                                     alt=""
                                     class="form__input-icon-error" />
                             </div>
-                            <p class="form__error">
-                                Password at least 6 characters
+                            <p id="password_error" class="form__error">
+                                Password must have at least 6 characters
                             </p>
                         </div>
                         <div class="form__group form__group--inline">
@@ -134,6 +140,8 @@
 
                         <div class="form__group auth__btn-group">
                             <button
+                                type="submit"
+                                id="login_submit"
                                 class="btn btn--primary auth__btn form__submit-btn">
                                 Login
                             </button>
