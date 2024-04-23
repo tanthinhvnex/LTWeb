@@ -58,6 +58,171 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `product`
+--
+
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE IF NOT EXISTS `product` (
+  `PID` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `listed_unit_price` decimal(10,0) NOT NULL,
+  `description` varchar(5000) NOT NULL,
+  `size` char(20) NOT NULL,
+  `quantity_on_hand` int(11) NOT NULL,
+  `discount` decimal(10,0) NOT NULL,
+  `no_of_reviews` int(11) DEFAULT 0,
+  `average_rating` decimal(2,1) DEFAULT 0.0,
+  PRIMARY KEY (`PID`,`size`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `product`:
+--
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`PID`, `name`, `listed_unit_price`, `description`, `size`, `quantity_on_hand`, `discount`, `no_of_reviews`, `average_rating`) VALUES
+(1, 'Trung Nguyên Legend Classic', 5, 'From $5 for 2-3 days', 'large', 450, 0, 24, 3.6),
+(1, 'Trung Nguyên Legend Classic', 5, 'From $5 for 2-3 days', 'medium', 300, 0, 24, 3.6),
+(1, 'Trung Nguyên Legend Classic', 5, 'From $5 for 2-3 days', 'small', 150, 0, 24, 3.6),
+(2, 'Legend Passion', 4, 'From $6 for 1-3 days', 'large', 400, 15, 19, 3.8),
+(2, 'Legend Passion', 4, 'From $6 for 1-3 days', 'medium', 600, 15, 19, 3.8),
+(2, 'Legend Passion', 4, 'From $6 for 1-3 days', 'small', 100, 15, 19, 3.8),
+(3, 'Coffee Beans - Espresso Arabica and Robusta Beans ', 4, 'From $4 for 1-2 days', 'large', 400, 10, 21, 4.0),
+(3, 'Coffee Beans - Espresso Arabica and Robusta Beans ', 4, 'From $4 for 1-2 days', 'medium', 400, 10, 21, 4.0),
+(3, 'Coffee Beans - Espresso Arabica and Robusta Beans ', 4, 'From $4 for 1-2 days', 'small', 200, 10, 21, 4.0),
+(5, 'Legend Special Edition 9', 5, 'From $2 for 3-4 days', 'large', 300, 10, 17, 3.6),
+(5, 'Legend Special Edition 9', 5, 'From $2 for 3-4 days', 'medium', 200, 10, 17, 3.6),
+(5, 'Legend Special Edition 9', 5, 'From $2 for 3-4 days', 'small', 100, 10, 17, 3.6),
+(6, 'Legend Cappuccino Mocha 12', 4, 'From $6 for 1-3 days', 'large', 300, 5, 21, 3.8),
+(6, 'Legend Cappuccino Mocha 12', 4, 'From $6 for 1-3 days', 'medium', 250, 5, 21, 3.8),
+(6, 'Legend Cappuccino Mocha 12', 4, 'From $6 for 1-3 days', 'small', 200, 5, 21, 3.8),
+(7, 'Legend Cappuccino Hazelnut', 5, 'From $3 for 1-3 days', 'large', 390, 20, 13, 3.8),
+(7, 'Legend Cappuccino Hazelnut', 5, 'From $3 for 1-3 days', 'medium', 350, 20, 13, 3.8),
+(7, 'Legend Cappuccino Hazelnut', 5, 'From $3 for 1-3 days', 'small', 300, 20, 13, 3.8),
+(8, 'G7 2in1', 4, 'From $5 for 1-2 days', 'large', 150, 10, 18, 3.7),
+(8, 'G7 2in1', 4, 'From $5 for 1-2 days', 'medium', 130, 10, 18, 3.7),
+(8, 'G7 2in1', 4, 'From $5 for 1-2 days', 'small', 100, 10, 18, 3.7),
+(9, 'Legend Special Edition 10', 5, 'From $4 for 3-4 days', 'large', 400, 10, 12, 4.2),
+(9, 'Legend Special Edition 10', 5, 'From $4 for 3-4 days', 'medium', 200, 10, 12, 4.2),
+(9, 'Legend Special Edition 10', 5, 'From $4 for 3-4 days', 'small', 200, 10, 12, 4.2),
+(10, 'Mystic Mocha Almond', 3, 'From $3 for 1-3 days', 'large', 370, 15, 18, 3.6),
+(10, 'Mystic Mocha Almond', 3, 'From $3 for 1-3 days', 'medium', 990, 15, 18, 3.6),
+(10, 'Mystic Mocha Almond', 3, 'From $3 for 1-3 days', 'small', 653, 15, 18, 3.6),
+(12, 'Aura Latte Caramel', 3, 'From $5 for 1-2 days', 'large', 962, 10, 14, 3.6),
+(12, 'Aura Latte Caramel', 3, 'From $5 for 1-2 days', 'medium', 513, 10, 14, 3.6),
+(12, 'Aura Latte Caramel', 3, 'From $5 for 1-2 days', 'small', 638, 10, 14, 3.6),
+(13, 'Dreamer Macchiato Toffee', 3, 'From $6 for 3-5 days', 'large', 441, 10, 20, 3.9),
+(13, 'Dreamer Macchiato Toffee', 3, 'From $6 for 3-5 days', 'medium', 341, 10, 20, 3.9),
+(13, 'Dreamer Macchiato Toffee', 3, 'From $6 for 3-5 days', 'small', 529, 10, 20, 3.9),
+(14, 'Whispered Cinnamon Swirl', 3, 'From $7 for 2-3 days', 'large', 834, 10, 20, 4.0),
+(14, 'Whispered Cinnamon Swirl', 3, 'From $7 for 2-3 days', 'medium', 299, 10, 20, 4.0),
+(14, 'Whispered Cinnamon Swirl', 3, 'From $7 for 2-3 days', 'small', 234, 10, 20, 4.0),
+(15, 'Twilight Caramel Crunch', 4, 'From $8 for 1-4 days', 'large', 741, 0, 18, 3.9),
+(15, 'Twilight Caramel Crunch', 4, 'From $8 for 1-4 days', 'medium', 877, 0, 18, 3.9),
+(15, 'Twilight Caramel Crunch', 4, 'From $8 for 1-4 days', 'small', 717, 0, 18, 3.9),
+(16, 'Secret Symphony Caramel', 2, 'From $9 for 2-5 days', 'large', 892, 10, 22, 3.9),
+(16, 'Secret Symphony Caramel', 2, 'From $9 for 2-5 days', 'medium', 842, 10, 22, 3.9),
+(16, 'Secret Symphony Caramel', 2, 'From $9 for 2-5 days', 'small', 500, 10, 22, 3.9),
+(17, 'Essence Latte Hazelnut', 4, 'From $4 for 1-3 days', 'large', 602, 20, 16, 3.7),
+(17, 'Essence Latte Hazelnut', 4, 'From $4 for 1-3 days', 'medium', 447, 20, 16, 3.7),
+(17, 'Essence Latte Hazelnut', 4, 'From $4 for 1-3 days', 'small', 276, 20, 16, 3.7),
+(18, 'Celestial Coconut Cream', 4, 'From $5 for 2-4 days', 'large', 213, 5, 14, 3.9),
+(18, 'Celestial Coconut Cream', 4, 'From $5 for 2-4 days', 'medium', 655, 5, 14, 3.9),
+(18, 'Celestial Coconut Cream', 4, 'From $5 for 2-4 days', 'small', 371, 5, 14, 3.9),
+(19, 'Fantasy Froth Vanilla', 3, 'From $6 for 3-6 days', 'large', 818, 10, 23, 4.0),
+(19, 'Fantasy Froth Vanilla', 3, 'From $6 for 3-6 days', 'medium', 353, 10, 23, 4.0),
+(19, 'Fantasy Froth Vanilla', 3, 'From $6 for 3-6 days', 'small', 876, 10, 23, 4.0),
+(20, 'Serenade Espresso Tiramisu', 3, 'From $7 for 1-2 days', 'large', 869, 10, 21, 4.0),
+(20, 'Serenade Espresso Tiramisu', 3, 'From $7 for 1-2 days', 'medium', 871, 10, 21, 4.0),
+(20, 'Serenade Espresso Tiramisu', 3, 'From $7 for 1-2 days', 'small', 434, 10, 21, 4.0),
+(22, 'Enchanted Espresso Caramel', 4, 'From $9 for 3-5 days', 'large', 424, 10, 17, 3.7),
+(22, 'Enchanted Espresso Caramel', 4, 'From $9 for 3-5 days', 'medium', 272, 10, 17, 3.7),
+(22, 'Enchanted Espresso Caramel', 4, 'From $9 for 3-5 days', 'small', 411, 10, 17, 3.7),
+(23, 'Mirage Mocha Macadamia', 5, 'From $5 for 1-4 days', 'large', 738, 5, 16, 4.3),
+(23, 'Mirage Mocha Macadamia', 5, 'From $5 for 1-4 days', 'medium', 208, 5, 16, 4.3),
+(23, 'Mirage Mocha Macadamia', 5, 'From $5 for 1-4 days', 'small', 845, 5, 16, 4.3),
+(24, 'Mystic Morning Maple', 5, 'From $6 for 2-5 days', 'large', 670, 0, 22, 3.9),
+(24, 'Mystic Morning Maple', 5, 'From $6 for 2-5 days', 'medium', 666, 0, 22, 3.9),
+(24, 'Mystic Morning Maple', 5, 'From $6 for 2-5 days', 'small', 726, 0, 22, 3.9),
+(25, 'Whispered White Chocolate Mocha', 4, 'From $7 for 1-3 days', 'large', 981, 15, 13, 3.7),
+(25, 'Whispered White Chocolate Mocha', 4, 'From $7 for 1-3 days', 'medium', 439, 15, 13, 3.7),
+(25, 'Whispered White Chocolate Mocha', 4, 'From $7 for 1-3 days', 'small', 336, 15, 13, 3.7),
+(26, 'Dreamer Delight Caramel', 4, 'From $8 for 2-4 days', 'large', 754, 15, 13, 3.7),
+(26, 'Dreamer Delight Caramel', 4, 'From $8 for 2-4 days', 'medium', 896, 15, 13, 3.7),
+(26, 'Dreamer Delight Caramel', 4, 'From $8 for 2-4 days', 'small', 201, 15, 13, 3.7),
+(27, 'Moonlit Maple Latte', 2, 'From $9 for 3-6 days', 'large', 650, 20, 15, 3.8),
+(27, 'Moonlit Maple Latte', 2, 'From $9 for 3-6 days', 'medium', 948, 20, 15, 3.8),
+(27, 'Moonlit Maple Latte', 2, 'From $9 for 3-6 days', 'small', 443, 20, 15, 3.8),
+(28, 'Mirage Mocha Cinnamon', 2, 'From $10 for 1-2 days', 'large', 202, 20, 22, 3.7),
+(28, 'Mirage Mocha Cinnamon', 2, 'From $10 for 1-2 days', 'medium', 906, 20, 22, 3.7),
+(28, 'Mirage Mocha Cinnamon', 2, 'From $10 for 1-2 days', 'small', 324, 20, 22, 3.7),
+(29, 'Secret Symphony Hazelnut', 5, 'From $6 for 2-3 days', 'large', 436, 10, 14, 3.8),
+(29, 'Secret Symphony Hazelnut', 5, 'From $6 for 2-3 days', 'medium', 451, 10, 14, 3.8),
+(29, 'Secret Symphony Hazelnut', 5, 'From $6 for 2-3 days', 'small', 316, 10, 14, 3.8),
+(31, 'Celestial Caramel Cream', 3, 'From $8 for 2-5 days', 'large', 455, 5, 21, 4.0),
+(31, 'Celestial Caramel Cream', 3, 'From $8 for 2-5 days', 'medium', 435, 5, 21, 4.0),
+(31, 'Celestial Caramel Cream', 3, 'From $8 for 2-5 days', 'small', 449, 5, 21, 4.0),
+(32, 'Essence Espresso Vanilla', 4, 'From $9 for 3-6 days', 'large', 529, 5, 17, 3.5),
+(32, 'Essence Espresso Vanilla', 4, 'From $9 for 3-6 days', 'medium', 662, 5, 17, 3.5),
+(32, 'Essence Espresso Vanilla', 4, 'From $9 for 3-6 days', 'small', 503, 5, 17, 3.5),
+(33, 'Twilight Toffee Temptation', 2, 'From $10 for 1-3 days', 'large', 428, 15, 13, 3.7),
+(33, 'Twilight Toffee Temptation', 2, 'From $10 for 1-3 days', 'medium', 243, 15, 13, 3.7),
+(33, 'Twilight Toffee Temptation', 2, 'From $10 for 1-3 days', 'small', 445, 15, 13, 3.7),
+(34, 'Enigma Eggnog Latte', 3, 'From $11 for 2-4 days', 'large', 274, 10, 20, 3.8),
+(34, 'Enigma Eggnog Latte', 3, 'From $11 for 2-4 days', 'medium', 306, 10, 20, 3.8),
+(34, 'Enigma Eggnog Latte', 3, 'From $11 for 2-4 days', 'small', 283, 10, 20, 3.8),
+(36, 'Dreamer\'s Delight Vanilla', 3, 'From $8 for 1-3 days', 'large', 279, 5, 13, 3.9),
+(36, 'Dreamer\'s Delight Vanilla', 3, 'From $8 for 1-3 days', 'medium', 519, 5, 13, 3.9),
+(36, 'Dreamer\'s Delight Vanilla', 3, 'From $8 for 1-3 days', 'small', 530, 5, 13, 3.9),
+(38, 'Enchanted Espresso Almond', 4, 'From $10 for 3-6 days', 'large', 227, 10, 16, 3.9),
+(38, 'Enchanted Espresso Almond', 4, 'From $10 for 3-6 days', 'medium', 422, 10, 16, 3.9),
+(38, 'Enchanted Espresso Almond', 4, 'From $10 for 3-6 days', 'small', 511, 10, 16, 3.9),
+(40, 'Mirage Mocha Marshmallow', 4, 'From $12 for 2-3 days', 'large', 552, 10, 23, 3.6),
+(40, 'Mirage Mocha Marshmallow', 4, 'From $12 for 2-3 days', 'medium', 656, 10, 23, 3.6),
+(40, 'Mirage Mocha Marshmallow', 4, 'From $12 for 2-3 days', 'small', 400, 10, 23, 3.6),
+(41, 'Secret Symphony Cinnamon Roll', 3, 'From $8 for 1-4 days', 'large', 531, 15, 13, 3.7),
+(41, 'Secret Symphony Cinnamon Roll', 3, 'From $8 for 1-4 days', 'medium', 570, 15, 13, 3.7),
+(41, 'Secret Symphony Cinnamon Roll', 3, 'From $8 for 1-4 days', 'small', 659, 15, 13, 3.7),
+(42, 'Celestial Cappuccino Coconut', 4, 'From $9 for 2-5 days', 'large', 281, 0, 16, 4.0),
+(42, 'Celestial Cappuccino Coconut', 4, 'From $9 for 2-5 days', 'medium', 483, 0, 16, 4.0),
+(42, 'Celestial Cappuccino Coconut', 4, 'From $9 for 2-5 days', 'small', 758, 0, 16, 4.0),
+(43, 'Essence Espresso Eggnog', 5, 'From $10 for 3-6 days', 'large', 881, 10, 20, 4.1),
+(43, 'Essence Espresso Eggnog', 5, 'From $10 for 3-6 days', 'medium', 384, 10, 20, 4.1),
+(43, 'Essence Espresso Eggnog', 5, 'From $10 for 3-6 days', 'small', 309, 10, 20, 4.1),
+(44, 'Aura Almond Joy', 5, 'From $11 for 1-3 days', 'large', 867, 10, 16, 4.2),
+(44, 'Aura Almond Joy', 5, 'From $11 for 1-3 days', 'medium', 521, 10, 16, 4.2),
+(44, 'Aura Almond Joy', 5, 'From $11 for 1-3 days', 'small', 282, 10, 16, 4.2),
+(47, 'Whispered White Chocolate Delight', 5, 'From $9 for 2-3 days', 'large', 808, 0, 17, 3.7),
+(47, 'Whispered White Chocolate Delight', 5, 'From $9 for 2-3 days', 'medium', 977, 0, 17, 3.7),
+(47, 'Whispered White Chocolate Delight', 5, 'From $9 for 2-3 days', 'small', 201, 0, 17, 3.7),
+(48, 'Ethereal Espresso Almond Bliss', 5, 'From $10 for 1-4 days', 'large', 735, 15, 18, 3.8),
+(48, 'Ethereal Espresso Almond Bliss', 5, 'From $10 for 1-4 days', 'medium', 967, 15, 18, 3.8),
+(48, 'Ethereal Espresso Almond Bliss', 5, 'From $10 for 1-4 days', 'small', 774, 15, 18, 3.8),
+(49, 'Enigma Eggnog Explosion', 2, 'From $11 for 2-5 days', 'large', 853, 20, 17, 4.1),
+(49, 'Enigma Eggnog Explosion', 2, 'From $11 for 2-5 days', 'medium', 481, 20, 17, 4.1),
+(49, 'Enigma Eggnog Explosion', 2, 'From $11 for 2-5 days', 'small', 892, 20, 17, 4.1),
+(51, 'Mirage Maple Madness', 3, 'From $13 for 1-3 days', 'large', 458, 10, 19, 3.7),
+(51, 'Mirage Maple Madness', 3, 'From $13 for 1-3 days', 'medium', 885, 10, 19, 3.7),
+(51, 'Mirage Maple Madness', 3, 'From $13 for 1-3 days', 'small', 278, 10, 19, 3.7),
+(52, 'Secret Symphony Spiced Caramel', 4, 'From $14 for 2-4 days', 'large', 910, 10, 23, 3.9),
+(52, 'Secret Symphony Spiced Caramel', 4, 'From $14 for 2-4 days', 'medium', 214, 10, 23, 3.9),
+(52, 'Secret Symphony Spiced Caramel', 4, 'From $14 for 2-4 days', 'small', 660, 10, 23, 3.9),
+(53, 'Celestial Coconut Caramel Crunch', 4, 'From $10 for 2-5 days', 'large', 640, 10, 20, 3.7),
+(53, 'Celestial Coconut Caramel Crunch', 4, 'From $10 for 2-5 days', 'medium', 954, 10, 20, 3.7),
+(53, 'Celestial Coconut Caramel Crunch', 4, 'From $10 for 2-5 days', 'small', 490, 10, 20, 3.7),
+(54, 'Essence Espresso Euphoria', 2, 'From $11 for 1-3 days', 'large', 397, 0, 19, 3.8),
+(54, 'Essence Espresso Euphoria', 2, 'From $11 for 1-3 days', 'medium', 547, 0, 19, 3.8),
+(54, 'Essence Espresso Euphoria', 2, 'From $11 for 1-3 days', 'small', 964, 0, 19, 3.8),
+(57, 'Mystic Mocha Madness', 3, 'From $14 for 1-2 days', 'large', 254, 20, 26, 4.1),
+(57, 'Mystic Mocha Madness', 3, 'From $14 for 1-2 days', 'medium', 334, 20, 26, 4.1),
+(57, 'Mystic Mocha Madness', 3, 'From $14 for 1-2 days', 'small', 966, 20, 26, 4.1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `bill`
 --
 
@@ -214,6 +379,21 @@ CREATE TABLE IF NOT EXISTS `bill_have_product` (
 --       `product` -> `size`
 --
 
+DELIMITER $$
+CREATE TRIGGER insert_Bill_have_Product_trigger AFTER INSERT ON Bill_have_Product FOR EACH ROW BEGIN
+	DECLARE var_listed_unit_price DECIMAL(10, 0);
+    DECLARE var_discount DECIMAL(10, 0);
+    
+    SELECT listed_unit_price, discount INTO var_listed_unit_price, var_discount
+    FROM Product
+    WHERE PID = NEW.PID AND size = NEW.size;
+    
+	UPDATE Bill
+    SET total_price = total_price + (NEW.quantity * (var_listed_unit_price * (100 - var_discount) / 100))
+    WHERE BID = NEW.BID;
+END$$
+
+DELIMITER ;
 --
 -- Dumping data for table `bill_have_product`
 --
@@ -1377,171 +1557,6 @@ INSERT INTO `customer_add_to_favourite_product` (`customer_email`, `PID`) VALUES
 ('zucchinibread@gmail.com', 22),
 ('zucchinibread@gmail.com', 26),
 ('zucchinibread@gmail.com', 28);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `product`
---
-
-DROP TABLE IF EXISTS `product`;
-CREATE TABLE IF NOT EXISTS `product` (
-  `PID` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `listed_unit_price` decimal(10,0) NOT NULL,
-  `description` varchar(5000) NOT NULL,
-  `size` char(20) NOT NULL,
-  `quantity_on_hand` int(11) NOT NULL,
-  `discount` decimal(10,0) NOT NULL,
-  `no_of_reviews` int(11) DEFAULT 0,
-  `average_rating` decimal(2,1) DEFAULT 0.0,
-  PRIMARY KEY (`PID`,`size`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- RELATIONSHIPS FOR TABLE `product`:
---
-
---
--- Dumping data for table `product`
---
-
-INSERT INTO `product` (`PID`, `name`, `listed_unit_price`, `description`, `size`, `quantity_on_hand`, `discount`, `no_of_reviews`, `average_rating`) VALUES
-(1, 'Trung Nguyên Legend Classic', 5, 'From $5 for 2-3 days', 'large', 450, 0, 24, 3.6),
-(1, 'Trung Nguyên Legend Classic', 5, 'From $5 for 2-3 days', 'medium', 300, 0, 24, 3.6),
-(1, 'Trung Nguyên Legend Classic', 5, 'From $5 for 2-3 days', 'small', 150, 0, 24, 3.6),
-(2, 'Legend Passion', 4, 'From $6 for 1-3 days', 'large', 400, 15, 19, 3.8),
-(2, 'Legend Passion', 4, 'From $6 for 1-3 days', 'medium', 600, 15, 19, 3.8),
-(2, 'Legend Passion', 4, 'From $6 for 1-3 days', 'small', 100, 15, 19, 3.8),
-(3, 'Coffee Beans - Espresso Arabica and Robusta Beans ', 4, 'From $4 for 1-2 days', 'large', 400, 10, 21, 4.0),
-(3, 'Coffee Beans - Espresso Arabica and Robusta Beans ', 4, 'From $4 for 1-2 days', 'medium', 400, 10, 21, 4.0),
-(3, 'Coffee Beans - Espresso Arabica and Robusta Beans ', 4, 'From $4 for 1-2 days', 'small', 200, 10, 21, 4.0),
-(5, 'Legend Special Edition 9', 5, 'From $2 for 3-4 days', 'large', 300, 10, 17, 3.6),
-(5, 'Legend Special Edition 9', 5, 'From $2 for 3-4 days', 'medium', 200, 10, 17, 3.6),
-(5, 'Legend Special Edition 9', 5, 'From $2 for 3-4 days', 'small', 100, 10, 17, 3.6),
-(6, 'Legend Cappuccino Mocha 12', 4, 'From $6 for 1-3 days', 'large', 300, 5, 21, 3.8),
-(6, 'Legend Cappuccino Mocha 12', 4, 'From $6 for 1-3 days', 'medium', 250, 5, 21, 3.8),
-(6, 'Legend Cappuccino Mocha 12', 4, 'From $6 for 1-3 days', 'small', 200, 5, 21, 3.8),
-(7, 'Legend Cappuccino Hazelnut', 5, 'From $3 for 1-3 days', 'large', 390, 20, 13, 3.8),
-(7, 'Legend Cappuccino Hazelnut', 5, 'From $3 for 1-3 days', 'medium', 350, 20, 13, 3.8),
-(7, 'Legend Cappuccino Hazelnut', 5, 'From $3 for 1-3 days', 'small', 300, 20, 13, 3.8),
-(8, 'G7 2in1', 4, 'From $5 for 1-2 days', 'large', 150, 10, 18, 3.7),
-(8, 'G7 2in1', 4, 'From $5 for 1-2 days', 'medium', 130, 10, 18, 3.7),
-(8, 'G7 2in1', 4, 'From $5 for 1-2 days', 'small', 100, 10, 18, 3.7),
-(9, 'Legend Special Edition 10', 5, 'From $4 for 3-4 days', 'large', 400, 10, 12, 4.2),
-(9, 'Legend Special Edition 10', 5, 'From $4 for 3-4 days', 'medium', 200, 10, 12, 4.2),
-(9, 'Legend Special Edition 10', 5, 'From $4 for 3-4 days', 'small', 200, 10, 12, 4.2),
-(10, 'Mystic Mocha Almond', 3, 'From $3 for 1-3 days', 'large', 370, 15, 18, 3.6),
-(10, 'Mystic Mocha Almond', 3, 'From $3 for 1-3 days', 'medium', 990, 15, 18, 3.6),
-(10, 'Mystic Mocha Almond', 3, 'From $3 for 1-3 days', 'small', 653, 15, 18, 3.6),
-(12, 'Aura Latte Caramel', 3, 'From $5 for 1-2 days', 'large', 962, 10, 14, 3.6),
-(12, 'Aura Latte Caramel', 3, 'From $5 for 1-2 days', 'medium', 513, 10, 14, 3.6),
-(12, 'Aura Latte Caramel', 3, 'From $5 for 1-2 days', 'small', 638, 10, 14, 3.6),
-(13, 'Dreamer Macchiato Toffee', 3, 'From $6 for 3-5 days', 'large', 441, 10, 20, 3.9),
-(13, 'Dreamer Macchiato Toffee', 3, 'From $6 for 3-5 days', 'medium', 341, 10, 20, 3.9),
-(13, 'Dreamer Macchiato Toffee', 3, 'From $6 for 3-5 days', 'small', 529, 10, 20, 3.9),
-(14, 'Whispered Cinnamon Swirl', 3, 'From $7 for 2-3 days', 'large', 834, 10, 20, 4.0),
-(14, 'Whispered Cinnamon Swirl', 3, 'From $7 for 2-3 days', 'medium', 299, 10, 20, 4.0),
-(14, 'Whispered Cinnamon Swirl', 3, 'From $7 for 2-3 days', 'small', 234, 10, 20, 4.0),
-(15, 'Twilight Caramel Crunch', 4, 'From $8 for 1-4 days', 'large', 741, 0, 18, 3.9),
-(15, 'Twilight Caramel Crunch', 4, 'From $8 for 1-4 days', 'medium', 877, 0, 18, 3.9),
-(15, 'Twilight Caramel Crunch', 4, 'From $8 for 1-4 days', 'small', 717, 0, 18, 3.9),
-(16, 'Secret Symphony Caramel', 2, 'From $9 for 2-5 days', 'large', 892, 10, 22, 3.9),
-(16, 'Secret Symphony Caramel', 2, 'From $9 for 2-5 days', 'medium', 842, 10, 22, 3.9),
-(16, 'Secret Symphony Caramel', 2, 'From $9 for 2-5 days', 'small', 500, 10, 22, 3.9),
-(17, 'Essence Latte Hazelnut', 4, 'From $4 for 1-3 days', 'large', 602, 20, 16, 3.7),
-(17, 'Essence Latte Hazelnut', 4, 'From $4 for 1-3 days', 'medium', 447, 20, 16, 3.7),
-(17, 'Essence Latte Hazelnut', 4, 'From $4 for 1-3 days', 'small', 276, 20, 16, 3.7),
-(18, 'Celestial Coconut Cream', 4, 'From $5 for 2-4 days', 'large', 213, 5, 14, 3.9),
-(18, 'Celestial Coconut Cream', 4, 'From $5 for 2-4 days', 'medium', 655, 5, 14, 3.9),
-(18, 'Celestial Coconut Cream', 4, 'From $5 for 2-4 days', 'small', 371, 5, 14, 3.9),
-(19, 'Fantasy Froth Vanilla', 3, 'From $6 for 3-6 days', 'large', 818, 10, 23, 4.0),
-(19, 'Fantasy Froth Vanilla', 3, 'From $6 for 3-6 days', 'medium', 353, 10, 23, 4.0),
-(19, 'Fantasy Froth Vanilla', 3, 'From $6 for 3-6 days', 'small', 876, 10, 23, 4.0),
-(20, 'Serenade Espresso Tiramisu', 3, 'From $7 for 1-2 days', 'large', 869, 10, 21, 4.0),
-(20, 'Serenade Espresso Tiramisu', 3, 'From $7 for 1-2 days', 'medium', 871, 10, 21, 4.0),
-(20, 'Serenade Espresso Tiramisu', 3, 'From $7 for 1-2 days', 'small', 434, 10, 21, 4.0),
-(22, 'Enchanted Espresso Caramel', 4, 'From $9 for 3-5 days', 'large', 424, 10, 17, 3.7),
-(22, 'Enchanted Espresso Caramel', 4, 'From $9 for 3-5 days', 'medium', 272, 10, 17, 3.7),
-(22, 'Enchanted Espresso Caramel', 4, 'From $9 for 3-5 days', 'small', 411, 10, 17, 3.7),
-(23, 'Mirage Mocha Macadamia', 5, 'From $5 for 1-4 days', 'large', 738, 5, 16, 4.3),
-(23, 'Mirage Mocha Macadamia', 5, 'From $5 for 1-4 days', 'medium', 208, 5, 16, 4.3),
-(23, 'Mirage Mocha Macadamia', 5, 'From $5 for 1-4 days', 'small', 845, 5, 16, 4.3),
-(24, 'Mystic Morning Maple', 5, 'From $6 for 2-5 days', 'large', 670, 0, 22, 3.9),
-(24, 'Mystic Morning Maple', 5, 'From $6 for 2-5 days', 'medium', 666, 0, 22, 3.9),
-(24, 'Mystic Morning Maple', 5, 'From $6 for 2-5 days', 'small', 726, 0, 22, 3.9),
-(25, 'Whispered White Chocolate Mocha', 4, 'From $7 for 1-3 days', 'large', 981, 15, 13, 3.7),
-(25, 'Whispered White Chocolate Mocha', 4, 'From $7 for 1-3 days', 'medium', 439, 15, 13, 3.7),
-(25, 'Whispered White Chocolate Mocha', 4, 'From $7 for 1-3 days', 'small', 336, 15, 13, 3.7),
-(26, 'Dreamer Delight Caramel', 4, 'From $8 for 2-4 days', 'large', 754, 15, 13, 3.7),
-(26, 'Dreamer Delight Caramel', 4, 'From $8 for 2-4 days', 'medium', 896, 15, 13, 3.7),
-(26, 'Dreamer Delight Caramel', 4, 'From $8 for 2-4 days', 'small', 201, 15, 13, 3.7),
-(27, 'Moonlit Maple Latte', 2, 'From $9 for 3-6 days', 'large', 650, 20, 15, 3.8),
-(27, 'Moonlit Maple Latte', 2, 'From $9 for 3-6 days', 'medium', 948, 20, 15, 3.8),
-(27, 'Moonlit Maple Latte', 2, 'From $9 for 3-6 days', 'small', 443, 20, 15, 3.8),
-(28, 'Mirage Mocha Cinnamon', 2, 'From $10 for 1-2 days', 'large', 202, 20, 22, 3.7),
-(28, 'Mirage Mocha Cinnamon', 2, 'From $10 for 1-2 days', 'medium', 906, 20, 22, 3.7),
-(28, 'Mirage Mocha Cinnamon', 2, 'From $10 for 1-2 days', 'small', 324, 20, 22, 3.7),
-(29, 'Secret Symphony Hazelnut', 5, 'From $6 for 2-3 days', 'large', 436, 10, 14, 3.8),
-(29, 'Secret Symphony Hazelnut', 5, 'From $6 for 2-3 days', 'medium', 451, 10, 14, 3.8),
-(29, 'Secret Symphony Hazelnut', 5, 'From $6 for 2-3 days', 'small', 316, 10, 14, 3.8),
-(31, 'Celestial Caramel Cream', 3, 'From $8 for 2-5 days', 'large', 455, 5, 21, 4.0),
-(31, 'Celestial Caramel Cream', 3, 'From $8 for 2-5 days', 'medium', 435, 5, 21, 4.0),
-(31, 'Celestial Caramel Cream', 3, 'From $8 for 2-5 days', 'small', 449, 5, 21, 4.0),
-(32, 'Essence Espresso Vanilla', 4, 'From $9 for 3-6 days', 'large', 529, 5, 17, 3.5),
-(32, 'Essence Espresso Vanilla', 4, 'From $9 for 3-6 days', 'medium', 662, 5, 17, 3.5),
-(32, 'Essence Espresso Vanilla', 4, 'From $9 for 3-6 days', 'small', 503, 5, 17, 3.5),
-(33, 'Twilight Toffee Temptation', 2, 'From $10 for 1-3 days', 'large', 428, 15, 13, 3.7),
-(33, 'Twilight Toffee Temptation', 2, 'From $10 for 1-3 days', 'medium', 243, 15, 13, 3.7),
-(33, 'Twilight Toffee Temptation', 2, 'From $10 for 1-3 days', 'small', 445, 15, 13, 3.7),
-(34, 'Enigma Eggnog Latte', 3, 'From $11 for 2-4 days', 'large', 274, 10, 20, 3.8),
-(34, 'Enigma Eggnog Latte', 3, 'From $11 for 2-4 days', 'medium', 306, 10, 20, 3.8),
-(34, 'Enigma Eggnog Latte', 3, 'From $11 for 2-4 days', 'small', 283, 10, 20, 3.8),
-(36, 'Dreamer\'s Delight Vanilla', 3, 'From $8 for 1-3 days', 'large', 279, 5, 13, 3.9),
-(36, 'Dreamer\'s Delight Vanilla', 3, 'From $8 for 1-3 days', 'medium', 519, 5, 13, 3.9),
-(36, 'Dreamer\'s Delight Vanilla', 3, 'From $8 for 1-3 days', 'small', 530, 5, 13, 3.9),
-(38, 'Enchanted Espresso Almond', 4, 'From $10 for 3-6 days', 'large', 227, 10, 16, 3.9),
-(38, 'Enchanted Espresso Almond', 4, 'From $10 for 3-6 days', 'medium', 422, 10, 16, 3.9),
-(38, 'Enchanted Espresso Almond', 4, 'From $10 for 3-6 days', 'small', 511, 10, 16, 3.9),
-(40, 'Mirage Mocha Marshmallow', 4, 'From $12 for 2-3 days', 'large', 552, 10, 23, 3.6),
-(40, 'Mirage Mocha Marshmallow', 4, 'From $12 for 2-3 days', 'medium', 656, 10, 23, 3.6),
-(40, 'Mirage Mocha Marshmallow', 4, 'From $12 for 2-3 days', 'small', 400, 10, 23, 3.6),
-(41, 'Secret Symphony Cinnamon Roll', 3, 'From $8 for 1-4 days', 'large', 531, 15, 13, 3.7),
-(41, 'Secret Symphony Cinnamon Roll', 3, 'From $8 for 1-4 days', 'medium', 570, 15, 13, 3.7),
-(41, 'Secret Symphony Cinnamon Roll', 3, 'From $8 for 1-4 days', 'small', 659, 15, 13, 3.7),
-(42, 'Celestial Cappuccino Coconut', 4, 'From $9 for 2-5 days', 'large', 281, 0, 16, 4.0),
-(42, 'Celestial Cappuccino Coconut', 4, 'From $9 for 2-5 days', 'medium', 483, 0, 16, 4.0),
-(42, 'Celestial Cappuccino Coconut', 4, 'From $9 for 2-5 days', 'small', 758, 0, 16, 4.0),
-(43, 'Essence Espresso Eggnog', 5, 'From $10 for 3-6 days', 'large', 881, 10, 20, 4.1),
-(43, 'Essence Espresso Eggnog', 5, 'From $10 for 3-6 days', 'medium', 384, 10, 20, 4.1),
-(43, 'Essence Espresso Eggnog', 5, 'From $10 for 3-6 days', 'small', 309, 10, 20, 4.1),
-(44, 'Aura Almond Joy', 5, 'From $11 for 1-3 days', 'large', 867, 10, 16, 4.2),
-(44, 'Aura Almond Joy', 5, 'From $11 for 1-3 days', 'medium', 521, 10, 16, 4.2),
-(44, 'Aura Almond Joy', 5, 'From $11 for 1-3 days', 'small', 282, 10, 16, 4.2),
-(47, 'Whispered White Chocolate Delight', 5, 'From $9 for 2-3 days', 'large', 808, 0, 17, 3.7),
-(47, 'Whispered White Chocolate Delight', 5, 'From $9 for 2-3 days', 'medium', 977, 0, 17, 3.7),
-(47, 'Whispered White Chocolate Delight', 5, 'From $9 for 2-3 days', 'small', 201, 0, 17, 3.7),
-(48, 'Ethereal Espresso Almond Bliss', 5, 'From $10 for 1-4 days', 'large', 735, 15, 18, 3.8),
-(48, 'Ethereal Espresso Almond Bliss', 5, 'From $10 for 1-4 days', 'medium', 967, 15, 18, 3.8),
-(48, 'Ethereal Espresso Almond Bliss', 5, 'From $10 for 1-4 days', 'small', 774, 15, 18, 3.8),
-(49, 'Enigma Eggnog Explosion', 2, 'From $11 for 2-5 days', 'large', 853, 20, 17, 4.1),
-(49, 'Enigma Eggnog Explosion', 2, 'From $11 for 2-5 days', 'medium', 481, 20, 17, 4.1),
-(49, 'Enigma Eggnog Explosion', 2, 'From $11 for 2-5 days', 'small', 892, 20, 17, 4.1),
-(51, 'Mirage Maple Madness', 3, 'From $13 for 1-3 days', 'large', 458, 10, 19, 3.7),
-(51, 'Mirage Maple Madness', 3, 'From $13 for 1-3 days', 'medium', 885, 10, 19, 3.7),
-(51, 'Mirage Maple Madness', 3, 'From $13 for 1-3 days', 'small', 278, 10, 19, 3.7),
-(52, 'Secret Symphony Spiced Caramel', 4, 'From $14 for 2-4 days', 'large', 910, 10, 23, 3.9),
-(52, 'Secret Symphony Spiced Caramel', 4, 'From $14 for 2-4 days', 'medium', 214, 10, 23, 3.9),
-(52, 'Secret Symphony Spiced Caramel', 4, 'From $14 for 2-4 days', 'small', 660, 10, 23, 3.9),
-(53, 'Celestial Coconut Caramel Crunch', 4, 'From $10 for 2-5 days', 'large', 640, 10, 20, 3.7),
-(53, 'Celestial Coconut Caramel Crunch', 4, 'From $10 for 2-5 days', 'medium', 954, 10, 20, 3.7),
-(53, 'Celestial Coconut Caramel Crunch', 4, 'From $10 for 2-5 days', 'small', 490, 10, 20, 3.7),
-(54, 'Essence Espresso Euphoria', 2, 'From $11 for 1-3 days', 'large', 397, 0, 19, 3.8),
-(54, 'Essence Espresso Euphoria', 2, 'From $11 for 1-3 days', 'medium', 547, 0, 19, 3.8),
-(54, 'Essence Espresso Euphoria', 2, 'From $11 for 1-3 days', 'small', 964, 0, 19, 3.8),
-(57, 'Mystic Mocha Madness', 3, 'From $14 for 1-2 days', 'large', 254, 20, 26, 4.1),
-(57, 'Mystic Mocha Madness', 3, 'From $14 for 1-2 days', 'medium', 334, 20, 26, 4.1),
-(57, 'Mystic Mocha Madness', 3, 'From $14 for 1-2 days', 'small', 966, 20, 26, 4.1);
 
 -- --------------------------------------------------------
 
