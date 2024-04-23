@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2024 at 03:26 PM
+-- Generation Time: Apr 23, 2024 at 03:37 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -23,21 +24,66 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `btl_ltw_database` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `btl_ltw_database`;
 
+DELIMITER $$
+--
+-- Procedures
+--
+DROP PROCEDURE IF EXISTS `Login`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Login` (IN `p_email` VARCHAR(255), IN `p_pass` VARCHAR(255))   BEGIN
+    DECLARE hashed_password varchar(255);
+
+    SELECT `encoded_password` INTO hashed_password
+    FROM `User`
+    WHERE `email` = p_email;
+
+    IF hashed_password IS NOT NULL AND hashed_password = SHA2(CONCAT(p_pass, 'fc45c92ac5ad37b42824ea724d2f8f32'), 256) THEN
+        SELECT email, fullname, `role`, phone
+        FROM `User`
+        WHERE `email` = p_email;
+    ELSE
+        SELECT `email`
+        FROM `User`
+        LIMIT 0;
+    END IF;
+END$$
+
+DROP PROCEDURE IF EXISTS `show_notification`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `show_notification` (IN `value` VARCHAR(255))   BEGIN
+    SIGNAL SQLSTATE '45000'
+    SET MESSAGE_TEXT = value;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `bill`
 --
 
-CREATE TABLE `bill` (
+DROP TABLE IF EXISTS `bill`;
+CREATE TABLE IF NOT EXISTS `bill` (
   `BID` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `total_price` decimal(10,0) NOT NULL DEFAULT 0,
   `shipping_fee` decimal(10,0) NOT NULL DEFAULT 0,
   `credit_card_number` varchar(16) NOT NULL,
   `customer_email` varchar(255) NOT NULL,
-  `AID` int(11) NOT NULL
+  `AID` int(11) NOT NULL,
+  PRIMARY KEY (`BID`),
+  KEY `credit_card_number` (`credit_card_number`),
+  KEY `customer_email` (`customer_email`,`AID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `bill`:
+--   `credit_card_number`
+--       `credit_card` -> `card_number`
+--   `customer_email`
+--       `shipping_address` -> `customer_email`
+--   `AID`
+--       `shipping_address` -> `AID`
+--
 
 --
 -- Dumping data for table `bill`
@@ -148,12 +194,25 @@ INSERT INTO `bill` (`BID`, `created_at`, `total_price`, `shipping_fee`, `credit_
 -- Table structure for table `bill_have_product`
 --
 
-CREATE TABLE `bill_have_product` (
+DROP TABLE IF EXISTS `bill_have_product`;
+CREATE TABLE IF NOT EXISTS `bill_have_product` (
   `BID` int(11) NOT NULL,
   `PID` int(11) NOT NULL,
   `size` char(20) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`BID`,`PID`,`size`),
+  KEY `PID` (`PID`,`size`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `bill_have_product`:
+--   `BID`
+--       `bill` -> `BID`
+--   `PID`
+--       `product` -> `PID`
+--   `size`
+--       `product` -> `size`
+--
 
 --
 -- Dumping data for table `bill_have_product`
@@ -458,14 +517,23 @@ INSERT INTO `bill_have_product` (`BID`, `PID`, `size`, `quantity`) VALUES
 -- Table structure for table `credit_card`
 --
 
-CREATE TABLE `credit_card` (
+DROP TABLE IF EXISTS `credit_card`;
+CREATE TABLE IF NOT EXISTS `credit_card` (
   `card_number` varchar(16) NOT NULL,
   `CVV` varchar(4) NOT NULL,
   `exp_date` date NOT NULL,
   `fullname` varchar(255) NOT NULL,
   `is_default` tinyint(1) NOT NULL DEFAULT 0,
-  `customer_email` varchar(255) NOT NULL
+  `customer_email` varchar(255) NOT NULL,
+  PRIMARY KEY (`card_number`),
+  KEY `customer_email` (`customer_email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `credit_card`:
+--   `customer_email`
+--       `user` -> `email`
+--
 
 --
 -- Dumping data for table `credit_card`
@@ -577,12 +645,25 @@ INSERT INTO `credit_card` (`card_number`, `CVV`, `exp_date`, `fullname`, `is_def
 -- Table structure for table `customer_add_to_cart_product`
 --
 
-CREATE TABLE `customer_add_to_cart_product` (
+DROP TABLE IF EXISTS `customer_add_to_cart_product`;
+CREATE TABLE IF NOT EXISTS `customer_add_to_cart_product` (
   `customer_email` varchar(255) NOT NULL,
   `PID` int(11) NOT NULL,
   `size` char(20) NOT NULL DEFAULT 'small',
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`customer_email`,`PID`,`size`) USING BTREE,
+  KEY `customer_add_to_cart_product_ibfk_1` (`PID`,`size`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `customer_add_to_cart_product`:
+--   `PID`
+--       `product` -> `PID`
+--   `size`
+--       `product` -> `size`
+--   `customer_email`
+--       `user` -> `email`
+--
 
 --
 -- Dumping data for table `customer_add_to_cart_product`
@@ -887,10 +968,21 @@ INSERT INTO `customer_add_to_cart_product` (`customer_email`, `PID`, `size`, `qu
 -- Table structure for table `customer_add_to_favourite_product`
 --
 
-CREATE TABLE `customer_add_to_favourite_product` (
+DROP TABLE IF EXISTS `customer_add_to_favourite_product`;
+CREATE TABLE IF NOT EXISTS `customer_add_to_favourite_product` (
   `customer_email` varchar(255) NOT NULL,
-  `PID` int(11) NOT NULL
+  `PID` int(11) NOT NULL,
+  PRIMARY KEY (`customer_email`,`PID`),
+  KEY `PID` (`PID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `customer_add_to_favourite_product`:
+--   `PID`
+--       `product` -> `PID`
+--   `customer_email`
+--       `user` -> `email`
+--
 
 --
 -- Dumping data for table `customer_add_to_favourite_product`
@@ -1292,7 +1384,8 @@ INSERT INTO `customer_add_to_favourite_product` (`customer_email`, `PID`) VALUES
 -- Table structure for table `product`
 --
 
-CREATE TABLE `product` (
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE IF NOT EXISTS `product` (
   `PID` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `listed_unit_price` decimal(10,0) NOT NULL,
@@ -1301,8 +1394,13 @@ CREATE TABLE `product` (
   `quantity_on_hand` int(11) NOT NULL,
   `discount` decimal(10,0) NOT NULL,
   `no_of_reviews` int(11) DEFAULT 0,
-  `average_rating` decimal(2,1) DEFAULT 0.0
+  `average_rating` decimal(2,1) DEFAULT 0.0,
+  PRIMARY KEY (`PID`,`size`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `product`:
+--
 
 --
 -- Dumping data for table `product`
@@ -1451,10 +1549,18 @@ INSERT INTO `product` (`PID`, `name`, `listed_unit_price`, `description`, `size`
 -- Table structure for table `product_image_src`
 --
 
-CREATE TABLE `product_image_src` (
+DROP TABLE IF EXISTS `product_image_src`;
+CREATE TABLE IF NOT EXISTS `product_image_src` (
   `PID` int(11) NOT NULL,
-  `image_src` varchar(255) NOT NULL
+  `image_src` varchar(255) NOT NULL,
+  PRIMARY KEY (`PID`,`image_src`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `product_image_src`:
+--   `PID`
+--       `product` -> `PID`
+--
 
 --
 -- Dumping data for table `product_image_src`
@@ -1648,10 +1754,21 @@ INSERT INTO `product_image_src` (`PID`, `image_src`) VALUES
 -- Table structure for table `product_similar_to_product`
 --
 
-CREATE TABLE `product_similar_to_product` (
+DROP TABLE IF EXISTS `product_similar_to_product`;
+CREATE TABLE IF NOT EXISTS `product_similar_to_product` (
   `PID` int(11) NOT NULL,
-  `similar_PID` int(11) NOT NULL
+  `similar_PID` int(11) NOT NULL,
+  PRIMARY KEY (`PID`,`similar_PID`),
+  KEY `similar_PID` (`similar_PID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `product_similar_to_product`:
+--   `PID`
+--       `product` -> `PID`
+--   `similar_PID`
+--       `product` -> `PID`
+--
 
 --
 -- Dumping data for table `product_similar_to_product`
@@ -1913,13 +2030,24 @@ INSERT INTO `product_similar_to_product` (`PID`, `similar_PID`) VALUES
 -- Table structure for table `review`
 --
 
-CREATE TABLE `review` (
+DROP TABLE IF EXISTS `review`;
+CREATE TABLE IF NOT EXISTS `review` (
   `PID` int(11) NOT NULL,
   `customer_email` varchar(255) NOT NULL,
   `RID` int(11) NOT NULL,
   `star` int(11) NOT NULL,
-  `content` varchar(255) NOT NULL
+  `content` varchar(255) NOT NULL,
+  PRIMARY KEY (`PID`,`customer_email`,`RID`),
+  KEY `customer_email` (`customer_email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `review`:
+--   `customer_email`
+--       `user` -> `email`
+--   `PID`
+--       `product` -> `PID`
+--
 
 --
 -- Dumping data for table `review`
@@ -2336,6 +2464,7 @@ INSERT INTO `review` (`PID`, `customer_email`, `RID`, `star`, `content`) VALUES
 --
 -- Triggers `review`
 --
+DROP TRIGGER IF EXISTS `insert_review_trigger`;
 DELIMITER $$
 CREATE TRIGGER `insert_review_trigger` AFTER INSERT ON `review` FOR EACH ROW BEGIN
     UPDATE Product
@@ -2355,15 +2484,23 @@ DELIMITER ;
 -- Table structure for table `shipping_address`
 --
 
-CREATE TABLE `shipping_address` (
+DROP TABLE IF EXISTS `shipping_address`;
+CREATE TABLE IF NOT EXISTS `shipping_address` (
   `customer_email` varchar(255) NOT NULL,
   `AID` int(11) NOT NULL,
   `reciever_name` varchar(255) NOT NULL,
   `reciever_phone` varchar(10) NOT NULL,
   `city_district_town` varchar(255) NOT NULL,
   `additional_address_info` varchar(255) NOT NULL,
-  `is_default` tinyint(1) NOT NULL DEFAULT 0
+  `is_default` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`customer_email`,`AID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `shipping_address`:
+--   `customer_email`
+--       `user` -> `email`
+--
 
 --
 -- Dumping data for table `shipping_address`
@@ -2668,13 +2805,19 @@ INSERT INTO `shipping_address` (`customer_email`, `AID`, `reciever_name`, `recie
 -- Table structure for table `user`
 --
 
-CREATE TABLE `user` (
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(255) NOT NULL,
   `encoded_password` varchar(255) NOT NULL,
   `fullname` varchar(255) NOT NULL,
   `role` varchar(10) NOT NULL,
-  `phone` varchar(10) DEFAULT NULL
+  `phone` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `user`:
+--
 
 --
 -- Dumping data for table `user`
@@ -2780,84 +2923,6 @@ INSERT INTO `user` (`email`, `encoded_password`, `fullname`, `role`, `phone`) VA
 ('zucchinibread@gmail.com', 'cf38799cb5e58fe29dc18bc563092d33cf262307b736f1e1fa3efd28d6d5161b', 'Henry Green', 'customer', '0488865014');
 
 --
--- Indexes for dumped tables
---
-
---
--- Indexes for table `bill`
---
-ALTER TABLE `bill`
-  ADD PRIMARY KEY (`BID`),
-  ADD KEY `credit_card_number` (`credit_card_number`),
-  ADD KEY `customer_email` (`customer_email`,`AID`);
-
---
--- Indexes for table `bill_have_product`
---
-ALTER TABLE `bill_have_product`
-  ADD PRIMARY KEY (`BID`,`PID`,`size`),
-  ADD KEY `PID` (`PID`,`size`);
-
---
--- Indexes for table `credit_card`
---
-ALTER TABLE `credit_card`
-  ADD PRIMARY KEY (`card_number`),
-  ADD KEY `customer_email` (`customer_email`);
-
---
--- Indexes for table `customer_add_to_cart_product`
---
-ALTER TABLE `customer_add_to_cart_product`
-  ADD PRIMARY KEY (`customer_email`,`PID`,`size`) USING BTREE,
-  ADD KEY `customer_add_to_cart_product_ibfk_1` (`PID`,`size`);
-
---
--- Indexes for table `customer_add_to_favourite_product`
---
-ALTER TABLE `customer_add_to_favourite_product`
-  ADD PRIMARY KEY (`customer_email`,`PID`),
-  ADD KEY `PID` (`PID`);
-
---
--- Indexes for table `product`
---
-ALTER TABLE `product`
-  ADD PRIMARY KEY (`PID`,`size`) USING BTREE;
-
---
--- Indexes for table `product_image_src`
---
-ALTER TABLE `product_image_src`
-  ADD PRIMARY KEY (`PID`,`image_src`);
-
---
--- Indexes for table `product_similar_to_product`
---
-ALTER TABLE `product_similar_to_product`
-  ADD PRIMARY KEY (`PID`,`similar_PID`),
-  ADD KEY `similar_PID` (`similar_PID`);
-
---
--- Indexes for table `review`
---
-ALTER TABLE `review`
-  ADD PRIMARY KEY (`PID`,`customer_email`,`RID`),
-  ADD KEY `customer_email` (`customer_email`);
-
---
--- Indexes for table `shipping_address`
---
-ALTER TABLE `shipping_address`
-  ADD PRIMARY KEY (`customer_email`,`AID`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`email`);
-
---
 -- Constraints for dumped tables
 --
 
@@ -2920,6 +2985,7 @@ ALTER TABLE `review`
 --
 ALTER TABLE `shipping_address`
   ADD CONSTRAINT `shipping_address_ibfk_1` FOREIGN KEY (`customer_email`) REFERENCES `user` (`email`) ON UPDATE CASCADE;
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
