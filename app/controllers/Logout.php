@@ -1,6 +1,4 @@
 <?php
-    require_once __DIR__ . '/../models/LoginModel.php';
-
     class Logout {
         public function invoke() {
             $_SESSION = [];

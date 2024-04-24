@@ -208,6 +208,24 @@ if(isset($_POST['email'])) {
     exit();
 } 
 ```
-**NOTE: Mọi người sử dụng $_SESSION['user'] để lấy thông tin của phiên đăng nhập hiện tại để truy vấn**
+**NOTE: $_SESSION['user'] là 1 đối tượng của lớp User nên để lấy thông tin của email hay fullname thì mọi người lấy như này nha ```$_SESSION['user']->email```, ```$_SESSION['user]->fullname```**
+```
+//Lớp User, file /app/Model/User.php
+class User {
+    public $email;
+    public $fullname;
+    public $role;
+    public $phone;
+    // public $credit_card;
+
+    public function __construct($pEmail, $pFullname, $pRole, $pPhone) {
+        $this->email = $pEmail;
+        $this->fullname = $pFullname;
+        $this->role = $pRole;
+        $this->phone = $pPhone;
+        // $this->credit_card = $credit_card;
+    }
+}
+```
 
 **NOTE: Hiện tại chưa làm cái phân quyền cho admin và customer**
