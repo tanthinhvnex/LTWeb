@@ -65,188 +65,65 @@
                     <div class="col-12">
                         <div class="cart-info">
                             <h1 class="cart-info__heading">Favourite List</h1>
-                            <p class="cart-info__desc">3 items</p>
+                            <p class="cart-info__desc"><?= count($products) ?> items</p>
                             <div class="cart-info__check-all">
                                 <label class="cart-info__checkbox">
                                     <input onChange="checkAll()" id="check-all" type="checkbox" name="shipping-adress" class="cart-info__checkbox-input" />
                                 </label>
                             </div>
                             <div class="cart-info__list">
-                                <!-- Cart item 1 -->
-                                <article class="cart-item">
-                                    <label class="cart-info__checkbox">
-                                        <input name="check-item" type="checkbox" name="shipping-adress" class="cart-info__checkbox-input" />
-                                    </label>
-                                    <a href="/BTL_LTW/LTWeb/detail?id=1">
-                                        <img src="/BTL_LTW/LTWeb/public/assets/img/product/item-1.png" alt="" class="cart-item__thumb" />
-                                    </a>
-                                    <div class="cart-item__content">
-                                        <div class="cart-item__content-left">
-                                            <h3 class="cart-item__title">
-                                                <a href="/BTL_LTW/LTWeb/detail?id=1">
-                                                    Coffee Beans - Espresso Arabica and Robusta Beans
-                                                </a>
-                                            </h3>
-                                            <p class="cart-item__price-wrap">
-                                                $47.00 | <span class="cart-item__status">In Stock</span>
-                                            </p>
-                                            <div class="cart-item__ctrl-wrap">
-                                                <div class="cart-item__ctrl cart-item__ctrl--md-block">
-                                                    <!-- <div class="cart-item__input">
-                                                        LavAzza
-                                                        <img class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/arrow-down-2.svg"
-                                                            alt="" />
-                                                    </div> -->
-                                                    <div class="cart-item__input">
-                                                        <button class="cart-item__input-btn" onclick="descreaseQuantity(1)">
-                                                            <img class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/minus.svg" alt="" />
+                                <?php foreach ($products as $product): ?>
+                                    <article class="cart-item">
+                                        <label class="cart-info__checkbox">
+                                            <input type="checkbox" class="cart-info__checkbox-input" name="check-item[]" value="<?= htmlspecialchars($product->PID) ?>" />
+                                        </label>
+                                        <a href="/BTL_LTW/LTWeb/detail?id=<?= htmlspecialchars($product->PID) ?>">
+                                            <img src="<?= htmlspecialchars($product->img) ?>" alt="Image of <?= htmlspecialchars($product->name) ?>" class="cart-item__thumb" />
+                                        </a>
+                                        <div class="cart-item__content">
+                                            <div class="cart-item__content-left">
+                                                <h3 class="cart-item__title">
+                                                    <a href="/BTL_LTW/LTWeb/detail?id=<?= htmlspecialchars($product->PID) ?>">
+                                                        <?= htmlspecialchars($product->name) ?>
+                                                    </a>
+                                                </h3>
+                                                <p class="cart-item__price-wrap">
+                                                    $<?= htmlspecialchars($product->price) ?> | <span class="cart-item__status">In Stock</span> <!-- Consider dynamic stock status -->
+                                                </p>
+                                                <div class="cart-item__ctrl-wrap">
+                                                    <div class="cart-item__ctrl cart-item__ctrl--md-block">
+                                                        <div class="cart-item__input">
+                                                            <button class="cart-item__input-btn" onclick="descreaseQuantity(<?= htmlspecialchars($product->PID) ?>)">
+                                                                <img class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/minus.svg" alt="Decrease quantity" />
+                                                            </button>
+                                                            <input type="number" onchange="handleQuantityInput(<?= htmlspecialchars($product->PID) ?>)" class="quantity-input" id="quantity<?= htmlspecialchars($product->PID) ?>" value="1" min="1" />
+                                                            <button class="cart-item__input-btn" onclick="increaseQuantity(<?= htmlspecialchars($product->PID) ?>)">
+                                                                <img class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/plus.svg" alt="Increase quantity" />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="cart-item__ctrl">
+                                                        <button class="cart-item__ctrl-btn">
+                                                            <img src="/BTL_LTW/LTWeb/public/assets/icons/heart-2.svg" alt="" />
+                                                            Save
                                                         </button>
-                                                        <!-- <span style="width: 20px; text-align: center;" id="quantity1">1</span> -->
-                                                        <input type="number" onchange="handleQuantityInput(1)" class="quantity-input" id="quantity1" value="1" min="1"/>
-                                                        <button class="cart-item__input-btn" onclick="increaseQuantity(1)">
-                                                            <img class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/plus.svg" alt="" />
+                                                        <button class="cart-item__ctrl-btn js-toggle" toggle-target="#delete-confirm-<?= htmlspecialchars($product->PID) ?>">
+                                                            <img src="/BTL_LTW/LTWeb/public/assets/icons/trash.svg" alt="Delete" />
+                                                            Delete
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div class="cart-item__ctrl">
-                                                    <button class="cart-item__ctrl-btn">
-                                                        <img src="/BTL_LTW/LTWeb/public/assets/icons/heart-2.svg" alt="" />
-                                                        Save
-                                                    </button>
-                                                    <button class="cart-item__ctrl-btn js-toggle"
-                                                        toggle-target="#delete-confirm">
-                                                        <img src="/BTL_LTW/LTWeb/public/assets/icons/trash.svg" alt="" />
-                                                        Delete
-                                                    </button>
-                                                </div>
+                                            </div>
+                                            <div class="cart-item__content-right">
+                                                <p class="cart-item__total-price">$<?= htmlspecialchars($product->price) ?></p>
+                                                <button class="cart-item__checkout-btn btn btn--primary btn--rounded">
+                                                    Check Out
+                                                </button>
                                             </div>
                                         </div>
-                                        <div class="cart-item__content-right">
-                                            <p class="cart-item__total-price">$47.00</p>
-                                            <button class="cart-item__checkout-btn btn btn--primary btn--rounded">
-                                                Check Out
-                                            </button>
-                                        </div>
-                                    </div>
-                                </article>
+                                    </article>
 
-                                <!-- Cart item 2 -->
-                                <article class="cart-item">
-                                    <label class="cart-info__checkbox">
-                                        <input name="check-item" type="checkbox" name="shipping-adress" class="cart-info__checkbox-input"/>
-                                    </label>
-                                    <a href="/BTL_LTW/LTWeb/detail?id=1">
-                                        <img src="/BTL_LTW/LTWeb/public/assets/img/product/item-2.png" alt="" class="cart-item__thumb" />
-                                    </a>
-                                    <div class="cart-item__content">
-                                        <div class="cart-item__content-left">
-                                            <h3 class="cart-item__title">
-                                                <a href="/BTL_LTW/LTWeb/detail?id=1">
-                                                    Lavazza Coffee Blends - Try the Italian Espresso
-                                                </a>
-                                            </h3>
-                                            <p class="cart-item__price-wrap">
-                                                $53.00 | <span class="cart-item__status">In Stock</span>
-                                            </p>
-                                            <div class="cart-item__ctrl-wrap">
-                                                <div class="cart-item__ctrl cart-item__ctrl--md-block">
-                                                    <!-- <div class="cart-item__input">
-                                                        LavAzza
-                                                        <img class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/arrow-down-2.svg"
-                                                            alt="" />
-                                                    </div> -->
-                                                    <div class="cart-item__input">
-                                                        <button class="cart-item__input-btn" onclick="descreaseQuantity(2)">
-                                                            <img class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/minus.svg" alt="" />
-                                                        </button>
-                                                        <!-- <span id="quantity2">1</span> -->
-                                                        <!-- <span style="width: 20px; text-align: center;" id="quantity2">1</span> -->
-                                                        <input type="number" onchange="handleQuantityInput(2)" class="quantity-input" id="quantity2" value="1" min="1"/>
-                                                        <button class="cart-item__input-btn" onclick="increaseQuantity(2)">
-                                                            <img class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/plus.svg" alt="" />
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="cart-item__ctrl">
-                                                    <button class="cart-item__ctrl-btn">
-                                                        <img src="/BTL_LTW/LTWeb/public/assets/icons/heart-2.svg" alt="" />
-                                                        Save
-                                                    </button>
-                                                    <button class="cart-item__ctrl-btn js-toggle"
-                                                        toggle-target="#delete-confirm">
-                                                        <img src="/BTL_LTW/LTWeb/public/assets/icons/trash.svg" alt="" />
-                                                        Delete
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="cart-item__content-right">
-                                            <p class="cart-item__total-price">$106.00</p>
-                                            <button class="cart-item__checkout-btn btn btn--primary btn--rounded">
-                                                Check Out
-                                            </button>
-                                        </div>
-                                    </div>
-                                </article>
-
-                                <!-- Cart item 3 -->
-                                <article class="cart-item">
-                                    <label class="cart-info__checkbox">
-                                        <input name="check-item" type="checkbox" name="shipping-adress" class="cart-info__checkbox-input" />
-                                    </label>
-                                    <a href="/BTL_LTW/LTWeb/detail?id=1">
-                                        <img src="/BTL_LTW/LTWeb/public/assets/img/product/item-3.png" alt="" class="cart-item__thumb" />
-                                    </a>
-                                    <div class="cart-item__content">
-                                        <div class="cart-item__content-left">
-                                            <h3 class="cart-item__title">
-                                                <a href="/BTL_LTW/LTWeb/detail?id=1">
-                                                    Qualità Oro Mountain Grown - Espresso Coffee Beans
-                                                </a>
-                                            </h3>
-                                            <p class="cart-item__price-wrap">
-                                                $38.65 | <span class="cart-item__status">In Stock</span>
-                                            </p>
-                                            <div class="cart-item__ctrl-wrap">
-                                                <div class="cart-item__ctrl cart-item__ctrl--md-block">
-                                                    <!-- <div class="cart-item__input">
-                                                        LavAzza
-                                                        <img class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/arrow-down-2.svg"
-                                                            alt="" />
-                                                    </div> -->
-                                                    <div class="cart-item__input">
-                                                        <button class="cart-item__input-btn" onclick="descreaseQuantity(3)">
-                                                            <img class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/minus.svg" alt="" />
-                                                        </button>
-                                                        <!-- <span id="quantity3">1</span> -->
-                                                        <!-- <span style="width: 20px; text-align: center;" id="quantity3">1</span> -->
-                                                        <input type="number" onchange="handleQuantityInput(3)" class="quantity-input" id="quantity3" value="1" min="1"/>
-                                                        <button class="cart-item__input-btn" onclick="increaseQuantity(3)">
-                                                            <img class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/plus.svg" alt="" />
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="cart-item__ctrl">
-                                                    <button class="cart-item__ctrl-btn">
-                                                        <img src="/BTL_LTW/LTWeb/public/assets/icons/heart-2.svg" alt="" />
-                                                        Save
-                                                    </button>
-                                                    <button class="cart-item__ctrl-btn js-toggle"
-                                                        toggle-target="#delete-confirm">
-                                                        <img src="/BTL_LTW/LTWeb/public/assets/icons/trash.svg" alt="" />
-                                                        Delete
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="cart-item__content-right">
-                                            <p class="cart-item__total-price">$38.65</p>
-                                            <button class="cart-item__checkout-btn btn btn--primary btn--rounded">
-                                                Check Out
-                                            </button>
-                                        </div>
-                                    </div>
-                                </article>
+                                <?php endforeach; ?>
                             </div>
                             <div class="cart-info__bottom">
                                 <div class="cart-info__row cart-info__row-md--block">
