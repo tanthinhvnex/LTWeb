@@ -9,6 +9,8 @@
     // echo '</pre>';
     // die();
     
+    session_start();
+
     require_once '../app/models/Database.php';
     $dbConfig = require_once '../config/dbConfig.php';
 
