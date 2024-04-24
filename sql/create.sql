@@ -60,6 +60,24 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Login` (IN `p_email` VARCHAR(255), 
     END IF;
 END$$
 
+DROP PROCEDURE IF EXISTS `Signup`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Signup` (IN `p_email` VARCHAR(255), IN `p_pass` VARCHAR(255)) BEGIN
+    DECLARE hashed_password varchar(255);
+    DECLARE email_prefix varchar(255);
+    
+    IF NOT EXISTS (SELECT * FROM `User` WHERE `email` = p_email LIMIT 1) THEN
+		SET hashed_password = SHA2(CONCAT(p_pass, 'fc45c92ac5ad37b42824ea724d2f8f32'), 256);
+        SET email_prefix = SUBSTRING_INDEX(p_email, '@', 1);
+        
+        INSERT INTO `user` (`email`,`encoded_password`,`fullname`,`phone`,`role`)
+        VALUES
+			(p_email, hashed_password, email_prefix, NULL, 'customer');
+		SELECT * FROM `user` where email = p_email;
+	ELSE
+		SELECT * FROM `user` where email = null;
+	END IF;
+END$$
+
 DROP PROCEDURE IF EXISTS `show_notification`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `show_notification` (IN `value` VARCHAR(255))   BEGIN
     SIGNAL SQLSTATE '45000'
@@ -67,7 +85,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `show_notification` (IN `value` VARC
 END$$
 
 DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
