@@ -52,7 +52,7 @@
                             <!-- User -->
                             <div class="profile-user">
                                 <img src="/BTL_LTW/LTWeb/public/assets/img/avatar/avatar-3.png" alt="" class="profile-user__avatar" />
-                                <h1 class="profile-user__name">Imran Khan</h1>
+                                <h1 class="profile-user__name"><?= htmlspecialchars($user->fullname) ?></h1>
                                 <p class="profile-user__desc">Registered: 17th May 2022</p>
                             </div>
 
@@ -166,53 +166,30 @@
                                     <p class="cart-info__desc profile__desc">Payment methods</p>
 
                                     <div class="row row-cols-3 row-cols-xl-2 row-cols-lg-1 gy-md-2">
-                                        <!-- Payment card 1 -->
+                                        <?php foreach ($creditCards as $card): ?>
                                         <div class="col">
-                                            <article class="payment-card" style="--bg-color: #1e2e69">
-                                                <img src="/BTL_LTW/LTWeb/public/assets/img/card/plane-bg.svg" alt=""
+                                            <article class="payment-card" style="--bg-color: #1e2e69;">
+                                            <img src="/BTL_LTW/LTWeb/public/assets/img/card/plane-bg.svg" alt=""
                                                     class="payment-card__img" />
-                                                <div class="payment-card__top">
+                                            <div class="payment-card__top">
                                                     <img src="/BTL_LTW/LTWeb/public/assets/img/card/plane.svg" alt="" />
-                                                    <span class="payment-card__type">FeatherCard</span>
+                                                    <span class="payment-card__type">CreditCard</span>
+                                            </div>
+                                            <div class="payment-card__number"><?= htmlspecialchars($card->cardNumber) ?></div>
+                                            <div class="payment-card__bottom">
+                                                <div>
+                                                    <p class="payment-card__label">Card Holder</p>
+                                                    <p class="payment-card__value"><?= htmlspecialchars($card->fullname) ?></p>
                                                 </div>
-                                                <div class="payment-card__number">1234 4567 8901 2221</div>
-                                                <div class="payment-card__bottom">
-                                                    <div>
-                                                        <p class="payment-card__label">Card Holder</p>
-                                                        <p class="payment-card__value">Imran Khan</p>
-                                                    </div>
-                                                    <div class="payment-card__expired">
-                                                        <p class="payment-card__label">Expired</p>
-                                                        <p class="payment-card__value">10/22</p>
-                                                    </div>
-                                                    <div class="payment-card__circle"></div>
+                                                <div class="payment-card__expired">
+                                                    <p class="payment-card__label">Expires</p>
+                                                    <p class="payment-card__value"><?= htmlspecialchars(date("m/y", strtotime($card->expDate))) ?></p>
                                                 </div>
+                                                <div class="payment-card__circle"></div>
+                                            </div>
                                             </article>
                                         </div>
-
-                                        <!-- Payment card 2 -->
-                                        <div class="col">
-                                            <article class="payment-card" style="--bg-color: #354151">
-                                                <img src="/BTL_LTW/LTWeb/public/assets/img/card/leaf-bg.svg" alt=""
-                                                    class="payment-card__img" />
-                                                <div class="payment-card__top">
-                                                    <img src="/BTL_LTW/LTWeb/public/assets/img/card/leaf.svg" alt="" />
-                                                    <span class="payment-card__type">FeatherCard</span>
-                                                </div>
-                                                <div class="payment-card__number">1234 4567 2221 8901</div>
-                                                <div class="payment-card__bottom">
-                                                    <div>
-                                                        <p class="payment-card__label">Card Holder</p>
-                                                        <p class="payment-card__value">Imran Khan</p>
-                                                    </div>
-                                                    <div class="payment-card__expired">
-                                                        <p class="payment-card__label">Expired</p>
-                                                        <p class="payment-card__value">11/22</p>
-                                                    </div>
-                                                    <div class="payment-card__circle"></div>
-                                                </div>
-                                            </article>
-                                        </div>
+                                        <?php endforeach; ?>
 
                                         <!-- Add new payment card -->
                                         <div class="col">
@@ -238,7 +215,7 @@
                                                 </div>
                                                 <div>
                                                     <h3 class="account-info__title">Email Address</h3>
-                                                    <p class="account-info__desc">tarek97.ta@gmail.com</p>
+                                                    <p class="account-info__desc"><?= htmlspecialchars($user->email) ?></p>
                                                 </div>
                                             </article>
                                         </div>
@@ -251,17 +228,19 @@
                                                 </div>
                                                 <div>
                                                     <h3 class="account-info__title">Phone number</h3>
-                                                    <p class="account-info__desc">+000 11122 2345 657</p>
+                                                    <p class="account-info__desc"><?= htmlspecialchars($user->phone) ?></p>
                                                 </div>
                                             </article>
                                         </div>
 
                                         <!-- Account info 3 -->
+                                        <!--
                                         <div class="col">
                                             <article class="account-info">
                                                 <div class="account-info__icon">
                                                     <img src="/BTL_LTW/LTWeb/public/assets/icons/location.svg" alt="" class="icon" />
                                                 </div>
+                                                
                                                 <div>
                                                     <h3 class="account-info__title">Add an address</h3>
                                                     <p class="account-info__desc">
@@ -270,44 +249,25 @@
                                                 </div>
                                             </article>
                                         </div>
+                                        -->
+                                        <div class="col">
+                                                <article class="account-info">
+                                                    <div class="account-info__icon">
+                                                        <img src="/BTL_LTW/LTWeb/public/assets/icons/location.svg" alt="" class="icon" />
+                                                    </div>
+                                                    <div>
+                                                        <h3 class="account-info__title">Shipping Address</h3>
+                                                    <?php foreach ($addresses as $address): ?>
+                                                        <p class="account-info__desc">
+                                                            <?= htmlspecialchars($address->additionalAddressInfo); ?>,
+                                                            <?= htmlspecialchars($address->cityDistrictTown); ?>
+                                                        </p>
+                                                    <?php endforeach; ?>
+                                                    </div>
+                                                </article>
+                                                
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <h2 class="cart-info__heading">Lists</h2>
-                                    <p class="cart-info__desc profile__desc">2 items - Primary</p>
-
-                                    <!-- Favourite item 1 -->
-                                    <article class="favourite-item">
-                                        <img src="/BTL_LTW/LTWeb/public/assets/img/product/item-1.png" alt=""
-                                            class="favourite-item__thumb" />
-                                        <div>
-                                            <h3 class="favourite-item__title">
-                                                Coffee Beans - Espresso Arabica and Robusta Beans
-                                            </h3>
-                                            <div class="favourite-item__content">
-                                                <span class="favourite-item__price">$47.00</span>
-                                                <button class="btn btn--primary btn--rounded">Add to cart</button>
-                                            </div>
-                                        </div>
-                                    </article>
-
-                                    <div class="separate" style="--margin: 20px"></div>
-
-                                    <!-- Favourite item 2 -->
-                                    <article class="favourite-item">
-                                        <img src="/BTL_LTW/LTWeb/public/assets/img/product/item-2.png" alt=""
-                                            class="favourite-item__thumb" />
-                                        <div>
-                                            <h3 class="favourite-item__title">
-                                                Lavazza Coffee Blends - Try the Italian Espresso
-                                            </h3>
-                                            <div class="favourite-item__content">
-                                                <span class="favourite-item__price">$53.00</span>
-                                                <button class="btn btn--primary btn--rounded">Add to cart</button>
-                                            </div>
-                                        </div>
-                                    </article>
                                 </div>
                             </div>
                         </div>

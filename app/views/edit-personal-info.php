@@ -74,7 +74,7 @@
                                         alt=""
                                         class="profile-user__avatar" />
                                     <h1 class="profile-user__name">
-                                        Imran Khan
+                                    <?= htmlspecialchars($user->fullname) ?>
                                     </h1>
                                     <p class="profile-user__desc">
                                         Registered: 17th May 2022
@@ -258,13 +258,13 @@
                                             Personal info
                                         </h2>
 
-                                        <form action="/BTL_LTW/LTWeb/edit_personal_info" method="post" class="form form-card">
+                                        <form action="/BTL_LTW/LTWeb/profile/edit_personal_info" method="post" class="form form-card">
                                             <!-- Form row 1 -->
                                             <div class="form__row">
                                                 <div class="form__group">
                                                     <label for="full-name" class="form__label form-card__label">Full name</label>
                                                     <div class="form__text-input">
-                                                        <input type="text" id="full-name" placeholder="Full name" class="form__input" required autofocus />
+                                                        <input type="text" id="full-name" placeholder="Full name" name= "fullname" class="form__input" required autofocus />
                                                         <img src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                                                     </div>
                                                     <p class="form__error" id="full-name-error">Please enter your full name</p>
@@ -272,7 +272,7 @@
                                                 <div class="form__group">
                                                     <label for="email-address" class="form__label form-card__label">Email address</label>
                                                     <div class="form__text-input">
-                                                        <input type="email" id="email-address" placeholder="Email address" class="form__input" required />
+                                                        <input type="email" id="email-address" placeholder="Email address" name = "email" class="form__input" required />
                                                         <img src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                                                     </div>
                                                     <p class="form__error" id="email-address-error">Please enter a valid email address</p>
@@ -284,7 +284,7 @@
                                                 <div class="form__group">
                                                     <label for="phone-number" class="form__label form-card__label">Phone Number</label>
                                                     <div class="form__text-input">
-                                                        <input type="tel" id="phone-number" placeholder="Phone Number" class="form__input" required />
+                                                        <input type="tel" id="phone-number" placeholder="Phone Number" name = "phone" class="form__input" required />
                                                         <img src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg" alt="" class="form__input-icon-error" id ="phone-number-error-icon"/>
                                                     </div>
                                                     <p class="form__error" id="phone-number-error">Please enter a valid phone number</p>
@@ -292,7 +292,7 @@
                                                 <div class="form__group">
                                                     <label for="password" class="form__label form-card__label">Password</label>
                                                     <div class="form__text-input">
-                                                        <input type="password" id="password" placeholder="Password" class="form__input" required />
+                                                        <input type="password" id="password" placeholder="Password" name = "password" class="form__input" required />
                                                         <img src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                                                     </div>
                                                     <p class="form__error" id="password-error">Please enter a password</p>

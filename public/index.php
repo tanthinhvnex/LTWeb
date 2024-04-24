@@ -8,9 +8,9 @@
     //     var_dump($_SERVER);
     // echo '</pre>';
     // die();
-    require_once __DIR__ . '/../app/models/User.php';
+    require_once '../app/models/User.php';
     session_start();
-
+    
     require_once '../app/models/Database.php';
     $dbConfig = require_once '../config/dbConfig.php';
 
