@@ -29,17 +29,30 @@ DELIMITER $$
 -- Procedures
 --
 DROP PROCEDURE IF EXISTS `Login`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Login` (IN `p_email` VARCHAR(255), IN `p_pass` VARCHAR(255))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Login` (IN `p_email` VARCHAR(255), IN `p_pass` VARCHAR(255), IN `p_remember_me` bool) BEGIN
     DECLARE hashed_password varchar(255);
-
+	DECLARE hashed_remember_me_cookie_id varchar(255);
+    
     SELECT `encoded_password` INTO hashed_password
     FROM `User`
     WHERE `email` = p_email;
 
     IF hashed_password IS NOT NULL AND hashed_password = SHA2(CONCAT(p_pass, 'fc45c92ac5ad37b42824ea724d2f8f32'), 256) THEN
-        SELECT email, fullname, `role`, phone
-        FROM `User`
-        WHERE `email` = p_email;
+	
+		IF p_remember_me = TRUE THEN
+			SET hashed_remember_me_cookie_id = SHA2(CONCAT(p_email, UUID()), 256);
+            
+			INSERT INTO `user_have_remember_me_cookie` (`customer_email`,`RMC_ID`) VALUES
+			(p_email, hashed_remember_me_cookie_id);
+            
+            SELECT email, fullname, `role`, phone, uhrmc.RMC_ID
+			FROM `User` as u JOIN `user_have_remember_me_cookie` as uhrmc ON u.email = uhrmc.customer_email
+			WHERE `email` = p_email and uhrmc.RMC_ID = hashed_remember_me_cookie_id;
+		ELSE
+			SELECT email, fullname, `role`, phone
+			FROM `User`
+			WHERE `email` = p_email;
+		END IF;
     ELSE
         SELECT `email`
         FROM `User`
@@ -2832,6 +2845,22 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 --
 -- RELATIONSHIPS FOR TABLE `user`:
+--
+
+--
+-- Table structure for table `user_have_remember_me_cookie`
+--
+
+DROP TABLE IF EXISTS `user_have_remember_me_cookie`;
+CREATE TABLE IF NOT EXISTS `user_have_remember_me_cookie` (
+  `customer_email` varchar(255) NOT NULL,
+  `RMC_ID` varchar(255) NOT NULL,
+  PRIMARY KEY (`customer_email`,`RMC_ID`),
+  FOREIGN KEY (`customer_email`) REFERENCES `user`(`email`) ON UPDATE CASCADE ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- RELATIONSHIPS FOR TABLE `user_have_remember_me_cookie`:
 --
 
 --

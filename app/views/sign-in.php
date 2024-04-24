@@ -123,9 +123,11 @@
                             <label class="form__checkbox">
                                 <input
                                     type="checkbox"
-                                    name=""
-                                    id=""
-                                    class="form__checkbox-input d-none" />
+                                    name="remember"
+                                    id="inputRemember"
+                                    class="form__checkbox-input d-none" 
+                                    <?php if ($_POST['remember'] ?? false) echo 'checked' ?>
+                                    />
                                 <span class="form__checkbox-label"
                                     >Remember me</span
                                 >
