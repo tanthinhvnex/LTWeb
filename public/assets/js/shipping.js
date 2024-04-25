@@ -6,10 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var cityOptions = cityDialog.querySelectorAll('.form__option');
 
 
-    cityInput.addEventListener('click', function(event) {
-        cityDialog.classList.remove('hidden');
-        event.stopPropagation();
-    });
+
     cityOptions.forEach(function(option) {
         option.addEventListener('click', function() {
             cityOptions.forEach(function(opt) {
@@ -28,10 +25,18 @@ document.addEventListener('DOMContentLoaded', function() {
     var addressInput = document.getElementById('address');
     var cityInput = document.getElementById('city');
     var createButton = document.getElementById('createButton');
+    var listEditButton=document.getElementsByName('editAddress');
+    var addButton=document.getElementsByName('addAddress')[0];
     var modal = document.getElementById('add-new-address')
     var cityOptions = document.querySelectorAll('#city-dialog-list .form__option');
+    var cityDialog = document.getElementById('city-dialog');
+    var formError = Array.from(document.getElementsByClassName('form__error'));
+    document.getElementById('cancelAddEdit').addEventListener('click',function(){
+        formError.forEach(function(error){
+            error.style.display = 'none';
+        })
+    })
     function validateInputs() {
-        
         var inputs = [nameInput, phoneInput, addressInput, cityInput];
         var errorShown = false; 
     
@@ -53,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
    
     function displayError(input) {
-        
         var errorElement = input.closest('.form__group').querySelector('.form__error');
         errorElement.style.display = 'block';
     }
@@ -66,27 +70,62 @@ document.addEventListener('DOMContentLoaded', function() {
 
  
     form.addEventListener('submit', function(event) {
-
+        console.log("submit");
+        
         if (!validateInputs()) {
             event.preventDefault();
+        }
+        else{
+            form.submit();
         }
     });
 
     createButton.addEventListener('click', function(event) {
-        event.preventDefault(); 
+        
         
         if (!validateInputs()) {
-            // if (modal.classList.contains('hide')) {
-            //     modal.classList.remove('hide');
-            //     modal.classList.add('show');
-            // }
+
+            event.preventDefault(); 
         } else {
+            // submitForm();
+            form.submit();
             if (modal.classList.contains('show')) {
                 modal.classList.remove('show');
                 modal.classList.add('hide');
             }
+            
         }
     });
+    listEditButton.forEach(function(editButton) {
+        editButton.addEventListener('click', function() {
+            var heading = document.getElementsByClassName('modal__heading')[0];
+            heading.textContent = "Edit shipping address";
+            document.getElementById("createButton").textContent = "Save changes";
+            form.setAttribute('action', '/BTL_LTW/LTWeb/shipping/edit_address');
+
+            var addressId = this.getAttribute('address-id');
+            console.log('Edit button clicked for address ID:', addressId);
+            console.log(listAddress);
+            var address = listAddress.find(function(address) {
+                return address.AID == addressId;
+            });
+            var addressJson = JSON.stringify(address);
+            document.getElementsByName('addressToEdit')[0].value = addressJson;
+            nameInput.value=address.receiverName;
+            phoneInput.value=address.receiverPhone;
+            addressInput.value=address.additionalAddressInfo;
+            cityInput.value=address.cityDistrictTown;
+            document.getElementsByName('isDefault')[0].checked =(address.isDefault == 1);
+        });
+    });
+    
+    addButton.addEventListener('click',function(){
+        var headings = document.getElementsByClassName('modal__heading');
+        headings[0].textContent = "Add new shipping address";
+        document.getElementById("createButton").textContent = "Create";
+        form.setAttribute('action', '/BTL_LTW/LTWeb/shipping/add_new_address');
+        form.reset(); 
+    })
 
     nameInput.addEventListener('input', function() {
         if (nameInput.value.trim() !== '') {
@@ -107,7 +146,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     cityInput.addEventListener('change', function() {
-        console.log(cityInput.value)
         if (cityInput.value.trim() !== '') {
             hideError(cityInput);
         }
@@ -115,10 +153,11 @@ document.addEventListener('DOMContentLoaded', function() {
     cityOptions.forEach(function(option) {
         
         option.addEventListener('click', function() {
-            console.log(31);
             
             cityInput.value = this.textContent.trim();
             cityInput.dispatchEvent(new Event('change'));
+            cityDialog.classList.remove('show');
+            cityDialog.classList.add('hide');
         });
     });
 });
