@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var cityInput = document.getElementById('city');
     var createButton = document.getElementById('createButton');
     var modal = document.getElementById('add-new-address')
-    
+    var cityOptions = document.querySelectorAll('#city-dialog-list .form__option');
     function validateInputs() {
         
         var inputs = [nameInput, phoneInput, addressInput, cityInput];
@@ -40,30 +40,27 @@ document.addEventListener('DOMContentLoaded', function() {
             var input = inputs[i];
             
           
-            if (input.value.trim() === '') {
+            if (input.value.trim() === ''||!input.validity.valid) {
                
                 if (!errorShown) {
-                    displayError(input, 'The input field is required');
+                    displayError(input);
                     errorShown = true; 
                 }
-                return false; 
             }
         }
     
-        return true; 
+        return !errorShown; 
     }
    
-    function displayError(input, message) {
+    function displayError(input) {
         
         var errorElement = input.closest('.form__group').querySelector('.form__error');
-        errorElement.textContent = message;
         errorElement.style.display = 'block';
     }
 
  
     function hideError(input) {
         var errorElement = input.closest('.form__group').querySelector('.form__error');
-        errorElement.textContent = '';
         errorElement.style.display = 'none';
     }
 
@@ -76,7 +73,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     createButton.addEventListener('click', function(event) {
-        console.log(1);
         event.preventDefault(); 
         
         if (!validateInputs()) {
@@ -110,9 +106,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    cityInput.addEventListener('input', function() {
+    cityInput.addEventListener('change', function() {
+        console.log(cityInput.value)
         if (cityInput.value.trim() !== '') {
             hideError(cityInput);
         }
+    });
+    cityOptions.forEach(function(option) {
+        
+        option.addEventListener('click', function() {
+            console.log(31);
+            
+            cityInput.value = this.textContent.trim();
+            cityInput.dispatchEvent(new Event('change'));
+        });
     });
 });
