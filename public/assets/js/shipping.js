@@ -1,8 +1,11 @@
 
 document.addEventListener('DOMContentLoaded', function() {
+    
     var cityInput = document.getElementById('city');
     var cityDialog = document.getElementById('city-dialog');
     var cityOptions = cityDialog.querySelectorAll('.form__option');
+
+
     cityInput.addEventListener('click', function(event) {
         cityDialog.classList.remove('hidden');
         event.stopPropagation();
@@ -15,11 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.add('form__option--current');
             cityInput.value = this.textContent;
         });
-    });
-    document.addEventListener('click', function(event) {
-        if (!cityDialog.contains(event.target) && !cityInput.contains(event.target)) {
-            cityDialog.classList.add('hidden');
-        }
     });
 });
 document.addEventListener('DOMContentLoaded', function() {
@@ -56,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
    
     function displayError(input, message) {
+        
         var errorElement = input.closest('.form__group').querySelector('.form__error');
         errorElement.textContent = message;
         errorElement.style.display = 'block';
@@ -77,13 +76,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     createButton.addEventListener('click', function(event) {
+        console.log(1);
         event.preventDefault(); 
-
+        
         if (!validateInputs()) {
-            if (modal.classList.contains('hide')) {
-                modal.classList.remove('hide');
-                modal.classList.add('show');
-            }
+            // if (modal.classList.contains('hide')) {
+            //     modal.classList.remove('hide');
+            //     modal.classList.add('show');
+            // }
         } else {
             if (modal.classList.contains('show')) {
                 modal.classList.remove('show');
