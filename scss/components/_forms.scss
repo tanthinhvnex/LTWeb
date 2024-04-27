@@ -45,17 +45,10 @@ $error-color: #ed4337;
             display: flex;
             align-items: center;
         }
-    }
-
-    &__group:has(:invalid):has(&__input:not(:placeholder-shown)) {
-        .form__text-input {
-            border-color: $error-color;
-            background-color: rgba($color: $error-color, $alpha: 0.1);
-        }
 
         .form__error,
         .form__input-icon-error {
-            display: block;
+            display: none;
             margin-left: 12px;
             animation: shake 0.5s;
         }
@@ -444,3 +437,24 @@ $error-color: #ed4337;
 .radio [type="radio"] {
     display: none;
 }
+
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #333; /* Màu của đường viền trái */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite; /* Tạo animation với tên là 'spin', thời gian là 1s, chế độ là linear và lặp vô hạn */
+    margin: 0 auto; /* Để giữ spinner ở giữa */
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+

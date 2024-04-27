@@ -2,364 +2,353 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Checkout | Grocery Mart</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout | Grocery Mart</title>
 
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="76x76" href="./assets/favicon/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png" />
-    <link rel="manifest" href="./assets/favicon/site.webmanifest" />
-    <meta name="msapplication-TileColor" content="#da532c" />
-    <meta name="theme-color" content="#ffffff" />
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="76x76" href="./assets/favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png" />
+  <link rel="manifest" href="./assets/favicon/site.webmanifest" />
+  <meta name="msapplication-TileColor" content="#da532c" />
+  <meta name="theme-color" content="#ffffff" />
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="./assets/fonts/stylesheet.css" />
+  <!-- Fonts -->
+  <link rel="stylesheet" href="./assets/fonts/stylesheet.css" />
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="./assets/css/main.css" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="./assets/css/main.css" />
 
-    <!-- Scripts -->
-    <script src="./assets/js/scripts.js"></script>
+  <!-- Scripts -->
+  <script src="./assets/js/scripts.js"></script>
 </head>
 
 <body>
-    <!-- Header -->
-    <header id="header" class="header"></header>
-    <script>
-        load("#header", "./templates/header-logined.html");
-    </script>
+  <!-- Header -->
+  <header id="header" class="header"></header>
+  <script>
+    load("#header", "./templates/header-logined.html");
 
-    <!-- MAIN -->
-    <main class="checkout-page">
-        <div class="container">
-            <!-- Search bar -->
-            <div class="checkout-container">
-                <div class="search-bar d-none d-md-flex">
-                    <input type="text" name="" id="" placeholder="Search for item" class="search-bar__input" />
-                    <button class="search-bar__submit">
-                        <img src="./assets/icons/search.svg" alt="" class="search-bar__icon icon" />
-                    </button>
-                </div>
-            </div>
+    document.addEventListener("DOMContentLoaded", function () {
+      loadCard();
+      updateCartNotification()
+    });
 
-            <!-- Breadcrumbs -->
-            <div class="checkout-container">
-                <ul class="breadcrumbs checkout-page__breadcrumbs">
-                    <li>
-                        <a href="./" class="breadcrumbs__link">
-                            Home
-                            <img src="./assets/icons/arrow-right.svg" alt="" />
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#!" class="breadcrumbs__link breadcrumbs__link--current">Checkout</a>
-                    </li>
-                </ul>
-            </div>
+    function loadCard() {
+      const productsInCart = JSON.parse(localStorage.getItem("cart")) || [];
+      const container = document.getElementById("cardContainer");
 
-            <!-- Checkout content -->
-            <div class="checkout-container">
-                <div class="row gy-xl-3">
-                    <div class="col-8 col-xl-12">
-                        <div class="cart-info">
-                            <h2 style="margin-top: 0;" class="cart-info__sub-heading">Items details</h2>
-                            <div class="cart-info__check-all">
-                                <label class="cart-info__checkbox">
-                                    <input onChange="checkAll()" id="check-all" type="checkbox" name="shipping-adress" class="cart-info__checkbox-input" />
-                                </label>
-                            </div>
-                            <div class="cart-info__list">
-                                <!-- Cart item 1 -->
-                                <article class="cart-item">
-                                    <label class="cart-info__checkbox">
-                                        <input name="check-item" type="checkbox" name="shipping-adress" class="cart-info__checkbox-input" />
-                                    </label>
+      if (!container) {
+        return;
+      }
+
+      container.innerHTML = "";
+
+      if (productsInCart.length === 0) {
+        clearSession();
+        return;
+      }
+
+      productsInCart.forEach((product) => {
+        const totalPrice =
+          (product.price + getExtraPrice(product.size)) * product.quantity;
+        const key = `${product.id}-${product.size}`;
+        const textSize =
+          product.size === "small"
+            ? "Small (500g)"
+            : product.size === "medium"
+              ? "Medium (1000g) (+10$)"
+              : "Large (2000g) (+20$)";
+
+        const ele = ` <article class="cart-item">
                                     <a href="./product-detail.html">
-                                        <img src="./assets/img/product/item-1.png" alt="" class="cart-item__thumb" />
+                                        <img src="${product.image_src}" alt="" class="cart-item__thumb" />
                                     </a>
                                     <div class="cart-item__content">
                                         <div class="cart-item__content-left">
                                             <h3 class="cart-item__title">
                                                 <a href="./product-detail.html">
-                                                    Coffee Beans - Espresso Arabica and Robusta Beans
+                                                   ${product.name}
                                                 </a>
                                             </h3>
                                             <p class="cart-item__price-wrap">
-                                                $47.00 | <span class="cart-item__status">In Stock</span>
+                                                $${product.price} | <span class="cart-item__status">${textSize} </span>
                                             </p>
                                             <div class="cart-item__ctrl cart-item__ctrl--md-block">
-                                                <!-- <div class="cart-item__input">
-                                                    LavAzza
-                                                    <img class="icon" src="./assets/icons/arrow-down-2.svg" alt="" />
-                                                </div> -->
                                                 <div class="cart-item__input">
-                                                    <button class="cart-item__input-btn" onclick="descreaseQuantity(1)">
+                                                    <button type="button" class="cart-item__input-btn" onClick="updateQuantity(${product.id}, false)">
                                                         <img class="icon" src="./assets/icons/minus.svg" alt="" />
                                                     </button>
-                                                    <!-- <span style="width: 20px; text-align: center;" id="quantity1">1</span> -->
-                                                    <input type="number" onchange="handleQuantityInput(1)" class="quantity-input" id="quantity1" value="1" min="1"/>
-                                                    <button class="cart-item__input-btn" onclick="increaseQuantity(1)">
+                                                    <span id="productQuantityText-${key}">${product.quantity}</span>
+                                                    <button type="button" class="cart-item__input-btn" onClick="updateQuantity(${product.id}, true)">
                                                         <img class="icon" src="./assets/icons/plus.svg" alt="" />
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="cart-item__content-right">
-                                            <p class="cart-item__total-price">$47.00</p>
+                                            <p class="cart-item__total-price" id="${key}-totalPrice">$${totalPrice}</p>
                                             <div class="cart-item__ctrl">
-                                                <button class="cart-item__ctrl-btn">
-                                                    <img src="./assets/icons/heart-2.svg" alt="" />
-                                                    Save
-                                                </button>
-                                                <button class="cart-item__ctrl-btn js-toggle"
-                                                    toggle-target="#delete-confirm">
+                                                <button type="button" onClick="deleteProduct(${product.id})" class="cart-item__ctrl-btn">
                                                     <img src="./assets/icons/trash.svg" alt="" />
                                                     Delete
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
-                                </article>
+                                </article>`;
 
-                                <!-- Cart item 2 -->
-                                <article class="cart-item">
-                                    <label class="cart-info__checkbox">
-                                        <input name="check-item" type="checkbox" name="shipping-adress" class="cart-info__checkbox-input" />
-                                    </label>
-                                    <a href="./product-detail.html">
-                                        <img src="./assets/img/product/item-2.png" alt="" class="cart-item__thumb" />
-                                    </a>
-                                    <div class="cart-item__content">
-                                        <div class="cart-item__content-left">
-                                            <h3 class="cart-item__title">
-                                                <a href="./product-detail.html">
-                                                    Lavazza Coffee Blends - Try the Italian Espresso
-                                                </a>
-                                            </h3>
-                                            <p class="cart-item__price-wrap">
-                                                $53.00 | <span class="cart-item__status">In Stock</span>
-                                            </p>
-                                            <div class="cart-item__ctrl cart-item__ctrl--md-block">
-                                                <!-- <div class="cart-item__input">
-                                                    LavAzza
-                                                    <img src="./assets/icons/arrow-down-2.svg" alt="" />
-                                                </div> -->
-                                                <div class="cart-item__input">
-                                                    <button class="cart-item__input-btn" onclick="descreaseQuantity(2)">
-                                                        <img class="icon" src="./assets/icons/minus.svg" alt="" />
-                                                    </button>
-                                                    <!-- <span id="quantity2">1</span> -->
-                                                    <!-- <span style="width: 20px; text-align: center;" id="quantity2">1</span> -->
-                                                    <input type="number" onchange="handleQuantityInput(2)" class="quantity-input" id="quantity2" value="1" min="1"/>
-                                                    <button class="cart-item__input-btn" onclick="increaseQuantity(2)">
-                                                        <img class="icon" src="./assets/icons/plus.svg" alt="" />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="cart-item__content-right">
-                                            <p class="cart-item__total-price">$106.00</p>
-                                            <div class="cart-item__ctrl">
-                                                <button class="cart-item__ctrl-btn">
-                                                    <img src="./assets/icons/heart-2.svg" alt="" />
-                                                    Save
-                                                </button>
-                                                <button class="cart-item__ctrl-btn js-toggle"
-                                                    toggle-target="#delete-confirm">
-                                                    <img src="./assets/icons/trash.svg" alt="" />
-                                                    Delete
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
+        container.innerHTML += ele;
+      });
 
-                                <!-- Cart item 3 -->
-                                <article class="cart-item">
-                                    <label class="cart-info__checkbox">
-                                        <input name="check-item" type="checkbox" name="shipping-adress" class="cart-info__checkbox-input" />
-                                    </label>
-                                    <a href="./product-detail.html">
-                                        <img src="./assets/img/product/item-3.png" alt="" class="cart-item__thumb" />
-                                    </a>
-                                    <div class="cart-item__content">
-                                        <div class="cart-item__content-left">
-                                            <h3 class="cart-item__title">
-                                                <a href="./product-detail.html">
-                                                    Qualità Oro Mountain Grown - Espresso Coffee Beans
-                                                </a>
-                                            </h3>
-                                            <p class="cart-item__price-wrap">
-                                                $38.65 | <span class="cart-item__status">In Stock</span>
-                                            </p>
-                                            <div class="cart-item__ctrl cart-item__ctrl--md-block">
-                                                <!-- <div class="cart-item__input">
-                                                    LavAzza
-                                                    <img src="./assets/icons/arrow-down-2.svg" alt="" />
-                                                </div> -->
-                                                <div class="cart-item__input">
-                                                    <button class="cart-item__input-btn" onclick="descreaseQuantity(3)">
-                                                        <img class="icon" src="./assets/icons/minus.svg" alt="" />
-                                                    </button>
-                                                    <!-- <span id="quantity3">1</span> -->
-                                                    <!-- <span style="width: 20px; text-align: center;" id="quantity3">1</span> -->
-                                                    <input type="number" onchange="handleQuantityInput(3)" class="quantity-input" id="quantity3" value="1" min="1"/>
-                                                    <button class="cart-item__input-btn" onclick="increaseQuantity(3)">
-                                                        <img class="icon" src="./assets/icons/plus.svg" alt="" />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="cart-item__content-right">
-                                            <p class="cart-item__total-price">$38.65</p>
-                                            <div class="cart-item__ctrl">
-                                                <button class="cart-item__ctrl-btn">
-                                                    <img src="./assets/icons/heart-2.svg" alt="" />
-                                                    Save
-                                                </button>
-                                                <button class="cart-item__ctrl-btn js-toggle"
-                                                    toggle-target="#delete-confirm">
-                                                    <img src="./assets/icons/trash.svg" alt="" />
-                                                    Delete
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
+      reloadCart();
+    }
 
-                            <div class="cart-info__bottom d-md-none">
-                                <button class="selected-delete btn btn--danger btn--rounded js-toggle"
-                                    style="float: right; margin-bottom: 20px;"
-                                    toggle-target="#delete-selected-confirm"
-                                    disabled>
-                                    Delete (0)
-                                </button>
-                                <div style="clear: right;"></div>
-                                <div class="row">
-                                    <div class="col-8 col-xxl-7">
-                                        <div class="cart-info__continue">
-                                            <a href="./" class="cart-info__continue-link">
-                                                <img class="cart-info__continue-icon icon"
-                                                    src="./assets/icons/arrow-down-2.svg" alt="" />
-                                                Continue Shopping
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 col-xxl-5">
-                                        <div class="cart-info__row">
-                                            <span>Subtotal:</span>
-                                            <span>$191.65</span>
-                                        </div>
-                                        <div class="cart-info__row">
-                                            <span>Shipping:</span>
-                                            <span>$10.00</span>
-                                        </div>
-                                        <div class="cart-info__separate"></div>
-                                        <div class="cart-info__row cart-info__row--bold">
-                                            <span>Total:</span>
-                                            <span>$201.65</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    function updateQuantity(productId, isIncrease) {
+      const productsInCart = JSON.parse(localStorage.getItem("cart")) || [];
+      const product = productsInCart.find((p) => p.id === productId);
+      if (!product) {
+        return;
+      }
+
+      const key = `${product.id}-${product.size}`;
+      const ele = document.getElementById(`productQuantityText-${key}`);
+      const eleTotalPrice = document.getElementById(`${key}-totalPrice`);
+
+      product.quantity += isIncrease ? 1 : -1;
+
+      if (product.quantity <= 0) {
+        deleteProduct(productId);
+        return;
+      }
+
+      if (ele) {
+        ele.innerHTML = product.quantity;
+      }
+
+      if (eleTotalPrice) {
+        eleTotalPrice.innerHTML = `$${(product.price + getExtraPrice(product.size)) * product.quantity
+          }`;
+      }
+
+      localStorage.setItem("cart", JSON.stringify(productsInCart));
+      reloadCart();
+    }
+
+    function deleteProduct(productID) {
+      const productsInCart = JSON.parse(localStorage.getItem("cart")) || [];
+      const productIndex = productsInCart.findIndex(
+        (p) => p.id === productID
+      );
+      if (productIndex === -1) {
+        return;
+      }
+
+      const isLast = productsInCart.length === 1;
+
+      productsInCart.splice(productIndex, 1);
+
+      if (isLast) {
+        clearSession();
+      } else {
+        localStorage.setItem("cart", JSON.stringify(productsInCart));
+      }
+
+      loadCard();
+    }
+
+    function getExtraPrice(size) {
+      return size === "small" ? 0 : size === "medium" ? 10 : 20;
+    }
+
+    function reloadCart() {
+      const productsInCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      const totalPrice = productsInCart.reduce(
+        (acc, product) =>
+          acc +
+          (product.price + getExtraPrice(product.size)) * product.quantity,
+        0
+      );
+      const shippingCost = productsInCart.length > 0 ? 10 : 0;
+      const estimatedTotal = totalPrice + shippingCost;
+      const subTotalItems = productsInCart.reduce(
+        (acc, product) => acc + product.quantity,
+        0
+      );
+      const quantity = productsInCart.reduce(
+        (acc, product) => acc + product.quantity,
+        0
+      );
+
+      document.getElementById("productQuantity").innerHTML = quantity;
+      document.getElementById("totalPrice").innerHTML = `$${totalPrice}`;
+      document.getElementById("shippingText").innerHTML = `$${shippingCost}`;
+      document.getElementById(
+        "estimatedTotal"
+      ).innerHTML = `$${estimatedTotal}`;
+
+      // Bottom
+      document.getElementById("bottomSubTotal").innerHTML = `$${totalPrice}`;
+      document.getElementById(
+        "bottomShippingText"
+      ).innerHTML = `$${shippingCost}`;
+      document.getElementById("bottomTotal").innerHTML = `$${estimatedTotal}`;
+    }
+
+    function clearSession() {
+      localStorage.removeItem("cart");
+
+      document.getElementById("shippingText").innerHTML = "$0";
+      document.getElementById("productQuantity").innerHTML = 0;
+      document.getElementById("totalPrice").innerHTML = `$0`;
+      document.getElementById("estimatedTotal").innerHTML = `$0`;
+
+      // Bottom
+      document.getElementById("bottomSubTotal").innerHTML = "$0";
+      document.getElementById("bottomTotal").innerHTML = "$0";
+      document.getElementById("bottomShippingText").innerHTML = "$0";
+    }
+  </script>
+
+  <!-- MAIN -->
+  <main class="checkout-page">
+    <div class="container">
+      <!-- Search bar -->
+      <div class="checkout-container">
+        <div class="search-bar d-none d-md-flex">
+          <input type="text" name="" id="" placeholder="Search for item" class="search-bar__input" />
+          <button class="search-bar__submit">
+            <img src="./assets/icons/search.svg" alt="" class="search-bar__icon icon" />
+          </button>
+        </div>
+      </div>
+
+      <!-- Breadcrumbs -->
+      <div class="checkout-container">
+        <ul class="breadcrumbs checkout-page__breadcrumbs">
+          <li>
+            <a href="./" class="breadcrumbs__link">
+              Home
+              <img src="./assets/icons/arrow-right.svg" alt="" />
+            </a>
+          </li>
+          <li>
+            <a href="#!" class="breadcrumbs__link breadcrumbs__link--current">Checkout</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Checkout content -->
+      <div class="checkout-container">
+        <div class="row gy-xl-3">
+          <div class="col-8 col-xl-12">
+            <div class="cart-info">
+              <div class="cart-info__list" id="cardContainer"></div>
+
+              <div class="cart-info__bottom d-md-none">
+                <div class="row">
+                  <div class="col-8 col-xxl-7">
+                    <div class="cart-info__continue">
+                      <a href="./" class="cart-info__continue-link">
+                        <img class="cart-info__continue-icon icon" src="./assets/icons/arrow-down-2.svg" alt="" />
+                        Continue Shopping
+                      </a>
                     </div>
-                    <div class="col-4 col-xl-12">
-                        <div class="cart-info">
-                            <div class="cart-info__row">
-                                <span>Subtotal <span class="cart-info__sub-label">(items)</span></span>
-                                <span>3</span>
-                            </div>
-                            <div class="cart-info__row">
-                                <span>Price <span class="cart-info__sub-label">(Total)</span></span>
-                                <span>$191.65</span>
-                            </div>
-                            <div class="cart-info__row">
-                                <span>Shipping</span>
-                                <span>$10.00</span>
-                            </div>
-                            <div class="cart-info__separate"></div>
-                            <div class="cart-info__row">
-                                <span>Estimated Total</span>
-                                <span>$201.65</span>
-                            </div>
-                            <a href="./shipping.html" class="cart-info__next-btn btn btn--primary btn--rounded">
-                                Continue to checkout
-                            </a>
-                        </div>
-                        <div class="cart-info">
-                            <a href="#!">
-                                <article class="gift-item">
-                                    <div class="gift-item__icon-wrap">
-                                        <img src="./assets/icons/gift.svg" alt="" class="gift-item__icon" />
-                                    </div>
-                                    <div class="gift-item__content">
-                                        <h3 class="gift-item__title">Send this order as a gift.</h3>
-                                        <p class="gift-item__desc">
-                                            Available items will be shipped to your gift recipient.
-                                        </p>
-                                    </div>
-                                </article>
-                            </a>
-                        </div>
+                  </div>
+                  <div class="col-4 col-xxl-5">
+                    <div class="cart-info__row">
+                      <span>Subtotal:</span>
+                      <span id="bottomSubTotal">$191.65</span>
                     </div>
+                    <div class="cart-info__row">
+                      <span>Shipping:</span>
+                      <span id="bottomShippingText">$10.00</span>
+                    </div>
+                    <div class="cart-info__separate"></div>
+                    <div class="cart-info__row cart-info__row--bold">
+                      <span>Total:</span>
+                      <span id="bottomTotal">$201.65</span>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer id="footer" class="footer"></footer>
-    <script>
-        load("#footer", "./templates/footer.html");
-    </script>
-
-    <!-- Modal: confirm remove shopping cart item -->
-    <div id="delete-confirm" class="modal modal--small hide">
-        <div class="modal__content">
-            <div class="modal__text">Do you want to remove this item from shopping cart</div>
-            <div class="modal__bottom">
-                <button class="btn btn--small btn--outline btn--text modal__btn js-toggle"
-                    toggle-target="#delete-confirm">
-                    Cancel
-                </button>
-                <button class="btn btn--small btn--danger btn--primary modal__btn btn--no-margin js-toggle"
-                    toggle-target="#delete-confirm">
-                    Delete
-                </button>
+          </div>
+          <div class="col-4 col-xl-12">
+            <div class="cart-info">
+              <div class="cart-info__row">
+                <span>Subtotal
+                  <span class="cart-info__sub-label">(items)</span></span>
+                <span id="productQuantity">3</span>
+              </div>
+              <div class="cart-info__row">
+                <span>Price
+                  <span class="cart-info__sub-label">(Total)</span></span>
+                <span id="totalPrice">$191.65</span>
+              </div>
+              <div class="cart-info__row">
+                <span>Shipping</span>
+                <span id="shippingText">$10.00</span>
+              </div>
+              <div class="cart-info__separate"></div>
+              <div class="cart-info__row">
+                <span>Estimated Total</span>
+                <span id="estimatedTotal">$201.65</span>
+              </div>
+              <a href="./shipping.html" class="cart-info__next-btn btn btn--primary btn--rounded">
+                Continue to checkout
+              </a>
             </div>
+            <div class="cart-info">
+              <a href="#!">
+                <article class="gift-item">
+                  <div class="gift-item__icon-wrap">
+                    <img src="./assets/icons/gift.svg" alt="" class="gift-item__icon" />
+                  </div>
+                  <div class="gift-item__content">
+                    <h3 class="gift-item__title">
+                      Send this order as a gift.
+                    </h3>
+                    <p class="gift-item__desc">
+                      Available items will be shipped to your gift recipient.
+                    </p>
+                  </div>
+                </article>
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="modal__overlay js-toggle" toggle-target="#delete-confirm"></div>
+      </div>
     </div>
+  </main>
 
-    <div id="delete-selected-confirm" class="modal modal--small hide">
-        <div class="modal__content">
-            <p class="selected-modal__text">Do you want to remove selected items from favourite list?</p>
-            <div class="modal__bottom">
-                <button class="btn btn--small btn--outline modal__btn js-toggle" toggle-target="#delete-selected-confirm">
-                    Cancel
-                </button>
-                <button class="btn btn--small btn--danger btn--primary modal__btn btn--no-margin js-toggle"
-                    toggle-target="#delete-selected-confirm">
-                    Delete
-                </button>
-            </div>
-        </div>
-        <div class="modal__overlay js-toggle" toggle-target="#delete-selected-confirm"></div>
+  <!-- Footer -->
+  <footer id="footer" class="footer"></footer>
+  <script>
+    load("#footer", "./templates/footer.html");
+  </script>
+
+  <!-- Modal: confirm remove shopping cart item -->
+  <div id="delete-confirm" class="modal modal--small hide">
+    <div class="modal__content">
+      <div class="modal__text">
+        Do you want to remove this item from shopping cart
+      </div>
+      <div class="modal__bottom">
+        <button class="btn btn--small btn--outline btn--text modal__btn js-toggle" toggle-target="#delete-confirm"
+          type="button">
+          Cancel
+        </button>
+        <button class="btn btn--small btn--danger btn--primary modal__btn btn--no-margin js-toggle"
+          toggle-target="#delete-confirm" type="button">
+          Delete
+        </button>
+      </div>
     </div>
-    <script>
-        var checkItems = document.getElementsByName("check-item");
-        for (var i = 0; i < checkItems.length; i++) {
-            checkItems[i].addEventListener('change', handleCheck);
-        }
-        
-        document.querySelector('.cart-info__checkout-all').addEventListener('click', function() {
-            window.location.href = './checkout.html';
-        });
-    </script>
+    <div class="modal__overlay js-toggle" toggle-target="#delete-confirm"></div>
+  </div>
 </body>
 
 </html>
