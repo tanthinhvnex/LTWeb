@@ -29,7 +29,7 @@ class Shipping {
             
             if ($endpoint === 'shipping') {
                 $listAddress=Address::getListAddressByUser($_SESSION['user']->email);
-            else {
+            }else {
                 echo "Unknown endpoint";
                 exit; 
             }
@@ -50,7 +50,6 @@ class Shipping {
             $newAddress = new Address($currentEmail, null, $receiverName, $receiverPhone, $cityDistrictTown, $additionalAddressInfo, $isDefault);
             $newAddress->addAddress();
             echo "success add";
-            header("location: /BTL_LTW/LTWeb/shipping");
         } else {
             echo "Error: Name field not set in POST data.";
         }
@@ -77,7 +76,7 @@ class Shipping {
                 $isDefault
             );
             $addressToEdit->editAddress();
-            header("location: /BTL_LTW/LTWeb/shipping");
+            header("http://localhost/BTL_LTW/LTWeb/profile");
         } else {
             echo "Error: Name field not set in POST data.";
         }

@@ -74,7 +74,8 @@
                                         alt=""
                                         class="profile-user__avatar" />
                                     <h1 class="profile-user__name">
-                                        Imran Khan
+                                    
+                                    <?= htmlspecialchars($user->fullname) ?>
                                     </h1>
                                     <p class="profile-user__desc">
                                         Registered: 17th May 2022
@@ -254,7 +255,7 @@
                                             </a>
                                             Add credit or debit card
                                         </h2>
-                                        <form action="/BTL_LTW/LTWeb/profile" class="form form-card">
+                                        <form action="/BTL_LTW/LTWeb/profile/add_new_card" method='post' class="form form-card">
                                             <!-- Form row 1 -->
                                             <div class="form__row">
                                                 <div class="form__group">
@@ -262,7 +263,7 @@
                                                         Full Name
                                                     </label>
                                                     <div class="form__text-input">
-                                                        <input type="text" id="last-name" placeholder="Full name" class="form__input" required />
+                                                        <input type="text"name='last-name'id="last-name" placeholder="Full name" class="form__input" required />
                                                         <img src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                                                     </div>
                                                     <p class="form__error">
@@ -274,7 +275,7 @@
                                                         CVV
                                                     </label>
                                                     <div class="form__text-input">
-                                                        <input type="text" id="card-cvv" placeholder="CVV" class="form__input" required />
+                                                        <input type="text" name='card-cvv' id="card-cvv" placeholder="CVV" class="form__input" required />
                                                         <img src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                                                     </div>
                                                     <p class="form__error" id="cvc-error">
@@ -289,7 +290,7 @@
                                                         Card Number
                                                     </label>
                                                     <div class="form__text-input">
-                                                        <input type="text" id="card-number" placeholder="Card Number" class="form__input" required />
+                                                        <input type="text" name='card-number' id="card-number" placeholder="Card Number" class="form__input" required minlength='12' maxlength='16' />
                                                         <img src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                                                     </div>
                                                     <p class="form__error">
@@ -301,7 +302,7 @@
                                                         Expiration Date
                                                     </label>
                                                     <div class="form__text-input">
-                                                        <input type="text" id="expiration-date" class="form__input" placeholder="mm/yy" />
+                                                        <input type="text" name='expiration-date' id="expiration-date" class="form__input" placeholder="mm/yy" />
                                                         <img src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                                                     </div>
                                                     <p class="form__error" id="expiry-error">
@@ -316,7 +317,7 @@
                                                     Card Preferences
                                                 </label>
                                                 <label class="form__checkbox">
-                                                    <input type="checkbox" id="set-default-card" checked class="form__checkbox-input d-none" />
+                                                    <input type="checkbox" name='isDefault' id="set-default-card" checked class="form__checkbox-input d-none" />
                                                     <span class="form__checkbox-label">Set as default card</span>
                                                 </label>
                                             </div>
@@ -366,5 +367,14 @@
                 toggle-target="#delete-confirm"></div>
         </div>
         <script src="/BTL_LTW/LTWeb/public/assets/js/add-new-cart.js"></script>
+        <?php 
+        echo $errorMessage;
+        ?>
+        <script>
+            <?php if (isset($_SESSION['errorMessage']) && !empty($_SESSION['errorMessage'])): ?>
+                alert(<?php echo json_encode($_SESSION['errorMessage']); ?>);
+                <?php unset($_SESSION['errorMessage']); ?>
+            <?php endif; ?>
+        </script>
     </body>
 </html>
