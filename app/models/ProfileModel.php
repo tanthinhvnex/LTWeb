@@ -88,5 +88,92 @@
                 echo "Error updating record: " . mysqli_error($connection);
             }
         }
+        private function generateToken($length = 32) {
+            return bin2hex(random_bytes($length));
+        }
+        private function sendResetEmail($email, $token) {
+            $resetLink = "http://localhost/BTL_LTW/LTWeb/reset_password/new_password?token=$token";
+            $subject = "reset password - BTLLTW - HCMUT";
+            $body = "go to that link to reset your password:
+            $resetLink";
+            $headers = "From: sender\'s email";
+            
+            if (mail($email, $subject, $body, $headers)) {
+                // echo "Email successfully sent to $email...";
+            } else {
+                echo "Email sending failed...";
+            }
+            
+
+        }
+        function addTokenData($email){
+            global $connection;
+            $token=$this->generateToken();
+            $sql_check = "SELECT token FROM reset_token WHERE customer_email = '$email' LIMIT 1";
+            $result_check = mysqli_query($connection, $sql_check);
+            if (mysqli_num_rows($result_check) > 0) {
+                // User already has a token, delete it
+                $row = mysqli_fetch_assoc($result_check);
+                $existingToken = $row["token"];
+            
+                $sql_delete = "DELETE FROM reset_token WHERE customer_email = '$email'";
+                if (mysqli_query($connection, $sql_delete)) {
+                    // echo "Existing token deleted successfully";
+                } else {
+                    echo "Error deleting existing token: " . mysqli_error($connection);
+                }
+            }
+            $checkEmailQuery = "SELECT * FROM user WHERE email = '$email'";
+            $result = $connection->query($checkEmailQuery);
+        
+            if ($result && $result->num_rows > 0) {
+                // Email exists in the user table
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+                $expiryTimestamp = date('Y-m-d H:i:s', strtotime('+1 hour'));
+                // Insert the token into the reset_token table
+                $insertTokenQuery = "INSERT INTO reset_token (customer_email, token, expiry_time) 
+                                     VALUES ('$email', '$token', '$expiryTimestamp')";
+        
+                if ($connection->query($insertTokenQuery) === TRUE) {
+                    // echo "New token added to database successfully";
+                    $this->sendResetEmail($email,$token);
+                } else {
+                    $_SESSION['errorMessage'] = "Error adding new token to database: " . $connection->error;
+                }
+            } else {
+                // Email does not exist in the user table
+                $_SESSION['errorMessage'] = "User with email $email does not exist";
+            }
+        
+        }
+        function handleResetPassword($token,$password){
+            global $connection;
+            $sql = "SELECT * FROM reset_token WHERE token = '$token' AND expiry_time > NOW()";
+            $result = $connection->query($sql);
+            if ($result && $result->num_rows > 0) {
+                // Token is valid, update the user's password
+                $row = $result->fetch_assoc();
+                $email = $row['customer_email'];
+
+                // Update the user's password
+                $salt = "fc45c92ac5ad37b42824ea724d2f8f32";
+                $hashedPassword = hash('sha256', $password . $salt);
+                $updatePasswordSql = "UPDATE user SET encoded_password = '$hashedPassword' WHERE email = '$email'";
+                if ($connection->query($updatePasswordSql) === TRUE) {
+                    $_SESSION['errorMessage']= "Password updated successfully";
+                    // Delete the token from the database
+                    $deleteTokenSql = "DELETE FROM reset_token WHERE token = '$token'";
+                    $connection->query($deleteTokenSql);
+                    header("http://localhost/BTL_LTW/LTWeb/signin");
+                } else {
+                    $_SESSION['errorMessage']= "Error updating password: " . $connection->error;
+                }
+            } else {
+                // Token is not valid or expired
+                $_SESSION['errorMessage'] = "Invalid or expired token";
+            }
+
+        }
+        
     }
 ?>
