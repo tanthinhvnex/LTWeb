@@ -13,7 +13,6 @@ class Shipping {
             if ($endpoint === 'add_new_address') {
                 $this->handleAddAddress();
             } elseif ($endpoint === 'edit_address') {
-                echo 'edit';
                 $this->handleEditAddress();
             } else {
                 echo "Unknown endpoint";
@@ -49,7 +48,6 @@ class Shipping {
             
             $newAddress = new Address($currentEmail, null, $receiverName, $receiverPhone, $cityDistrictTown, $additionalAddressInfo, $isDefault);
             $newAddress->addAddress();
-            echo "success add";
         } else {
             echo "Error: Name field not set in POST data.";
         }

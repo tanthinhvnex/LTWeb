@@ -229,3 +229,30 @@ class User {
 ```
 
 **NOTE: Hiện tại chưa làm cái phân quyền cho admin và customer**
+# 5 Hướng dẫn cấu hình XAMPP để gửi email từ Gmail
+### 5.1 Cấu hình tệp php.ini
+
+1. Mở thư mục cài đặt XAMPP.
+2. Đi đến C:\xampp\php và mở tệp php.ini.
+3. Tìm kiếm [mail function] bằng cách nhấn ctrl + f.
+4. Tìm và cấu hình các giá trị sau:
+```ini
+SMTP=smtp.gmail.com
+smtp_port=587
+sendmail_from = YourGmailId@gmail.com
+sendmail_path = "\"C:\xampp\sendmail\sendmail.exe\" -t"
+```
+### 5.2 Cấu hình tệp sendmail.ini
+1. Đi đến C:\xampp\sendmail và mở tệp sendmail.ini.
+2. Tìm kiếm [sendmail] bằng cách nhấn ctrl + f.
+3. Tìm và cấu hình các giá trị sau:
+```
+smtp_server=smtp.gmail.com
+smtp_port=587
+error_logfile=error.log
+debug_logfile=debug.log
+auth_username=YourGmailId@gmail.com
+auth_password=Your-Gmail-Password
+force_sender=YourGmailId@gmail.com 
+
+```

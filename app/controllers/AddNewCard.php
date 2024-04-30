@@ -27,7 +27,7 @@
             $cvv = $_POST['card-cvv'];
             $cardNumber = $_POST['card-number'];
             $expirationDate = $this->convertToDateFormat($_POST['expiration-date']);
-            echo $expirationDate;
+
 
             $isDefault = isset($_POST['isDefault']) ? 1 : 0;
             $creditCard = new CreditCard($cardNumber, $cvv, $expirationDate, $fullname, $isDefault);

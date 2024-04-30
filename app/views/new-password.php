@@ -32,6 +32,7 @@
 
         <!-- Scripts -->
         <script src="/BTL_LTW/LTWeb/public/assets/js/scripts.js"></script>
+        <script src="/BTL_LTW/LTWeb/public/assets/js/new-password.js"></script>
     </head>
 
     <body>
@@ -63,13 +64,14 @@
                     </p>
 
                     <form
-                        action="/BTL_LTW/LTWeb/sign_in"
+                        action="/BTL_LTW/LTWeb/reset_password/new_password"
                         class="form auth__form auth__form-forgot"
-                        method="post">
+                        method="post" id="resetPasswordForm">
                         <div class="form__group">
                             <div class="form__text-input">
                                 <input
                                     type="password"
+                                    name="password"
                                     autofocus
                                     placeholder="New Password"
                                     class="form__input"
@@ -90,8 +92,10 @@
                         </div>
                         <div class="form__group">
                             <div class="form__text-input">
+                                <input type="hidden" name="token" id="tokenInput">
                                 <input
                                     type="password"
+                                    name="password-confirm"
                                     placeholder="Confirm New Password"
                                     class="form__input"
                                     required
@@ -110,12 +114,20 @@
                             </p>
                         </div>
                         <div class="form__group auth__btn-group">
-                            <button
+                            <button type='submit'
                                 class="btn btn--primary auth__btn form__submit-btn">
                                 Reset Password
                             </button>
+                            <p class="form__error password-match-error">
+                                Password not match each other
+                            </p>
                         </div>
                     </form>
+                    <div id="errorDiv" style="display: none;">
+                        <!-- Error message for token not found or expired -->
+                        <?php echo ($_SESSION['errorMessage']) ? $_SESSION['errorMessage'] : 'Token not found or expired. Please request a new password reset link.'; ?>
+                        
+                    </div>
                 </div>
             </div>
         </main>
