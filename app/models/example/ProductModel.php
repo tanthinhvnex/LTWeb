@@ -56,5 +56,18 @@
             return $products;
            
         }
+        public function deleteFavouriteProduct($pid, $email) {
+            global $connection;
+            $sql = "DELETE FROM customer_add_to_favourite_product WHERE PID = ? AND customer_email = ?";
+            $stmt = $connection->prepare($sql);
+            if ($stmt) {
+                $stmt->bind_param('is', $pid, $email);
+                $stmt->execute();
+                $affectedRows = $stmt->affected_rows;
+                $stmt->close();
+                return $affectedRows > 0;
+            }
+            return false;
+        }
     }
 ?>
