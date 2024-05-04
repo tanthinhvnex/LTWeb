@@ -4646,3 +4646,6 @@ input[type=number] {
   display: flex;
   justify-content: flex-end;
 }
+.hidden{
+  display: none;
+}
