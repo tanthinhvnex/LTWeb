@@ -17,6 +17,7 @@
             '/BTL_LTW/LTWeb/shipping' => ['controller' => __DIR__ . '/controllers/Shipping.php', 'middleware' => 'auth'],
             '/BTL_LTW/LTWeb/sign_in' => ['controller' => __DIR__ . '/controllers/SignIn.php', 'middleware' => 'guest'],
             '/BTL_LTW/LTWeb/sign_up' => ['controller' => __DIR__ . '/controllers/SignUp.php', 'middleware' => 'guest'],
+            '/BTL_LTW/LTWeb/detail/reviews' => ['controller' => __DIR__ . '/controllers/Detail.php', 'middleware' => null],
         ],
         'POST' => [
             '/BTL_LTW/LTWeb/logout' => ['controller' => __DIR__ . '/controllers/Logout.php', 'middleware' => null],
@@ -29,6 +30,8 @@
             '/BTL_LTW/LTWeb/shipping/edit_address' => ['controller' => __DIR__ . '/controllers/Shipping.php', 'middleware' => null],
             '/BTL_LTW/LTWeb/sign_in' => ['controller' => __DIR__ . '/controllers/SignIn.php', 'middleware' => null],
             '/BTL_LTW/LTWeb/sign_up' => ['controller' => __DIR__ . '/controllers/SignUp.php', 'middleware' => null],
+            '/BTL_LTW/LTWeb/detail/add_to_cart' => ['controller' => __DIR__ . '/controllers/Detail.php', 'middleware' => null],
+            '/BTL_LTW/LTWeb/detail/send_review' => ['controller' => __DIR__ . '/controllers/Detail.php', 'middleware' => null],
         ]
     ];
 ?>

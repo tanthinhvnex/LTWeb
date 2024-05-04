@@ -108,46 +108,15 @@
                                 <div class="prod-preview__list">
                                     <div class="prod-preview__item">
                                         <img
-                                            src="/BTL_LTW/LTWeb/public/assets/img/product/item-1.png"
-                                            alt=""
-                                            class="prod-preview__img" />
-                                    </div>
-                                    <div class="prod-preview__item">
-                                        <img
-                                            src="/BTL_LTW/LTWeb/public/assets/img/product/item-2.png"
-                                            alt=""
-                                            class="prod-preview__img" />
-                                    </div>
-                                    <div class="prod-preview__item">
-                                        <img
-                                            src="/BTL_LTW/LTWeb/public/assets/img/product/item-3.png"
-                                            alt=""
-                                            class="prod-preview__img" />
-                                    </div>
-                                    <div class="prod-preview__item">
-                                        <img
-                                            src="/BTL_LTW/LTWeb/public/assets/img/product/item-4.png"
+                                            src="<?php echo $productImgs[0] ?>"
                                             alt=""
                                             class="prod-preview__img" />
                                     </div>
                                 </div>
                                 <div class="prod-preview__thumbs">
-                                    <img
-                                        src="/BTL_LTW/LTWeb/public/assets/img/product/item-1.png"
-                                        alt=""
-                                        class="prod-preview__thumb-img prod-preview__thumb-img--current" />
-                                    <img
-                                        src="/BTL_LTW/LTWeb/public/assets/img/product/item-2.png"
-                                        alt=""
-                                        class="prod-preview__thumb-img" />
-                                    <img
-                                        src="/BTL_LTW/LTWeb/public/assets/img/product/item-3.png"
-                                        alt=""
-                                        class="prod-preview__thumb-img" />
-                                    <img
-                                        src="/BTL_LTW/LTWeb/public/assets/img/product/item-4.png"
-                                        alt=""
-                                        class="prod-preview__thumb-img" />
+                                    <?php foreach ($productImgs as $key => $productImgs) : ?>
+                                        <img src="<?php echo $productImgs; ?>" alt="" class="prod-preview__thumb-img<?php echo ($key === 0) ? ' prod-preview__thumb-img--current' : ''; ?>" />
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
@@ -160,15 +129,19 @@
                                     </h1>
                                     <div class="row">
                                         <div class="col-5 col-xxl-6 col-xl-12">
-                                            <div class="prod-prop">
-                                                <img
-                                                    src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                    alt=""
-                                                    class="prod-prop__icon" />
-                                                <h4 class="prod-prop__title">
-                                                    (3.5) 1100 reviews
-                                                </h4>
-                                            </div>
+                                        <div class="prod-prop">
+                                            <?php
+
+                                            $fullStars = floor($product->average_rating);
+                                            for ($i = 0; $i < $fullStars; $i++) {
+                                                echo '<img src="/BTL_LTW/LTWeb/public/assets/icons/star.svg" alt="" class="prod-prop__icon" />';
+                                            }
+                                            ?>
+
+                                            <h4 class="prod-prop__title">
+                                                (<?php echo $product->average_rating; ?>) <?php echo $product->no_of_reviews; ?> reviews
+                                            </h4>
+                                        </div>
                                             <label
                                                 for=""
                                                 class="form__label prod-info__label"
@@ -206,45 +179,18 @@
 
                                             <div class="filter__form-group">
                                                 <div class="form__tags">
-                                                    <div
-                                                        class="form__tag prod-info__tag">
-                                                        <label
-                                                            class="radio"
-                                                            for="small">
-                                                            <input
-                                                                value="small"
-                                                                type="radio"
-                                                                name="size"
-                                                                id="small" />
-                                                            Small (500g)
-                                                        </label>
-                                                    </div>
-                                                    <div
-                                                        class="form__tag prod-info__tag">
-                                                        <label
-                                                            class="radio"
-                                                            for="medium">
-                                                            <input
-                                                                value="medium"
-                                                                type="radio"
-                                                                name="size"
-                                                                id="medium" />
-                                                            Medium (1000g)
-                                                        </label>
-                                                    </div>
-                                                    <div
-                                                        class="form__tag prod-info__tag">
-                                                        <label
-                                                            class="radio"
-                                                            for="large">
-                                                            <input
-                                                                value="large"
-                                                                type="radio"
-                                                                name="size"
-                                                                id="large" />
-                                                            Large (2000g)
-                                                        </label>
-                                                    </div>
+                                                <?php
+                           
+                                                    foreach ($products as $product) {
+                                                        echo '<div class="form__tag prod-info__tag">';
+                                                        echo '<label class="radio" for="' . $product->size . '">';
+                                                        echo '<input value="' . $product->size . '" type="radio" name="size" id="' . $product->size . '" onchange="updatePrices(' . $product->listed_unit_price.','.$product->discount . ')" />';
+                                                        echo ucfirst($product->size) . ' (' . $product->quantity_on_hand . 'g)';
+                                                        echo '</label>';
+                                                        echo '</div>';
+                                                    }
+                                                ?>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -297,16 +243,16 @@
                                                     <div class="prod-info__row">
                                                         <span
                                                             class="prod-info__price"
-                                                            >$500.00</span
+                                                            >$0.00</span
                                                         >
                                                         <span
                                                             class="prod-info__tax"
-                                                            >10%</span
+                                                            >0%</span
                                                         >
                                                     </div>
                                                     <p
                                                         class="prod-info__total-price">
-                                                        $540.00
+                                                        $0.00
                                                     </p>
                                                     <div class="prod-info__row">
                                                         <button
@@ -342,7 +288,7 @@
                             <li class="prod-tab__item prod-tab__item--current">
                                 Description
                             </li>
-                            <li class="prod-tab__item">Review (1100)</li>
+                            <li class="prod-tab__item">Review (<?php echo $product->no_of_reviews?>)</li>
                             <li class="prod-tab__item">Similar</li>
                         </ul>
 
@@ -439,179 +385,28 @@
                                 </div>
                             </div>
                             <div class="prod-tab__content">
-                                <div class="prod-content">
+                                <div class="prod-content container">
                                     <h2 class="prod-content__heading">
                                         What our customers are saying
                                     </h2>
                                     <div
-                                        class="row row-cols-3 gx-lg-2 row-cols-md-1 gy-md-3">
-                                        <!-- Review card 1 -->
-                                        <div class="col">
-                                            <div class="review-card">
-                                                <div
-                                                    class="review-card__content">
-                                                    <img
-                                                        src="/BTL_LTW/LTWeb/public/assets/img/avatar/avatar-1.png"
-                                                        alt=""
-                                                        class="review-card__avatar" />
-                                                    <div
-                                                        class="review-card__info">
-                                                        <h4
-                                                            class="review-card__title">
-                                                            Jakir Hussen
-                                                        </h4>
-                                                        <p
-                                                            class="review-card__desc">
-                                                            Great product, I
-                                                            love this Coffee
-                                                            Beans
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="review-card__rating">
-                                                    <div
-                                                        class="review-card__star-list">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                            alt=""
-                                                            class="review-card__star" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                            alt=""
-                                                            class="review-card__star" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                            alt=""
-                                                            class="review-card__star" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/star-half.svg"
-                                                            alt=""
-                                                            class="review-card__star" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/star-blank.svg"
-                                                            alt=""
-                                                            class="review-card__star" />
-                                                    </div>
-                                                    <span
-                                                        class="review-card__rating-title"
-                                                        >(3.5) Review</span
-                                                    >
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Review card 2 -->
-                                        <div class="col">
-                                            <div class="review-card">
-                                                <div
-                                                    class="review-card__content">
-                                                    <img
-                                                        src="/BTL_LTW/LTWeb/public/assets/img/avatar/avatar-2.png"
-                                                        alt=""
-                                                        class="review-card__avatar" />
-                                                    <div
-                                                        class="review-card__info">
-                                                        <h4
-                                                            class="review-card__title">
-                                                            Jubed Ahmed
-                                                        </h4>
-                                                        <p
-                                                            class="review-card__desc">
-                                                            Awesome Coffee, I
-                                                            love this Coffee
-                                                            Beans
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="review-card__rating">
-                                                    <div
-                                                        class="review-card__star-list">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                            alt=""
-                                                            class="review-card__star" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                            alt=""
-                                                            class="review-card__star" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                            alt=""
-                                                            class="review-card__star" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/star-half.svg"
-                                                            alt=""
-                                                            class="review-card__star" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/star-blank.svg"
-                                                            alt=""
-                                                            class="review-card__star" />
-                                                    </div>
-                                                    <span
-                                                        class="review-card__rating-title"
-                                                        >(3.5) Review</span
-                                                    >
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Review card 3 -->
-                                        <div class="col">
-                                            <div class="review-card">
-                                                <div
-                                                    class="review-card__content">
-                                                    <img
-                                                        src="/BTL_LTW/LTWeb/public/assets/img/avatar/avatar-3.png"
-                                                        alt=""
-                                                        class="review-card__avatar" />
-                                                    <div
-                                                        class="review-card__info">
-                                                        <h4
-                                                            class="review-card__title">
-                                                            Delwar Hussain
-                                                        </h4>
-                                                        <p
-                                                            class="review-card__desc">
-                                                            Great product, I
-                                                            like this Coffee
-                                                            Beans
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="review-card__rating">
-                                                    <div
-                                                        class="review-card__star-list">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                            alt=""
-                                                            class="review-card__star" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                            alt=""
-                                                            class="review-card__star" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                            alt=""
-                                                            class="review-card__star" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/star-half.svg"
-                                                            alt=""
-                                                            class="review-card__star" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/star-blank.svg"
-                                                            alt=""
-                                                            class="review-card__star" />
-                                                    </div>
-                                                    <span
-                                                        class="review-card__rating-title"
-                                                        >(3.5) Review</span
-                                                    >
-                                                </div>
-                                            </div>
-                                        </div>
+                                        class="row row-cols-3 gx-lg-2 row-cols-md-1 gy-md-3 " id='reviews-container'        >
+
+                                        
+                                                         
                                         
                                 </div>
+                                <div class="row pagination-ctn">
+                                    <ul class="pagination">
+                                        <li><a href="#">&laquo; Previous</a></li>
+                                        <li><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">Next &raquo;</a></li>
+                                    </ul>
+                                </div>
+
+
                                 <div class="row">
                                     <div class="col">
                                       <div class="prod-content " style="max-width: 700px;">
@@ -642,599 +437,40 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="prod-tab__content">
-                                <div class="prod-content">
-                                    <h2 class="prod-content__heading">
-                                        Similar items you might like
-                                    </h2>
-                                    <div
-                                        class="row row-cols-6 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-2">
-                                        <!-- Product card 1 -->
-                                        <div class="col">
-                                            <article class="product-card">
-                                                <div
-                                                    class="product-card__img-wrap">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/img/product/item-1.png"
-                                                            alt=""
-                                                            class="product-card__thumb" />
-                                                    </a>
-                                                    <button
-                                                        class="like-btn like-btn--liked product-card__like-btn">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart.svg"
-                                                            alt=""
-                                                            class="like-btn__icon icon" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart-red.svg"
-                                                            alt=""
-                                                            class="like-btn__icon--liked" />
-                                                    </button>
+                        </div>
+                        <div class="prod-tab__content">
+                            <div class="prod-content">
+                                <h2 class="prod-content__heading">
+                                    Similar items you might like
+                                </h2>
+                                <div
+                                    class="row  row-cols-sm-1 g-2">
+                                        <div id="productList" class="row row-cols-5 row-cols-xl-3 row-cols-lg-2 row-cols-sm-1 g-3">
+                                            <?php foreach ($similarProduct as $product): ?>
+                                                <div class="col">
+                                                    <article class="product-card">
+                                                        <div class="product-card__img-wrap">
+                                                            <a href="/BTL_LTW/LTWeb/detail?id=<?php echo $product->PID; ?>">
+                                                                <img src="<?php echo $product->images[0]; ?>" alt="" class="product-card__thumb">
+                                                            </a>
+                                                            <button class="like-btn product-card__like-btn">
+                                                                <img src="/BTL_LTW/LTWeb/public/assets/icons/heart.svg" alt="" class="like-btn__icon icon">
+                                                                <img src="/BTL_LTW/LTWeb/public/assets/icons/heart-red.svg" alt="" class="like-btn__icon--liked">
+                                                            </button>
+                                                        </div>
+                                                        <h3 class="product-card__title">
+                                                            <a href="/BTL_LTW/LTWeb/detail?id=<?php echo $product->PID; ?>">
+                                                                <?php echo $product->name; ?>
+                                                            </a>
+                                                        </h3>
+                                                        <div class="product-card__row">
+                                                            <span class="product-card__price">$<?php echo $product->listed_unit_price; ?></span>
+                                                            <img src="/BTL_LTW/LTWeb/public/assets/icons/star.svg" alt="" class="product-card__star">
+                                                            <span class="product-card__score"><?php echo $product->average_rating; ?></span>
+                                                        </div>
+                                                    </article>
                                                 </div>
-                                                <h3 class="product-card__title">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1"
-                                                        >Coffee Arabica and
-                                                        Robusta Beans</a
-                                                    >
-                                                </h3>
-
-                                                <div class="product-card__row">
-                                                    <span
-                                                        class="product-card__price"
-                                                        >$47.00</span
-                                                    >
-                                                    <img
-                                                        src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                        alt=""
-                                                        class="product-card__star" />
-                                                    <span
-                                                        class="product-card__score"
-                                                        >4.3</span
-                                                    >
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                        <!-- Product card 2 -->
-                                        <div class="col">
-                                            <article class="product-card">
-                                                <div
-                                                    class="product-card__img-wrap">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/img/product/item-2.png"
-                                                            alt=""
-                                                            class="product-card__thumb" />
-                                                    </a>
-                                                    <button
-                                                        class="like-btn product-card__like-btn">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart.svg"
-                                                            alt=""
-                                                            class="like-btn__icon icon" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart-red.svg"
-                                                            alt=""
-                                                            class="like-btn__icon--liked" />
-                                                    </button>
-                                                </div>
-                                                <h3 class="product-card__title">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1"
-                                                        >Lavazza - Try the
-                                                        Italian Espresso</a
-                                                    >
-                                                </h3>
-
-                                                <div class="product-card__row">
-                                                    <span
-                                                        class="product-card__price"
-                                                        >$53.00</span
-                                                    >
-                                                    <img
-                                                        src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                        alt=""
-                                                        class="product-card__star" />
-                                                    <span
-                                                        class="product-card__score"
-                                                        >3.4</span
-                                                    >
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                        <!-- Product card 3 -->
-                                        <div class="col">
-                                            <article class="product-card">
-                                                <div
-                                                    class="product-card__img-wrap">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/img/product/item-3.png"
-                                                            alt=""
-                                                            class="product-card__thumb" />
-                                                    </a>
-                                                    <button
-                                                        class="like-btn product-card__like-btn">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart.svg"
-                                                            alt=""
-                                                            class="like-btn__icon icon" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart-red.svg"
-                                                            alt=""
-                                                            class="like-btn__icon--liked" />
-                                                    </button>
-                                                </div>
-                                                <h3 class="product-card__title">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1">
-                                                        Espresso Black Tin -
-                                                        Ground coffee</a
-                                                    >
-                                                </h3>
-
-                                                <div class="product-card__row">
-                                                    <span
-                                                        class="product-card__price"
-                                                        >$99.99</span
-                                                    >
-                                                    <img
-                                                        src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                        alt=""
-                                                        class="product-card__star" />
-                                                    <span
-                                                        class="product-card__score"
-                                                        >5.0</span
-                                                    >
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                        <!-- Product card 4 -->
-                                        <div class="col">
-                                            <article class="product-card">
-                                                <div
-                                                    class="product-card__img-wrap">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/img/product/item-4.png"
-                                                            alt=""
-                                                            class="product-card__thumb" />
-                                                    </a>
-                                                    <button
-                                                        class="like-btn product-card__like-btn">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart.svg"
-                                                            alt=""
-                                                            class="like-btn__icon icon" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart-red.svg"
-                                                            alt=""
-                                                            class="like-btn__icon--liked" />
-                                                    </button>
-                                                </div>
-                                                <h3 class="product-card__title">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1"
-                                                        >Espresso Coffee
-                                                        Beans</a
-                                                    >
-                                                </h3>
-                                                <div class="product-card__row">
-                                                    <span
-                                                        class="product-card__price"
-                                                        >$38.65</span
-                                                    >
-                                                    <img
-                                                        src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                        alt=""
-                                                        class="product-card__star" />
-                                                    <span
-                                                        class="product-card__score"
-                                                        >4.4</span
-                                                    >
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                        <!-- Product card 5 -->
-                                        <div class="col">
-                                            <article class="product-card">
-                                                <div
-                                                    class="product-card__img-wrap">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/img/product/item-3.png"
-                                                            alt=""
-                                                            class="product-card__thumb" />
-                                                    </a>
-                                                    <button
-                                                        class="like-btn like-btn--liked product-card__like-btn">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart.svg"
-                                                            alt=""
-                                                            class="like-btn__icon icon" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart-red.svg"
-                                                            alt=""
-                                                            class="like-btn__icon--liked" />
-                                                    </button>
-                                                </div>
-                                                <h3 class="product-card__title">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1"
-                                                        >Espresso Arabica and
-                                                        Robusta Beans</a
-                                                    >
-                                                </h3>
-
-                                                <div class="product-card__row">
-                                                    <span
-                                                        class="product-card__price"
-                                                        >$47.00</span
-                                                    >
-                                                    <img
-                                                        src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                        alt=""
-                                                        class="product-card__star" />
-                                                    <span
-                                                        class="product-card__score"
-                                                        >4.3</span
-                                                    >
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                        <!-- Product card 6 -->
-                                        <div class="col">
-                                            <article class="product-card">
-                                                <div
-                                                    class="product-card__img-wrap">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/img/product/item-4.png"
-                                                            alt=""
-                                                            class="product-card__thumb" />
-                                                    </a>
-                                                    <button
-                                                        class="like-btn product-card__like-btn">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart.svg"
-                                                            alt=""
-                                                            class="like-btn__icon icon" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart-red.svg"
-                                                            alt=""
-                                                            class="like-btn__icon--liked" />
-                                                    </button>
-                                                </div>
-                                                <h3 class="product-card__title">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1">
-                                                        Try the Italian
-                                                        Espresso</a
-                                                    >
-                                                </h3>
-
-                                                <div class="product-card__row">
-                                                    <span
-                                                        class="product-card__price"
-                                                        >$53.00</span
-                                                    >
-                                                    <img
-                                                        src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                        alt=""
-                                                        class="product-card__star" />
-                                                    <span
-                                                        class="product-card__score"
-                                                        >3.4</span
-                                                    >
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                        <!-- Product card 7 -->
-                                        <div class="col">
-                                            <article class="product-card">
-                                                <div
-                                                    class="product-card__img-wrap">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/img/product/item-2.png"
-                                                            alt=""
-                                                            class="product-card__thumb" />
-                                                    </a>
-                                                    <button
-                                                        class="like-btn product-card__like-btn">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart.svg"
-                                                            alt=""
-                                                            class="like-btn__icon icon" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart-red.svg"
-                                                            alt=""
-                                                            class="like-btn__icon--liked" />
-                                                    </button>
-                                                </div>
-                                                <h3 class="product-card__title">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1">
-                                                        Espresso Black Tin -
-                                                        Ground coffee</a
-                                                    >
-                                                </h3>
-
-                                                <div class="product-card__row">
-                                                    <span
-                                                        class="product-card__price"
-                                                        >$99.99</span
-                                                    >
-                                                    <img
-                                                        src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                        alt=""
-                                                        class="product-card__star" />
-                                                    <span
-                                                        class="product-card__score"
-                                                        >5.0</span
-                                                    >
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                        <!-- Product card 8 -->
-                                        <div class="col">
-                                            <article class="product-card">
-                                                <div
-                                                    class="product-card__img-wrap">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/img/product/item-1.png"
-                                                            alt=""
-                                                            class="product-card__thumb" />
-                                                    </a>
-                                                    <button
-                                                        class="like-btn product-card__like-btn">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart.svg"
-                                                            alt=""
-                                                            class="like-btn__icon icon" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart-red.svg"
-                                                            alt=""
-                                                            class="like-btn__icon--liked" />
-                                                    </button>
-                                                </div>
-                                                <h3 class="product-card__title">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1">
-                                                        Grown - Espresso Coffee
-                                                        Beans</a
-                                                    >
-                                                </h3>
-
-                                                <div class="product-card__row">
-                                                    <span
-                                                        class="product-card__price"
-                                                        >$38.65</span
-                                                    >
-                                                    <img
-                                                        src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                        alt=""
-                                                        class="product-card__star" />
-                                                    <span
-                                                        class="product-card__score"
-                                                        >4.4</span
-                                                    >
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                        <!-- Product card 9 -->
-                                        <div class="col">
-                                            <article class="product-card">
-                                                <div
-                                                    class="product-card__img-wrap">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/img/product/item-1.png"
-                                                            alt=""
-                                                            class="product-card__thumb" />
-                                                    </a>
-                                                    <button
-                                                        class="like-btn like-btn--liked product-card__like-btn">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart.svg"
-                                                            alt=""
-                                                            class="like-btn__icon icon" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart-red.svg"
-                                                            alt=""
-                                                            class="like-btn__icon--liked" />
-                                                    </button>
-                                                </div>
-                                                <h3 class="product-card__title">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1"
-                                                        >Espresso Arabica and
-                                                        Robusta Beans</a
-                                                    >
-                                                </h3>
-                                                <div class="product-card__row">
-                                                    <span
-                                                        class="product-card__price"
-                                                        >$47.00</span
-                                                    >
-                                                    <img
-                                                        src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                        alt=""
-                                                        class="product-card__star" />
-                                                    <span
-                                                        class="product-card__score"
-                                                        >4.3</span
-                                                    >
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                        <!-- Product card 10 -->
-                                        <div class="col">
-                                            <article class="product-card">
-                                                <div
-                                                    class="product-card__img-wrap">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/img/product/item-4.png"
-                                                            alt=""
-                                                            class="product-card__thumb" />
-                                                    </a>
-                                                    <button
-                                                        class="like-btn product-card__like-btn">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart.svg"
-                                                            alt=""
-                                                            class="like-btn__icon icon" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart-red.svg"
-                                                            alt=""
-                                                            class="like-btn__icon--liked" />
-                                                    </button>
-                                                </div>
-                                                <h3 class="product-card__title">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1"
-                                                        >Lavazza Coffee Blends -
-                                                        Try the Italian
-                                                        Espresso</a
-                                                    >
-                                                </h3>
-
-                                                <div class="product-card__row">
-                                                    <span
-                                                        class="product-card__price"
-                                                        >$53.00</span
-                                                    >
-                                                    <img
-                                                        src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                        alt=""
-                                                        class="product-card__star" />
-                                                    <span
-                                                        class="product-card__score"
-                                                        >3.4</span
-                                                    >
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                        <!-- Product card 11 -->
-                                        <div class="col">
-                                            <article class="product-card">
-                                                <div
-                                                    class="product-card__img-wrap">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/img/product/item-3.png"
-                                                            alt=""
-                                                            class="product-card__thumb" />
-                                                    </a>
-                                                    <button
-                                                        class="like-btn product-card__like-btn">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart.svg"
-                                                            alt=""
-                                                            class="like-btn__icon icon" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart-red.svg"
-                                                            alt=""
-                                                            class="like-btn__icon--liked" />
-                                                    </button>
-                                                </div>
-                                                <h3 class="product-card__title">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1"
-                                                        >Lavazza - Espresso
-                                                        Black Tin - Ground
-                                                        coffee</a
-                                                    >
-                                                </h3>
-
-                                                <div class="product-card__row">
-                                                    <span
-                                                        class="product-card__price"
-                                                        >$99.99</span
-                                                    >
-                                                    <img
-                                                        src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                        alt=""
-                                                        class="product-card__star" />
-                                                    <span
-                                                        class="product-card__score"
-                                                        >5.0</span
-                                                    >
-                                                </div>
-                                            </article>
-                                        </div>
-
-                                        <!-- Product card 12 -->
-                                        <div class="col">
-                                            <article class="product-card">
-                                                <div
-                                                    class="product-card__img-wrap">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/img/product/item-2.png"
-                                                            alt=""
-                                                            class="product-card__thumb" />
-                                                    </a>
-                                                    <button
-                                                        class="like-btn product-card__like-btn">
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart.svg"
-                                                            alt=""
-                                                            class="like-btn__icon icon" />
-                                                        <img
-                                                            src="/BTL_LTW/LTWeb/public/assets/icons/heart-red.svg"
-                                                            alt=""
-                                                            class="like-btn__icon--liked" />
-                                                    </button>
-                                                </div>
-                                                <h3 class="product-card__title">
-                                                    <a
-                                                        href="/BTL_LTW/LTWeb/detail?id=1"
-                                                        >Mountain Grown -
-                                                        Espresso Coffee Beans</a
-                                                    >
-                                                </h3>
-
-                                                <div class="product-card__row">
-                                                    <span
-                                                        class="product-card__price"
-                                                        >$38.65</span
-                                                    >
-                                                    <img
-                                                        src="/BTL_LTW/LTWeb/public/assets/icons/star.svg"
-                                                        alt=""
-                                                        class="product-card__star" />
-                                                    <span
-                                                        class="product-card__score"
-                                                        >4.4</span
-                                                    >
-                                                </div>
-                                            </article>
+                                            <?php endforeach; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -1248,6 +484,35 @@
         <footer id="footer" class="footer"></footer>
         <script>
             load("#footer", "/BTL_LTW/LTWeb/app/views/components/footer.php");
+            
+            // function updatePrices(selectedPrice, discount) {
+            //     quantity = parseInt(document.getElementById("number").innerText);
+            //     selectedPrice = parseFloat(selectedPrice)*quantity;
+            //     discount = parseFloat(discount);
+                
+      
+            //     var discountedPrice = selectedPrice * (100 - discount) / 100;
+
+     
+            //     var taxRate = discount / 100; 
+
+  
+            //     var taxAmount = discountedPrice * taxRate;
+
+
+   
+            //     var productPriceElement = document.querySelector('.prod-info__price');
+            //     var taxElement = document.querySelector('.prod-info__tax');
+            //     var totalPriceElement = document.querySelector('.prod-info__total-price');
+
+            //     productPriceElement.textContent = '$' + selectedPrice.toFixed(2);
+            //     taxElement.textContent = (taxRate * 100) + '%';
+            //     totalPriceElement.textContent = '$' + discountedPrice.toFixed(2);
+            // }
+
+            
+            // var reviews = <?php echo json_encode($reviews); ?>;
+            var PID=<?php echo $product->PID?>
         </script>
         <!-- <script>
             document.addEventListener("DOMContentLoaded", function () {
