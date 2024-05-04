@@ -1,5 +1,6 @@
 <?php
     require_once __DIR__ . '/Product.php';
+    require_once __DIR__ . '/CartProduct.php';
     require_once __DIR__ . '/../Database.php';
 
     class ProductModel {
@@ -56,6 +57,38 @@
             return $products;
            
         }
+        public function getCartProducts($email) {
+            global $connection;
+            $sql = "SELECT p.PID, p.name, p.listed_unit_price, p.description,  p.average_rating AS rating, pis.image_src AS image , cart.size, cart.quantity
+                FROM product p
+                LEFT JOIN customer_add_to_cart_product cart ON p.PID = cart.PID
+                LEFT JOIN product_image_src pis ON p.PID = pis.PID
+                WHERE cart.customer_email = '$email'
+                GROUP BY p.PID";
+
+            $result = mysqli_query($connection, $sql);
+            $products = [];
+            if ($result) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $products[] = new CartProduct(
+                        $row['PID'],
+                        $row['name'],
+                        $row['listed_unit_price'],
+                        $row['description'],
+                        $row['image'],
+                        $row['rating'],
+                        $row['size'],
+                        $row['quantity']
+                    );
+                }
+                mysqli_free_result($result);
+            } else {
+                echo "Database query failed: " . mysqli_error($connection);
+            }
+
+            return $products;
+           
+        }
         public function deleteFavouriteProduct($pid, $email) {
             global $connection;
             $sql = "DELETE FROM customer_add_to_favourite_product WHERE PID = ? AND customer_email = ?";
@@ -68,6 +101,20 @@
                 return $affectedRows > 0;
             }
             return false;
+        }
+
+        public function getNoOfProductInCart($email) {
+            global $connection;
+            $cartQuantityQuery = mysqli_query($connection, "SELECT COUNT(*) FROM customer_add_to_cart_product WHERE customer_email = '$email'");
+            $cartQuantity = mysqli_fetch_assoc($cartQuantityQuery);
+            return $cartQuantity['COUNT(*)'];
+        }
+
+        public function getNoOfProductInFav($email) {
+            global $connection;
+            $favQuantityQuery = mysqli_query($connection, "SELECT COUNT(*) FROM customer_add_to_favourite_product WHERE customer_email = '$email'");
+            $favQuantity = mysqli_fetch_assoc($favQuantityQuery);
+            return $favQuantity['COUNT(*)'];
         }
     }
 ?>
