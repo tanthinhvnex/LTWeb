@@ -2,10 +2,28 @@
     require_once __DIR__ . '/Database.php';
 
     class AdminModel {
-        public function createNewProduct($name, $price, $quantity, $discount, $description) {
+        public function createNewProduct($name, $price, $description, $size, $quantity, $discount) {
             global $connection;
-            // $insertProductQuery = mysqli_query($connection,
-                // "INSERT INTO product VALUES ('$name', '$price', " . (($remember) ? "true" : "false") . ")");
+            $insertProductQuery = mysqli_query($connection, "INSERT INTO product (name,listed_unit_price,description,size,quantity_on_hand,discount) VALUES ('$name', '$price', '$description', '$size', '$quantity', '$discount')");
+            $productIDQuery = mysqli_query($connection, "SELECT LAST_INSERT_ID()");
+            $productID = mysqli_fetch_array($productIDQuery);
+            return $productID[0];
+        }
+        
+        public function insertIntoSimilarProduct($productID, $similar) {
+            global $connection;
+            for ($i = 0; $i < count($similar); $i++) {
+                $query = "INSERT INTO product_similar_to_product (PID,similar_PID) VALUES (" . intval($productID) . ", " . intval($similar[$i]) . ")";
+                $insertSimilarQuery = mysqli_query($connection, $query);
+            }
+        }
+        
+        public function insertIntoProductImageSrc($productID, $image) {
+            global $connection;
+            for ($i = 0; $i < count($similar); $i++) {
+                $query = "INSERT INTO product_image_src (PID,image_src) VALUES (" . intval($productID) . ", '$image')";
+                $insertProductImageSrc = mysqli_query($connection, $query);
+            }
         }
     }
 ?>

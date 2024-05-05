@@ -46,8 +46,7 @@
         ?>
         <div class="container" style="overflow-x: auto;">
         <button style="margin-top: 20px;" class="btn btn-primary js-toggle" toggle-target="#createProductModal">Create New Product</button>
-        <table id="productTable">
-        </table>
+        <table id="productTable"></table>
         <div style="display: flex; justify-content: center">
             <div id="tableLoader" class=" loading-spinner"></div>
         </div>
@@ -60,24 +59,24 @@
                     <div class="form__row">
                         <div class="form__group">
                             <label for="product-name" class="form__label">Product Name:</label>
-                            <input name="name" type="text" id="product-name" class="form__input" placeholder="Enter product name">
+                            <input required name="name" type="text" id="product-name" class="form__input" placeholder="Enter product name">
                             <div class="form__error">Error message</div>
                         </div>
                         <div class="form__group">
                             <label for="price" class="form__label">Price ($):</label>
-                            <input name="price" type="text" id="price" class="form__input" placeholder="Enter price">
+                            <input required name="price" type="number" id="price" class="form__input" placeholder="Enter price">
                             <div class="form__error">Error message</div>
                         </div>
                     </div>
                     <div class="form__row">
                         <div class="form__group">
                             <label for="quantity" class="form__label">Quantity:</label>
-                            <input name="quantity" type="number" id="quantity" class="form__input" placeholder="Enter quantity">
+                            <input required name="quantity" type="number" id="quantity" class="form__input" placeholder="Enter quantity">
                             <div class="form__error">Error message</div>
                         </div>
                         <div class="form__group">
                             <label for="discount" class="form__label">Discount (%):</label>
-                            <input name="discount" type="number" id="discount" class="form__input"
+                            <input required name="discount" type="number" id="discount" class="form__input"
                                 placeholder="Enter discount percentage">
                             <div class="form__error">Error message</div>
                         </div>
@@ -93,9 +92,14 @@
                     <div class="form__row">
                         <div class="form__group">
                             <label for="img-link" class="form__label">Image Links:</label>
-                            <input name="image" type="url" id="img-link" class="form__input" placeholder="URL">
+                            <input required name="image" type="url" id="img-link" class="form__input" placeholder="URL">
                             <div class="form__error">Error message</div>
                         </div>
+                    </div>
+                    <div class="form__group">
+                        <label for="img-link" class="form__label">Size:</label>
+                        <input required name="size" type="text" id="size" class="form__input" placeholder="Enter size">
+                        <div class="form__error">Error message</div>
                     </div>
                     <div class="form__group">
                         <label for="description" class="form__label">Description:</label>
@@ -117,26 +121,26 @@
                 <span class="close-btn js-toggle" toggle-target="#editProductModal">&times;</span>
                 <form id="editProductForm" style="display: flex; flex-direction: column; flex-grow: 1">
                     <!-- Inside the editProductForm -->
-                    <input type="hidden" id="edit-product-id" name="product-id">
+                    <input required type="hidden" id="edit-product-id" name="product-id">
                     <div class="form__row">
                         <div class="form__group">
                             <label for="edit-product-name" class="form__label">Product Name:</label>
-                            <input type="text" id="edit-product-name" class="form__input"
+                            <input required type="text" id="edit-product-name" class="form__input"
                                 placeholder="Enter product name">
                         </div>
                         <div class="form__group">
                             <label for="edit-price" class="form__label">Price:</label>
-                            <input type="text" id="edit-price" class="form__input" placeholder="Enter price">
+                            <input required type="text" id="edit-price" class="form__input" placeholder="Enter price">
                         </div>
                     </div>
                     <div class="form__row">
                         <div class="form__group">
                             <label for="edit-quantity" class="form__label">Quantity:</label>
-                            <input type="number" id="edit-quantity" class="form__input" placeholder="Enter quantity">
+                            <input required type="number" id="edit-quantity" class="form__input" placeholder="Enter quantity">
                         </div>
                         <div class="form__group">
                             <label for="edit-discount" class="form__label">Discount (%):</label>
-                            <input type="number" id="edit-discount" class="form__input"
+                            <input required type="number" id="edit-discount" class="form__input"
                                 placeholder="Enter discount percentage">
                         </div>
                     </div>
@@ -150,7 +154,7 @@
                     <div class="form__row">
                         <div class="form__group">
                             <label for="edit-img-link" class="form__label">Image Links:</label>
-                            <input type="url" id="edit-img-link" class="form__input" placeholder="URL">
+                            <input required type="url" id="edit-img-link" class="form__input" placeholder="URL">
                         </div>
                     </div>
                     <div class="form__group">
@@ -188,6 +192,22 @@
     </script>
 
     <script>
+        // const xmlhttp = new XMLHttpRequest();
+        // xmlhttp.onload = function() {
+        //     const myObj = JSON.parse(this.responseText);
+        //     console.log(myObj);
+        //     const table = document.getElementById("productTable");
+        //     table.innerHTML = `<tr class="table">
+        //         <th class="id-column">ID</th>
+        //         <th class="name-column">Name</th>
+        //         <th class="description-column">Description</th>
+        //         <th class="price-column">Price</th>
+        //         <th class="actions-column">Actions</th>
+        //         </tr>`;
+        // }
+        // xmlhttp.open("GET", "/BTL_LTW/LTWeb/admin/products", true);
+        // xmlhttp.send();
+
         function displayProductAdmin(products) {
             const table = document.getElementById("productTable");
 
@@ -199,15 +219,14 @@
                 <th class="price-column">Price</th>
                 <th class="actions-column">Actions</th>
                 </tr>`;
-
             // Append new rows for each product
             products.forEach((product) => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
                     <td class="id-column">${product.id}</td>
                     <td class="name-column">${product.name}</td>
-                    <td class="description-column"><div class=description-column-item>${product.description}</div></td>
-                    <td class="price-column">$${product.price.toFixed(2)}</td>
+                    <td class="description-column"><div class="description-column-item">${product.desc}</div></td>
+                    <td class="price-column">$${product.price}</td>
                     <td class="actions-column">
                         <div class="btn-wrap">
                             <button class="js-toggle btn-primary btn btn-admin--small" toggle-target="#editProductModal" >Edit</button>
@@ -219,37 +238,39 @@
             });
             initJsToggle()
         }
+
         function sortProductsByIdDescending(products) {
             // Sắp xếp mảng sản phẩm theo thứ tự ID từ cao đến thấp
             return products.sort((a, b) => b.id - a.id);
         }
 
-        // fetchProducts();
-        // async function fetchProducts() {
-        //     try {
-        //         // Hiển thị spinner
-        //         document.getElementById("tableLoader").style.display = "block";
-        //         const response = await fetch("http://localhost:3000/products");
-        //         if (!response.ok) {
-        //             throw new Error(`HTTP error! status: ${response.status}`);
-        //         }
-        //         let products = await response.json();
+        fetchProducts();
+        async function fetchProducts() {
+            try {
+                // Hiển thị spinner
+                document.getElementById("tableLoader").style.display = "block";
+                const response = await fetch("http://localhost/BTL_LTW/LTWeb/admin/products");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                let products = await response.json();
+                // Sắp xếp sản phẩm theo thứ tự ID từ cao đến thấp
+                products = sortProductsByIdDescending(products);
 
-        //         // Sắp xếp sản phẩm theo thứ tự ID từ cao đến thấp
-        //         products = sortProductsByIdDescending(products);
-
-        //         // Lưu vào localStorage
-        //         localStorage.setItem("products", JSON.stringify(products));
-        //         displayProductAdmin(products)
-        //     } catch (error) {
-        //         console.log("Fetch error: " + error.message);
-        //     } finally {
-        //         // Ẩn spinner khi dữ liệu đã tải xong
-        //         document.getElementById("tableLoader").style.display = "none";
-        //     }
-        // }
+                // Lưu vào localStorage
+                localStorage.setItem("products", JSON.stringify(products));
+                displayProductAdmin(products)
+            } catch (error) {
+                console.log("Fetch error: " + error.message);
+            } finally {
+                // Ẩn spinner khi dữ liệu đã tải xong
+                document.getElementById("tableLoader").style.display = "none";
+            }
+        }
     </script>
+
     <script src="/BTL_LTW/LTWeb/public/assets/js/scripts-admin.js"></script>
+
     <script>
         // Lấy thẻ div chứa trình soạn thảo
         const description = document.getElementById('description');
@@ -306,68 +327,71 @@
             }
         }
 
-        // async function createProduct(productData) {
-        //     try {
-        //         const response = await fetch("http://localhost:3000/products", {
-        //             method: "POST",
-        //             headers: {
-        //                 "Content-Type": "application/json"
-        //             },
-        //             body: JSON.stringify(productData)
-        //         });
+        async function createProduct(productData) {
+            try {
+                var formData = new FormData();
 
-        //         if (!response.ok) {
-        //             throw new Error(`Failed to create product. Status: ${response.status}`);
-        //         }
+                for (var key in productData) {
+                    formData.append(key, productData[key]);
+                }
 
-        //         fetchProducts();
-        //         hideModalAndShowNotification("createProductModal", "Product created successfully!");
+                const response = await fetch("http://localhost/BTL_LTW/LTWeb/admin", {
+                    method: "POST",
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to create product. Status: ${response.status}`);
+                }
+                
+                fetchProducts();
+                hideModalAndShowNotification("createProductModal", "Product created successfully!");
 
-        //     } catch (error) {
-        //         console.error("Error creating product:", error);
-        //     }
-        // }
+            } catch (error) {
+                console.error("Error creating product:", error);
+            }
+        }
 
-        // document.addEventListener("DOMContentLoaded", function () {
-        //     const createProductForm = document.getElementById("createProductForm");
-        //     createProductForm.addEventListener("submit", function (event) {
-        //         event.preventDefault(); // Ngăn chặn hành động mặc định của form
+        document.addEventListener("DOMContentLoaded", function () {
+            const createProductForm = document.getElementById("createProductForm");
+            createProductForm.addEventListener("submit", function (event) {
+                event.preventDefault(); // Ngăn chặn hành động mặc định của form
 
-        //         // Lấy ra giá trị từ các trường input trong form
-        //         const productName = document.getElementById("product-name").value;
-        //         const price = document.getElementById("price").value;
-        //         const quantity = document.getElementById("quantity").value;
-        //         const discount = document.getElementById("discount").value;
-        //         const similarProducts = document.getElementById("similar").value;
-        //         const imageLink = document.getElementById("img-link").value;
+                // Lấy ra giá trị từ các trường input trong form
+                const productName = document.getElementById("product-name").value;
+                const price = document.getElementById("price").value;
+                const quantity = document.getElementById("quantity").value;
+                const discount = document.getElementById("discount").value;
+                const similarProducts = document.getElementById("similar").value;
+                const imageLink = document.getElementById("img-link").value;
+                const size = document.getElementById("size").value;
 
-        //         // Lấy nội dung mô tả từ CKEditor
-        //         const description = CKEDITOR.instances['description'].getData();
+                // Lấy nội dung mô tả từ CKEditor
+                const description = CKEDITOR.instances['description'].getData();
 
-        //         // Tạo một mảng để lưu trữ các URL hình ảnh
-        //         let images = [];
-        //         if (imageLink) {
-        //             images.push(imageLink);
-        //         }
+                
+                // Tạo một mảng để lưu trữ các URL hình ảnh
+                let images = [];
+                if (imageLink) {
+                    images.push(imageLink);
+                }
 
-        //         // Tạo object productData từ các giá trị thu thập được
-        //         const productData = {
-        //             name: productName,
-        //             ranking: 5,
-        //             delivery_des: "From $2 for 2-5 days",
-        //             price: price,
-        //             description: description,
-        //             similar_product_ids: similarProducts.split(",").map(id => parseInt(id.trim())),
-        //             review_ids: [3, 6, 1, 8],
-        //             images: images,
-        //             discount: discount,
-        //             quantity: quantity
-        //         };
+                // Tạo object productData từ các giá trị thu thập được
+                const productData = {
+                    name: productName,
+                    price: price,
+                    description: description,
+                    similar: similarProducts.split(",").map(id => parseInt(id.trim())),
+                    image: images,
+                    discount: discount,
+                    quantity: quantity,
+                    size: size
+                };
 
-        //         // Gọi hàm createProduct với productData
-        //         createProduct(productData);
-        //     });
-        // });
+                // Gọi hàm createProduct với productData
+                createProduct(productData);
+            });
+        });
 
 
         function getProductIdFromRow(button) {
@@ -499,7 +523,6 @@
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
 
-                console.log('Product deleted successfully');
                 fetchProducts(); // Refresh the product list after deletion
                 hideModalAndShowNotification('deleteProductModal', 'Product deleted successfully!');
             } catch (error) {
