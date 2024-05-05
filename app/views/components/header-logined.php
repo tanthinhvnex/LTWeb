@@ -1,3 +1,8 @@
+<?php
+	require_once __DIR__ . '/../../models/User.php';
+	session_start();
+?>
+
 <div class="container">
     <div class="top-bar">
         <!-- More -->
@@ -28,15 +33,15 @@
                     alt=""
                     class="nav-btn__icon icon" />
                 <span class="nav-btn__title">Cart</span>
-                <span class="nav-btn__qnt">3</span>
+                <span name="cartQuantity" class="nav-btn__qnt"></span>
             </a>
-            <a href="#!" class="nav-btn d-none d-md-flex">
+            <a href="/BTL_LTW/LTWeb/favourite" class="nav-btn d-none d-md-flex">
                 <img
                     src="/BTL_LTW/LTWeb/public/assets/icons/heart.svg"
                     alt=""
                     class="nav-btn__icon icon" />
                 <span class="nav-btn__title">Favorite</span>
-                <span class="nav-btn__qnt">3</span>
+                <span name="favQuantity" class="nav-btn__qnt"></span>
             </a>
             <ul class="navbar__list js-dropdown-list">
                 <li class="navbar__item">
@@ -4710,7 +4715,7 @@
                             src="/BTL_LTW/LTWeb/public/assets/icons/heart.svg"
                             alt=""
                             class="icon top-act__icon" />
-                        <span class="top-act__title">03</span>
+                        <span name="favQuantity" class="top-act__title"></span>
                     </button>
 
                     <!-- Dropdown -->
@@ -4721,8 +4726,8 @@
                                 alt=""
                                 class="act-dropdown__arrow" />
                             <div class="act-dropdown__top">
-                                <h2 class="act-dropdown__title">
-                                    You have 3 item(s)
+                                <h2 id="favQuantityInfo" class="act-dropdown__title">
+                                    <!-- You have 3 item(s) -->
                                 </h2>
                                 <a
                                     href="/BTL_LTW/LTWeb/favourite"
@@ -4730,74 +4735,9 @@
                                     >See All</a
                                 >
                             </div>
-                            <div class="row row-cols-3 gx-2 act-dropdown__list">
-                                <!-- Cart preview item 1 -->
-                                <div class="col">
-                                    <article class="cart-preview-item">
-                                        <div
-                                            class="cart-preview-item__img-wrap">
-                                            <img
-                                                src="/BTL_LTW/LTWeb/public/assets/img/product/item-1.png"
-                                                alt=""
-                                                class="cart-preview-item__thumb" />
-                                        </div>
-                                        <h3 class="cart-preview-item__title">
-                                            Lavazza Coffee Blends
-                                        </h3>
-                                        <p class="cart-preview-item__price">
-                                            $329.00
-                                        </p>
-                                    </article>
-                                </div>
-
-                                <!-- Cart preview item 2 -->
-                                <div class="col">
-                                    <article class="cart-preview-item">
-                                        <div
-                                            class="cart-preview-item__img-wrap">
-                                            <img
-                                                src="/BTL_LTW/LTWeb/public/assets/img/product/item-2.png"
-                                                alt=""
-                                                class="cart-preview-item__thumb" />
-                                        </div>
-                                        <h3 class="cart-preview-item__title">
-                                            Coffee Beans Espresso
-                                        </h3>
-                                        <p class="cart-preview-item__price">
-                                            $39.99
-                                        </p>
-                                    </article>
-                                </div>
-
-                                <!-- Cart preview item 3 -->
-                                <div class="col">
-                                    <article class="cart-preview-item">
-                                        <div
-                                            class="cart-preview-item__img-wrap">
-                                            <img
-                                                src="/BTL_LTW/LTWeb/public/assets/img/product/item-3.png"
-                                                alt=""
-                                                class="cart-preview-item__thumb" />
-                                        </div>
-                                        <h3 class="cart-preview-item__title">
-                                            Qualità Oro Mountain
-                                        </h3>
-                                        <p class="cart-preview-item__price">
-                                            $47.00
-                                        </p>
-                                    </article>
-                                </div>
-                            </div>
-                            <div class="act-dropdown__separate"></div>
-                            <div class="act-dropdown__checkout">
-                                <a
-                                    href="/BTL_LTW/LTWeb/checkout"
-                                    class="btn btn--primary btn--rounded act-dropdown__checkout-btn">
-                                    Check Out All
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                            <div id="favProducts" class="row row-cols-3 gx-2 act-dropdown__list"></div>
+                    	</div>
+					</div>
                 </div>
                 <div class="top-act__separate"></div>
                 <div class="top-act__btn-wrap">
@@ -4806,7 +4746,7 @@
                             src="/BTL_LTW/LTWeb/public/assets/icons/buy.svg"
                             alt=""
                             class="icon top-act__icon" />
-                        <span class="top-act__title">$65.42</span>
+                        <span name="cartTotalPrice" class="top-act__title"></span>
                     </button>
                     <!-- Dropdown -->
                     <div class="act-dropdown">
@@ -4816,8 +4756,8 @@
                                 alt=""
                                 class="act-dropdown__arrow" />
                             <div class="act-dropdown__top">
-                                <h2 class="act-dropdown__title">
-                                    You have 3 item(s)
+                                <h2 id="cartQuantityInfo" class="act-dropdown__title">
+                                    <!-- You have 3 item(s) -->
                                 </h2>
                                 <a
                                     href="/BTL_LTW/LTWeb/checkout"
@@ -4825,96 +4765,15 @@
                                     >See All</a
                                 >
                             </div>
-                            <div class="row row-cols-3 gx-2 act-dropdown__list">
-                                <!-- Cart preview item 1 -->
-                                <div class="col">
-                                    <article class="cart-preview-item">
-                                        <div
-                                            class="cart-preview-item__img-wrap">
-                                            <img
-                                                src="/BTL_LTW/LTWeb/public/assets/img/product/item-1.png"
-                                                alt=""
-                                                class="cart-preview-item__thumb" />
-                                        </div>
-                                        <h3 class="cart-preview-item__title">
-                                            Lavazza Coffee Blends
-                                        </h3>
-                                        <p class="cart-preview-item__price">
-                                            $329.00
-                                        </p>
-                                    </article>
-                                </div>
-
-                                <!-- Cart preview item 2 -->
-                                <div class="col">
-                                    <article class="cart-preview-item">
-                                        <div
-                                            class="cart-preview-item__img-wrap">
-                                            <img
-                                                src="/BTL_LTW/LTWeb/public/assets/img/product/item-2.png"
-                                                alt=""
-                                                class="cart-preview-item__thumb" />
-                                        </div>
-                                        <h3 class="cart-preview-item__title">
-                                            Coffee Beans Espresso
-                                        </h3>
-                                        <p class="cart-preview-item__price">
-                                            $39.99
-                                        </p>
-                                    </article>
-                                </div>
-
-                                <!-- Cart preview item 3 -->
-                                <div class="col">
-                                    <article class="cart-preview-item">
-                                        <div
-                                            class="cart-preview-item__img-wrap">
-                                            <img
-                                                src="/BTL_LTW/LTWeb/public/assets/img/product/item-3.png"
-                                                alt=""
-                                                class="cart-preview-item__thumb" />
-                                        </div>
-                                        <h3 class="cart-preview-item__title">
-                                            Qualità Oro Mountain
-                                        </h3>
-                                        <p class="cart-preview-item__price">
-                                            $47.00
-                                        </p>
-                                    </article>
-                                </div>
-                            </div>
+                            <div id="cartProducts" class="row row-cols-3 gx-2 act-dropdown__list"></div>
                             <div class="act-dropdown__bottom">
-                                <div class="act-dropdown__row">
-                                    <span class="act-dropdown__label"
-                                        >Subtotal</span
-                                    >
-                                    <span class="act-dropdown__value"
-                                        >$415.99</span
-                                    >
-                                </div>
-                                <div class="act-dropdown__row">
-                                    <span class="act-dropdown__label"
-                                        >Texes</span
-                                    >
-                                    <span class="act-dropdown__value"
-                                        >Free</span
-                                    >
-                                </div>
-                                <div class="act-dropdown__row">
-                                    <span class="act-dropdown__label"
-                                        >Shipping</span
-                                    >
-                                    <span class="act-dropdown__value"
-                                        >$10.00</span
-                                    >
-                                </div>
                                 <div
                                     class="act-dropdown__row act-dropdown__row--bold">
                                     <span class="act-dropdown__label"
                                         >Total Price</span
                                     >
-                                    <span class="act-dropdown__value"
-                                        >$425.99</span
+                                    <span name="cartTotalPrice" class="act-dropdown__value"
+                                        >$</span
                                     >
                                 </div>
                             </div>
@@ -4950,8 +4809,8 @@
                                 alt=""
                                 class="user-menu__avatar" />
                             <div>
-                                <p class="user-menu__name">John Smith</p>
-                                <p>@johnsmith</p>
+                                <p id="username" class="user-menu__name"><?php echo $_SESSION['user']->fullname ?></p>
+                                <p id="email"><?php echo $_SESSION['user']->email ?></p>
                             </div>
                         </div>
 

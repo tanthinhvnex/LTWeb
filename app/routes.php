@@ -8,6 +8,7 @@
             '/BTL_LTW/LTWeb/checkout' => ['controller' => __DIR__ . '/controllers/Checkout.php', 'middleware' => ['auth']],
             '/BTL_LTW/LTWeb/detail' => ['controller' => __DIR__ . '/controllers/Detail.php', 'middleware' => ['auth']],
             '/BTL_LTW/LTWeb/favourite' => ['controller' => __DIR__ . '/controllers/Favourite.php', 'middleware' => ['auth']],
+            '/BTL_LTW/LTWeb/header' => ['controller' => __DIR__ . '/controllers/LoginHeader.php', 'middleware' => ['auth']],
             '/BTL_LTW/LTWeb/payment' => ['controller' => __DIR__ . '/controllers/Payment.php', 'middleware' => ['auth']],
             '/BTL_LTW/LTWeb/profile' => ['controller' => __DIR__ . '/controllers/Profile.php', 'middleware' => ['auth']],
             '/BTL_LTW/LTWeb/profile/add_new_card' => ['controller' => __DIR__ . '/controllers/AddNewCard.php', 'middleware' => ['auth']],

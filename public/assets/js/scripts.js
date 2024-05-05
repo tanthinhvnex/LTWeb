@@ -12,6 +12,7 @@ document.addEventListener("click", function(event) {
         cityDialog.classList.add("hide");
     }
 });
+
 /**
  * Hàm tải template
  *
@@ -26,18 +27,85 @@ function load(selector, path) {
     if (cached) {
         $(selector).innerHTML = cached;
     }
-
+    
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function() {
+        const myObj = JSON.parse(this.responseText);
+        favQuantity = document.getElementsByName("favQuantity");
+        for (i = 0; i < favQuantity.length; i++) {
+            favQuantity[i].innerHTML = myObj.favQuantity;
+        }
+        cartQuantity = document.getElementsByName("cartQuantity");
+        for (i = 0; i < cartQuantity.length; i++) {
+            cartQuantity[i].innerHTML = myObj.cartQuantity;
+        }
+        document.getElementById("cartQuantityInfo").innerHTML = "You have " + myObj.cartQuantity + " item(s)"
+        document.getElementById("favQuantityInfo").innerHTML = "You have " + myObj.favQuantity + " item(s)"
+        for (i = 0; i < myObj.favProducts.length; i++) {
+            col = document.createElement("div");
+            col.setAttribute("class","col");
+            col.innerHTML = `
+            <article class="cart-preview-item">
+                <div class="cart-preview-item__img-wrap">
+                <img src="` + myObj.favProducts[i].img + `"
+                    alt=""
+                    class="cart-preview-item__thumb" />
+                </div>
+                <h3 class="cart-preview-item__title">
+                    ` + myObj.favProducts[i].name + `
+                </h3>
+                <p class="cart-preview-item__price">
+                    $` + myObj.favProducts[i].price + `
+                </p>
+            </article>
+            `;
+            document.getElementById("favProducts").appendChild(col);
+        }
+        cartTotalPrice = 0;
+        for (i = 0; i < myObj.cartProducts.length; i++) {
+            cartTotalPrice += myObj.cartProducts[i].quantity * myObj.cartProducts[i].price;
+            col = document.createElement("div");
+            col.setAttribute("class","col");
+            col.innerHTML = `
+            <article class="cart-preview-item">
+                <div
+                    class="cart-preview-item__img-wrap">
+                    <img
+                        src="` + myObj.cartProducts[i].img + `"
+                        alt=""
+                        class="cart-preview-item__thumb" />
+                </div>
+                <h3 class="cart-preview-item__title">
+                    ` + myObj.cartProducts[i].name + `
+                </h3>
+                <p class="cart-preview-item__price">
+                    $` + myObj.cartProducts[i].price + `
+                </p>
+            </article>
+            `;
+            document.getElementById("cartProducts").appendChild(col);
+        }
+        cartTotalPrices = document.getElementsByName("cartTotalPrice");
+        for (i = 0; i < cartTotalPrices.length; i++) {
+            cartTotalPrices[i].innerHTML = "$" + cartTotalPrice;
+        }
+    }
+    xmlhttp.open("GET", "/BTL_LTW/LTWeb/header", true);
+    
     fetch(path)
-        .then(res => res.text())
-        .then(html => {
-            if (html !== cached) {
-                $(selector).innerHTML = html;
-                localStorage.setItem(path, html);
-            }
-        })
+    .then(res => res.text())
+    .then(html => {
+        if (html !== cached) {
+            $(selector).innerHTML = html;
+            localStorage.setItem(path, html);
+        }
+        if (selector == "#footer") {
+            xmlhttp.send();
+        }
+    })
         .finally(() => {
-            window.dispatchEvent(new Event("template-loaded"));
-        });
+        window.dispatchEvent(new Event("template-loaded"));
+    });
 }
 
 /**
