@@ -1,5 +1,9 @@
 <?php
 require_once __DIR__ . '/../models/Address.php';
+require_once __DIR__ . '/../models/Cart.php';
+require_once __DIR__ . '/../models/Bill.php';
+
+
 
 class Shipping {
     public function invoke() {
@@ -12,8 +16,12 @@ class Shipping {
             
             if ($endpoint === 'add_new_address') {
                 $this->handleAddAddress();
-            } elseif ($endpoint === 'edit_address') {
+            } else if ($endpoint === 'edit_address') {
                 $this->handleEditAddress();
+            }else if ($endpoint === 'delete_from_cart') {
+                $this->deleteFromCart();
+            }else if ($endpoint === 'new_bill') {
+                $this->makeNewBill();
             } else {
                 echo "Unknown endpoint";
                 exit; 
@@ -28,13 +36,15 @@ class Shipping {
             
             if ($endpoint === 'shipping') {
                 $listAddress=Address::getListAddressByUser($_SESSION['user']->email);
+                require_once __DIR__ . '/../views/shipping.php';
+            }else if ($endpoint === 'cart') {
+                $this->handleGetCart();
             }else {
                 echo "Unknown endpoint";
                 exit; 
             }
         }
-        $listAddress = Address::getListAddressByUser($_SESSION['user']->email);
-        require_once __DIR__ . '/../views/shipping.php';
+        
     }
     
     private function handleAddAddress() {
@@ -78,6 +88,26 @@ class Shipping {
         } else {
             echo "Error: Name field not set in POST data.";
         }
+    }
+    private function handleGetCart(){
+        $email=$_SESSION['user']->email;
+        $userCart=CartModel::getCartByUser($email);
+        echo json_encode($userCart);
+    }
+    private function deleteFromCart(){
+        $email=$_SESSION['user']->email;
+        $jsonData = file_get_contents('php://input');
+        $data = json_decode($jsonData, true);
+        CartModel::deleteFromCart($email,$data['PID'],$data['size']);
+    }
+    private function makeNewBill(){
+        $email=$_SESSION['user']->email;
+        $jsonData = file_get_contents('php://input');
+        $data = json_decode($jsonData, true);
+        
+        $BID=BillModel::createBill($email,$data['AID']);
+        BillModel::addProduct($BID,$data['items']);
+        echo json_encode($BID);
     }
 }
 

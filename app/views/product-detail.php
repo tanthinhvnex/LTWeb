@@ -124,8 +124,7 @@
                             <form action="" class="form">
                                 <section class="prod-info">
                                     <h1 class="prod-info__heading">
-                                        Coffee Beans - Espresso Arabica and
-                                        Robusta Beans
+                                         <?php echo $product->name?>
                                     </h1>
                                     <div class="row">
                                         <div class="col-5 col-xxl-6 col-xl-12">

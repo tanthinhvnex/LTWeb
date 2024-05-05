@@ -90,7 +90,7 @@
                                     <?php
                                     // Check if there are addresses in the list
                                     if (!empty($listAddress)) {
-                                        // Loop through each address in the list
+                                       
                                         foreach ($listAddress as $address) {
                                             ?>
                                             <!-- Address card -->
@@ -98,7 +98,7 @@
                                                 <div class="address-card__left">
                                                     <div class="address-card__choose">
                                                         <label class="cart-info__checkbox">
-                                                            <input type="radio" name="shipping-address" class="cart-info__checkbox-input" 
+                                                            <input type="radio" name="shipping-address" value=<?php echo $address->AID?> class="cart-info__checkbox-input" 
                                                             <?php echo ($address->isDefault == 1) ? 'checked' : ''; ?>/>
                                                         </label>
                                                     </div>
@@ -309,12 +309,12 @@
                             </div>
 
                             <div class="cart-info__bottom d-md-none">
-                                <button class="selected-delete btn btn--danger btn--rounded js-toggle"
+                                <!-- <button class="selected-delete btn btn--danger btn--rounded js-toggle"
                                     style="float: right; margin-bottom: 20px;"
                                     toggle-target="#delete-selected-confirm"
                                     disabled>
                                     Delete (0)
-                                </button>
+                                </button> -->
                                 <div style="clear: right;"></div>
                                 <div class="row">
                                     <div class="col-8 col-xxl-7">
@@ -329,7 +329,7 @@
                                     <div class="col-4 col-xxl-5">
                                         <div class="cart-info__row">
                                             <span>Subtotal:</span>
-                                            <span>$191.65</span>
+                                            <span class='subtotalAmount'>$0</span>
                                         </div>
                                         <div class="cart-info__row">
                                             <span>Shipping:</span>
@@ -338,7 +338,7 @@
                                         <div class="cart-info__separate"></div>
                                         <div class="cart-info__row cart-info__row--bold">
                                             <span>Total:</span>
-                                            <span>$201.65</span>
+                                            <span class='totalAmount'>$10</span>
                                         </div>
                                     </div>
                                 </div>
@@ -349,11 +349,11 @@
                         <div class="cart-info">
                             <div class="cart-info__row">
                                 <span>Subtotal <span class="cart-info__sub-label">(items)</span></span>
-                                <span>3</span>
+                                <span id='numOfItem'>0</span>
                             </div>
                             <div class="cart-info__row">
                                 <span>Price <span class="cart-info__sub-label">(Total)</span></span>
-                                <span>$191.65</span>
+                                <span class='subtotalAmount'>$0.00</span>
                             </div>
                             <div class="cart-info__row">
                                 <span>Shipping</span>
@@ -362,9 +362,9 @@
                             <div class="cart-info__separate"></div>
                             <div class="cart-info__row">
                                 <span>Estimated Total</span>
-                                <span>$201.65</span>
+                                <span class='totalAmount'>$10</span>
                             </div>
-                            <a href="/BTL_LTW/LTWeb/payment" class="cart-info__next-btn btn btn--primary btn--rounded">
+                            <a href="/BTL_LTW/LTWeb/payment" id='checkout-link' class="cart-info__next-btn btn btn--primary btn--rounded">
                                 Continue to checkout
                             </a>
                         </div>

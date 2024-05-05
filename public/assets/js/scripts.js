@@ -356,7 +356,10 @@ document.addEventListener("DOMContentLoaded", function () {
 function checkAll() {
     checkItems = document.getElementsByName("check-item");
     isChecked = document.getElementById("check-all").checked;
-
+    for (var i = 0; i < checkItems.length; i++) {
+        checkItems[i].checked = isChecked;
+        checkItems[i].dispatchEvent(new Event('change'));
+    }
     //update nội dung 2 nút selected delete/checkout ứng với số item được check
     var selectedDeleteButton = document.querySelector('.selected-delete');
     var selectedCheckoutButton = document.querySelector('.selected-checkout');
@@ -381,9 +384,7 @@ function checkAll() {
         selectedCheckoutButton.disabled = !isChecked;
     }
 
-    for (var i = 0; i < checkItems.length; i++) {
-        checkItems[i].checked = isChecked;
-    }
+    
 }
 function handleCheck() {
     var checkItems = document.getElementsByName("check-item");
@@ -412,22 +413,3 @@ function handleCheck() {
     }
 }
 
-//validate input của quantity
-function handleQuantityInput(id) {
-    quantity = document.getElementById("quantity" + id);
-    if (quantity.value < 1 || quantity.value == "") {
-        quantity.value = 1;
-    }
-}
-
-//tăng/giảm quantity khi ấn + -
-function descreaseQuantity(id) {
-    quantity = document.getElementById("quantity" + id);
-    if (quantity.value > 1) {
-        quantity.value--;
-    }
-}
-function increaseQuantity(id) {
-    quantity = document.getElementById("quantity" + id);
-    quantity.value++;
-}
