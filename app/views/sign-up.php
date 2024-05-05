@@ -23,6 +23,7 @@
 
     <!-- Scripts -->
     <script src="/BTL_LTW/LTWeb/public/assets/js/scripts.js"></script>
+    <script src="/BTL_LTW/LTWeb/public/assets/js/sign-in.js"></script>
 </head>
 
 <body>
@@ -54,33 +55,87 @@
                 <p class="auth__desc">Let’s create your account and Shop like a pro and save money.</p>
                 <form action="/BTL_LTW/LTWeb/sign_up" class="form auth__form" method="post">
                     <div class="form__group">
-                        <div class="form__text-input">
-                            <input type="email" autofocus placeholder="Email" class="form__input" required>
-                            <img src="/BTL_LTW/LTWeb/public/assets/icons/message.svg" alt="" class="form__input-icon">
-                            <img src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg" alt="" class="form__input-icon-error">
+                        <div id="inputEmailFrame" class="form__text-input">
+                            <input
+                                type="text"
+                                autofocus
+                                name="email"
+                                placeholder="Email"
+                                id="inputEmail"
+                                class="form__input"
+                                oninput="validateEmail()"
+                                value="<?= $_POST['email'] ?? 'phuc.dangphanminh@hcmut.edu.vn'?>"
+                                required />
+                            <img
+                                src="/BTL_LTW/LTWeb/public/assets/icons/message.svg"
+                                alt=""
+                                id="icon-email-good"
+                                class="form__input-icon" />
+                            <img
+                                src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg"
+                                alt=""
+                                id="icon-email-error"
+                                class="form__input-icon-error" />
                         </div>
-                        <p class="form__error">Email is not in correct format</p>
+                        <p id="email_error" class="form__error">
+                            Email is not in correct format
+                        </p>
                     </div>
                     <div class="form__group">
-                        <div class="form__text-input">
-                            <input type="password" placeholder="Password" class="form__input" required minlength="6">
-                            <img src="/BTL_LTW/LTWeb/public/assets/icons/lock.svg" alt="" class="form__input-icon">
-                            <img src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg" alt="" class="form__input-icon-error">
+                        <div id="inputPasswordFrame" class="form__text-input">
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                name="password"
+                                class="form__input"
+                                id="inputPassword"
+                                value="123456"
+                                oninput="validatePassword()"
+                                required
+                                minlength="6"
+                                maxLength="20" />
+                            <img
+                                src="/BTL_LTW/LTWeb/public/assets/icons/lock.svg"
+                                alt=""
+                                id="icon-password-good"
+                                class="form__input-icon" />
+                            <img
+                                src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg"
+                                alt=""
+                                id="icon-password-error"
+                                class="form__input-icon-error" />
                         </div>
-                        <p class="form__error">Password at least 6 characters</p>
+                        <p id="password_error" class="form__error">
+                            Password must have at least 6 characters
+                        </p>
                     </div>
                     <div class="form__group">
-                        <div class="form__text-input">
-                            <input type="password" placeholder="Confirm Password" class="form__input" required
-                                minlength="6">
-                            <img src="/BTL_LTW/LTWeb/public/assets/icons/lock.svg" alt="" class="form__input-icon">
-                            <img src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg" alt="" class="form__input-icon-error">
+                        <div id="inputConfirmFrame" class="form__text-input">
+                            <input
+                                type="password"
+                                placeholder="Confirm Password"
+                                name="confirm"
+                                class="form__input"
+                                id="inputConfirm"
+                                value=""
+                                oninput="validateConfirm()"
+                                required />
+                            <img
+                                src="/BTL_LTW/LTWeb/public/assets/icons/lock.svg"
+                                alt=""
+                                id="icon-confirm-good"
+                                class="form__input-icon" />
+                            <img
+                                src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg"
+                                alt=""
+                                id="icon-confirm-error"
+                                class="form__input-icon-error" />
                         </div>
-                        <p class="form__error">Password at least 6 characters</p>
+                        <p id="confirm_error" class="form__error">Not matching</p>
                     </div>
 
                     <div class="form__group auth__btn-group">
-                        <button class="btn btn--primary auth__btn form__submit-btn">Sign Up</button>
+                        <button id="signup_submit" class="btn btn--primary auth__btn form__submit-btn">Sign Up</button>
                         <!-- <button class="btn btn--outline auth__btn btn--no-margin">
                             <img src="/BTL_LTW/LTWeb/public/assets/icons/google.svg" alt="" class="btn__icon icon">
                             Sign in with Google

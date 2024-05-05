@@ -1,3 +1,9 @@
+<?php
+if(isset($_SESSION['signup_success']) && $_SESSION['signup_success']) {
+    echo "<script>alert('Đăng ký thành công')</script>";
+    unset($_SESSION['signup_success']); // Unset the session variable after displaying the message
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -67,7 +73,7 @@
                     </p>
                     <form action="/BTL_LTW/LTWeb/sign_in" class="form auth__form" method="post" onsubmit="checkSignInInput()">
                         <div class="form__group">
-                            <div class="form__text-input">
+                            <div id="inputEmailFrame" class="form__text-input">
                                 <input
                                     type="text"
                                     autofocus
@@ -81,10 +87,12 @@
                                 <img
                                     src="/BTL_LTW/LTWeb/public/assets/icons/message.svg"
                                     alt=""
+                                    id="icon-email-good"
                                     class="form__input-icon" />
                                 <img
                                     src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg"
                                     alt=""
+                                    id="icon-email-error"
                                     class="form__input-icon-error" />
                             </div>
                             <p id="email_error" class="form__error">
@@ -92,7 +100,7 @@
                             </p>
                         </div>
                         <div class="form__group">
-                            <div class="form__text-input">
+                            <div id="inputPasswordFrame" class="form__text-input">
                                 <input
                                     type="password"
                                     placeholder="Password"
@@ -107,10 +115,12 @@
                                 <img
                                     src="/BTL_LTW/LTWeb/public/assets/icons/lock.svg"
                                     alt=""
+                                    id="icon-password-good"
                                     class="form__input-icon" />
                                 <img
                                     src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg"
                                     alt=""
+                                    id="icon-password-error"
                                     class="form__input-icon-error" />
                             </div>
                             <p id="password_error" class="form__error">
@@ -123,9 +133,11 @@
                             <label class="form__checkbox">
                                 <input
                                     type="checkbox"
-                                    name=""
-                                    id=""
-                                    class="form__checkbox-input d-none" />
+                                    name="remember"
+                                    id="inputRemember"
+                                    class="form__checkbox-input d-none" 
+                                    <?php if ($_POST['remember'] ?? false) echo 'checked' ?>
+                                    />
                                 <span class="form__checkbox-label"
                                     >Remember me</span
                                 >
@@ -141,7 +153,7 @@
                         <div class="form__group auth__btn-group">
                             <button
                                 type="submit"
-                                id="login_submit"
+                                id="signin_submit"
                                 class="btn btn--primary auth__btn form__submit-btn">
                                 Login
                             </button>
@@ -157,7 +169,7 @@
                     </form>
 
                     <p class="auth__text">
-                        Don’t have an account yet?
+                        Don't have an account yet?
                         <a
                             href="/BTL_LTW/LTWeb/sign_up"
                             class="auth__link auth__text-link"
