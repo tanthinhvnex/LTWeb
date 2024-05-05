@@ -22,7 +22,7 @@
             '/BTL_LTW/LTWeb/sign_up' => ['controller' => __DIR__ . '/controllers/SignUp.php', 'middleware' => ['guest']],
         ],
         'POST' => [
-            '/BTL_LTW/LTWeb/admin' => ['controller' => __DIR__ . '/controllers/Admin.php', 'middleware' => ['auth','admin']],
+            '/BTL_LTW/LTWeb/admin' => ['controller' => __DIR__ . '/controllers/Admin.php', 'middleware' => ['auth','admin','trim-admin-add-product-input']],
             '/BTL_LTW/LTWeb/logout' => ['controller' => __DIR__ . '/controllers/Logout.php', 'middleware' => ['auth']],
             '/BTL_LTW/LTWeb/profile/add_new_card' => ['controller' => __DIR__ . '/controllers/AddNewCart.php', 'middleware' => ['auth']],
             '/BTL_LTW/LTWeb/profile/edit_personal_info' => ['controller' => __DIR__ . '/controllers/EditPersonalInfo.php', 'middleware' => ['auth']],

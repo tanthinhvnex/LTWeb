@@ -86,7 +86,7 @@
                             <label for="similar" class="form__label">Similar Products:</label>
                             <input name="similar" type="text" id="similar" class="form__input"
                                 placeholder="Enter similar product IDs separated by commas: 1,2,3,4">
-                            <div class="form__error">Error message</div>
+                            <div id="similarError" class="form__error">Nhập các ID cách nhau bởi dấu phẩy hoặc để trống</div>
                         </div>
                     </div>
                     <div class="form__row">
@@ -108,7 +108,7 @@
                     </div>
 
                     <div class="form__group" style="display: flex; justify-content: right;">
-                        <button type="submit" class="btn btn-primary form__submit-btn">Create</button>
+                        <button id="createSubmit" type="submit" class="btn btn-primary form__submit-btn">Create</button>
                     </div>
                 </form>
             </div>
@@ -130,7 +130,7 @@
                         </div>
                         <div class="form__group">
                             <label for="edit-price" class="form__label">Price:</label>
-                            <input required type="text" id="edit-price" class="form__input" placeholder="Enter price">
+                            <input required type="number" id="edit-price" class="form__input" placeholder="Enter price">
                         </div>
                     </div>
                     <div class="form__row">
@@ -362,7 +362,7 @@
                 const price = document.getElementById("price").value;
                 const quantity = document.getElementById("quantity").value;
                 const discount = document.getElementById("discount").value;
-                const similarProducts = document.getElementById("similar").value;
+                let similarProducts = document.getElementById("similar").value;
                 const imageLink = document.getElementById("img-link").value;
                 const size = document.getElementById("size").value;
 
@@ -376,12 +376,19 @@
                     images.push(imageLink);
                 }
 
+                if (similarProducts.trim() == "") {
+                    similarProducts = [];
+                }
+                else {
+                    similarProducts = similarProducts.split(",").map(id => parseInt(id.trim()));
+                }
+
                 // Tạo object productData từ các giá trị thu thập được
                 const productData = {
                     name: productName,
                     price: price,
                     description: description,
-                    similar: similarProducts.split(",").map(id => parseInt(id.trim())),
+                    similar: similarProducts,
                     image: images,
                     discount: discount,
                     quantity: quantity,
@@ -558,6 +565,25 @@
 
         CKEDITOR.replace('edit-description', {
             resize_enabled: false, // Không cho resize
+        });
+        function isValidSimilarPattern(input) {
+            return /^(\d+(,\d+)*)?$/.test(input);
+        }
+
+        const similarInput = document.getElementById('similar');
+
+        similarInput.addEventListener('blur', function() {
+            const value = similarInput.value.trim();
+            if (!isValidSimilarPattern(value)) {
+                $("#createSubmit").disabled = true;
+                $("#similarError").style.display = 'block';
+                similarInput.value = '';
+                // similarInput.focus();
+            }
+            else {
+                $("#createSubmit").disabled = false;
+                $("#similarError").style.display = 'none';
+            }
         });
     </script>
 </body>

@@ -12,18 +12,24 @@
         
         public function insertIntoSimilarProduct($productID, $similar) {
             global $connection;
+            $successful = "";
             for ($i = 0; $i < count($similar); $i++) {
                 $query = "INSERT INTO product_similar_to_product (PID,similar_PID) VALUES (" . intval($productID) . ", " . intval($similar[$i]) . ")";
-                $insertSimilarQuery = mysqli_query($connection, $query);
+                mysqli_query($connection, $query);
+                $successful .= mysqli_affected_rows($connection);
             }
+            return $successful;
         }
         
         public function insertIntoProductImageSrc($productID, $image) {
             global $connection;
-            for ($i = 0; $i < count($similar); $i++) {
-                $query = "INSERT INTO product_image_src (PID,image_src) VALUES (" . intval($productID) . ", '$image')";
-                $insertProductImageSrc = mysqli_query($connection, $query);
+            $successful = "";
+            for ($i = 0; $i < count($image); $i++) {
+                $query = "INSERT INTO product_image_src (PID,image_src) VALUES (" . intval($productID) . ", '$image[$i]')";
+                mysqli_query($connection, $query);
+                $successful .= mysqli_affected_rows($connection);
             }
+            return $successful;
         }
     }
 ?>

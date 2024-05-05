@@ -8,9 +8,17 @@
             return filter_var($value, FILTER_VALIDATE_EMAIL);
         }
         
+        public static function isValidURL($url) {
+            return filter_var($url, FILTER_VALIDATE_URL);
+        }
         
         public static function isMatchingPassword($passoword, $confirm) {
             return $passoword == $confirm;
         }
+
+        public static function isValidArrayPattern($value) {
+            // Check if the value matches the pattern of comma-separated values
+            return preg_match('/^(\d+,)*\d*$/', $value) || $value === '';
+        }        
     }
 ?>
