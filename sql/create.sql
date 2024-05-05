@@ -93,7 +93,7 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE IF NOT EXISTS `product` (
-  `PID` int(11) NOT NULL,
+  `PID` int(11) auto_increment NOT NULL,
   `name` varchar(255) NOT NULL,
   `listed_unit_price` decimal(10,0) NOT NULL,
   `description` varchar(5000) NOT NULL,
@@ -2885,6 +2885,7 @@ CREATE TABLE IF NOT EXISTS `user_have_remember_me_cookie` (
 --
 
 INSERT INTO `user` (`email`, `encoded_password`, `fullname`, `role`, `phone`) VALUES
+('admin@gmail.com', 'cf38799cb5e58fe29dc18bc563092d33cf262307b736f1e1fa3efd28d6d5161b', 'ADMIN', 'admin', '0909090909'),
 ('abc@gmail.com', 'cf38799cb5e58fe29dc18bc563092d33cf262307b736f1e1fa3efd28d6d5161b', 'avc', 'customer', '0201026777'),
 ('agavenectar@gmail.com', 'cf38799cb5e58fe29dc18bc563092d33cf262307b736f1e1fa3efd28d6d5161b', 'Jayden Rivera', 'customer', '0304838490'),
 ('almondmilk@gmail.com', 'cf38799cb5e58fe29dc18bc563092d33cf262307b736f1e1fa3efd28d6d5161b', 'Aria Mitchell', 'customer', '0163623038'),

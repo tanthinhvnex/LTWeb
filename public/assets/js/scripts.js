@@ -1,18 +1,6 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
-document.addEventListener("click", function(event) {
-    const clickTarget = event.target;
-    const cityInput = document.getElementById("city");
-    const cityDialog = document.getElementById("city-dialog");
-
-    // Check if cityDialog exists before accessing its properties
-    if (cityDialog && !clickTarget.closest("#city-dialog") && clickTarget !== cityInput && cityDialog.classList.contains("show")) {
-        cityDialog.classList.remove("show");
-        cityDialog.classList.add("hide");
-    }
-});
-
 /**
  * Hàm tải template
  *
@@ -246,14 +234,6 @@ function initJsToggle() {
                 $(target).classList.toggle("show", isHidden);
             });
         };
-        document.onclick = function (e) {
-            if (!e.target.closest(target)) {
-                const isHidden = $(target).classList.contains("hide");
-                if (!isHidden) {
-                    button.click();
-                }
-            }
-        };
     });
 }
 
@@ -302,14 +282,7 @@ window.addEventListener("template-loaded", () => {
             const isDark = localStorage.dark === "true";
             document.querySelector("html").classList.toggle("dark", !isDark);
             localStorage.setItem("dark", !isDark);
-            switchBtn.querySelector("span").textContent = isDark
-                ? "Dark mode"
-                : "Light mode";
         };
-        const isDark = localStorage.dark === "true";
-        switchBtn.querySelector("span").textContent = isDark
-            ? "Light mode"
-            : "Dark mode";
     }
 });
 
@@ -506,4 +479,34 @@ function descreaseQuantity(id) {
 function increaseQuantity(id) {
     quantity = document.getElementById("quantity" + id);
     quantity.value++;
+}
+
+function showSpinner() {
+    document.getElementById('spinner').style.display = 'flex';
+}
+
+function hideSpinner() {
+    document.getElementById('spinner').style.display = 'none';
+}
+
+function checkLogOut() {
+    logOut = document.getElementById("logout")
+    logOut.addEventListener("click", function () {
+        localStorage.removeItem("user")
+    })
+}
+
+// let cartNotification
+function updateCartNotification() {
+    cartNotification = document.querySelector(".cart-notification")
+    cart = JSON.parse(localStorage.getItem("cart"))
+    cartNotification.innerHTML = cart.length
+    cartPrice = document.querySelector(".cart-price")
+    price = 0
+    for (let i = 0; i < cart.length; i++) {
+        if (cart[i].quantity != null) {
+            price += parseInt(cart[i].price) * parseInt(cart[i].quantity)
+        }
+    }
+    cartPrice.innerHTML = `$ ${price}`
 }

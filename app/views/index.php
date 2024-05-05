@@ -6,20 +6,9 @@
         <title>Grocery Mart</title>
 
         <!-- Favicon -->
-        <link
-            rel="apple-touch-icon"
-            sizes="76x76"
-            href="/BTL_LTW/LTWeb/public/assets/favicon/apple-touch-icon.png" />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/BTL_LTW/LTWeb/public/assets/favicon/favicon-32x32.png" />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/BTL_LTW/LTWeb/public/assets/favicon/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="/BTL_LTW/LTWeb/public/assets/favicon/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/BTL_LTW/LTWeb/public/assets/favicon/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/BTL_LTW/LTWeb/public/assets/favicon/favicon-16x16.png" /> 
         <link rel="manifest" href="/BTL_LTW/LTWeb/public/assets/favicon/site.webmanifest" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />

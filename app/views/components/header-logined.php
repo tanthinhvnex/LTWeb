@@ -4810,7 +4810,15 @@
                                 class="user-menu__avatar" />
                             <div>
                                 <p id="username" class="user-menu__name"><?php echo $_SESSION['user']->fullname ?></p>
-                                <p id="email"><?php echo $_SESSION['user']->email ?></p>
+                                <p id="email"><?php
+                                  if (strpos($_SESSION['user']->email, "@") > 15) {
+                                    echo substr($_SESSION['user']->email, 0, strpos($_SESSION['user']->email, "@")) . "<br>"
+                                    . substr($_SESSION['user']->email, strpos($_SESSION['user']->email, "@"));
+                                  }
+                                  else {
+                                    echo $_SESSION['user']->email;
+                                  }
+                                ?></p>
                             </div>
                         </div>
 

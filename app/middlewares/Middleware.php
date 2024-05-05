@@ -4,12 +4,14 @@
     require_once __DIR__ . '/EmailConfirm.php';
     require_once __DIR__ . '/TrimSignUpInput.php';
     require_once __DIR__ . '/TrimSignInInput.php';
+    require_once __DIR__ . '/Admin.php';
     class Middleware {
         // mapping middleware key to specific middleware class
         const MAP = [
-            'guest' => Guest::class,
+            'admin' => Admin::class,
             'auth' => Auth::class,
             'email-confirmed' => EmailConfirm::class, // này dùng cho reset_password
+            'guest' => Guest::class,
             'trim-signin-input' => TrimSignInInput::class,
             'trim-signup-input' => TrimSignUpInput::class 
         ];
