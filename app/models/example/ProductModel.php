@@ -103,6 +103,28 @@
             return false;
         }
 
+        public function addToCart($productId, $quantity, $customerEmail) {
+            global $connection;
+            $productId = mysqli_real_escape_string($connection, $productId);
+            $quantity = mysqli_real_escape_string($connection, $quantity);
+        
+            $query = "SELECT * FROM customer_add_to_cart_product WHERE customer_email = '{$customerEmail}' AND PID = '{$productId}'";
+            $result = mysqli_query($connection, $query);
+
+            if (mysqli_num_rows($result) > 0) {
+               
+                $row = mysqli_fetch_assoc($result);
+                $newQuantity = $row['quantity'] + $quantity;
+                $updateQuery = "UPDATE customer_add_to_cart_product SET quantity = '{$newQuantity}' WHERE customer_email = '{$customerEmail}' AND PID = '{$productId}'";
+                mysqli_query($connection, $updateQuery);
+            } else {
+                
+                $size = "small";
+                $insertQuery = "INSERT INTO customer_add_to_cart_product (customer_email, PID, size, quantity) VALUES ('{$customerEmail}', '{$productId}', '{$size}', '{$quantity}')";
+                mysqli_query($connection, $insertQuery);
+            }
+        }
+      
         public function getNoOfProductInCart($email) {
             global $connection;
             $cartQuantityQuery = mysqli_query($connection, "SELECT COUNT(*) FROM customer_add_to_cart_product WHERE customer_email = '$email'");
