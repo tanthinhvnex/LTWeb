@@ -89,8 +89,8 @@
                             <!-- Payment item 1 -->
                             <article class="payment-item">
                                 <div class="payment-item__info">
-                                    <h3 class="payment-item__title">Imran Khan</h3>
-                                    <p class="payment-item__desc">Museum of Rajas, Sylhet Sadar, Sylhet 3100.</p>
+                                    <h3 class="payment-item__title"><?= htmlspecialchars($info->receiverName) ?> </h3>
+                                    <p class="payment-item__desc"><?= htmlspecialchars($info->additional_address_info) ?> </p>
                                 </div>
                             </article>
 
@@ -221,6 +221,8 @@
                                     <div class="cart-info__row">
                                         <span>Shipping</span>
                                         <span id="shipping-cost">$0.00</span>
+                                        <input type="hidden" name="shippingCost" id="shippingCostInput" value="0">
+                                        
                                     </div>
                                     <div class="cart-info__separate"></div>
                                     <div class="cart-info__row">
@@ -518,8 +520,13 @@
             if (!isFormValid) {
                 event.preventDefault();
             }
+            else {
+                window.location.href = '/BTL_LTW/LTWeb/';
+            }
         });
     }
+    
+
     document.addEventListener('DOMContentLoaded', function() {
         var radios = document.querySelectorAll('.payment-item__checkbox-input');
         function updateShippingCost() {
@@ -570,6 +577,27 @@
             const currentAction = form.getAttribute('action');
             form.setAttribute('action', `${currentAction}?id=${id}`);
         }
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        var radios = document.querySelectorAll('.payment-item__checkbox-input');
+        var shippingCostDisplay = document.getElementById('shipping-cost'); 
+        var shippingCostInput = document.getElementById('shippingCostInput'); 
+
+
+        shippingCostDisplay.textContent = '$0.00';
+        shippingCostInput.value = '0.00';
+
+
+        function updateShippingCost() {
+            var cost = parseFloat(this.dataset.cost).toFixed(2); 
+            shippingCostDisplay.textContent = `$${cost}`;
+            shippingCostInput.value = cost; 
+        }
+
+
+        radios.forEach(function(radio) {
+            radio.addEventListener('change', updateShippingCost);
+        });
     });
     </script>
 </body>

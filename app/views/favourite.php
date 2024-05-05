@@ -103,10 +103,12 @@
                                                         </div>
                                                     </div>
                                                     <div class="cart-item__ctrl">
+                                                        <!--
                                                         <button class="cart-item__ctrl-btn">
                                                             <img src="/BTL_LTW/LTWeb/public/assets/icons/heart-2.svg" alt="" />
                                                             Save
                                                         </button>
+                                                        -->
                                                         <button class="cart-item__ctrl-btn" data-pid="<?= htmlspecialchars($product->id) ?>" onclick="openModal(this.getAttribute('data-pid'));">
                                                             <img src="/BTL_LTW/LTWeb/public/assets/icons/trash.svg" alt="Delete" /> Delete
                                                         </button>
@@ -116,7 +118,7 @@
                                             <div class="cart-item__content-right">
                                                 <p class="cart-item__total-price">$<?= htmlspecialchars($product->price) ?></p>
                                                 <button class="cart-item__checkout-btn btn btn--primary btn--rounded">
-                                                    Check Out
+                                                    Add to Cart
                                                 </button>
                                             </div>
                                         </div>
@@ -133,13 +135,14 @@
                                             Continue Shopping
                                         </a>
                                     </div>
+                                    <!--
                                     <div class="delete-checkout-button-container">
                                         <button class="selected-checkout cart-info__checkout-all btn btn--primary btn--rounded"
                                             disabled>
                                             Check out (0)
                                         </button>
                                     </div>
-                                    
+                                -->
                                 </div>
                             </div>
                         </div>
@@ -178,9 +181,9 @@
             checkItems[i].addEventListener('change', handleCheck);
         }
         
-        document.querySelector('.cart-info__checkout-all').addEventListener('click', function() {
+        /*document.querySelector('.cart-info__checkout-all').addEventListener('click', function() {
             window.location.href = '/BTL_LTW/LTWeb/checkout';
-        });
+        });*/
         document.addEventListener("DOMContentLoaded", function() {
             const deleteButtons = document.querySelectorAll('.js-delete');
             const modal = document.getElementById('modal-confirm');
@@ -244,6 +247,35 @@
                     quantityInput.value = 1; 
                 }
             }
+            document.addEventListener('DOMContentLoaded', function() {
+                const addToCartButtons = document.querySelectorAll('.cart-item__checkout-btn');
+
+                addToCartButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const productElement = this.closest('.cart-item');
+                        const productId = productElement.getAttribute('id').replace('product-', '');
+                        const quantityInput = productElement.querySelector('.quantity-input');
+                        const quantity = quantityInput.value;
+
+                        fetch('/BTL_LTW/LTWeb/favourite', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: `id=${productId}&quantity=${quantity}`
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Success:', data);
+                           
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            
+                        });
+                    });
+                });
+            });
 
     </script>
 

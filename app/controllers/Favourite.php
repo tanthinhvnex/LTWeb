@@ -17,11 +17,15 @@
                 echo json_encode(['success' => true]);
                 } else {
                     echo json_encode(['success' => false, 'message' => 'Failed to delete product']);
-                }
-                
+                }   
             }
-            
-            
+            if (isset($_POST['id'])){
+                $productId = $_POST['id'];
+                $quantity = $_POST['quantity'];
+                $productModel = new ProductModel();
+                $productModel->addToCart($productId, $quantity, $_SESSION['user']->email);
+                echo json_encode(['success' => true, 'message' => 'Product added to cart successfully']);
+            }
                 require_once __DIR__ . '/../views/favourite.php';
             }
         }
