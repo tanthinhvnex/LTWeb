@@ -1,3 +1,4 @@
 {
-    "liveServer.settings.multiRootWorkspaceName": "Grocery"
+    "liveServer.settings.multiRootWorkspaceName": "Grocery",
+    "liveServer.settings.port": 5501
 }

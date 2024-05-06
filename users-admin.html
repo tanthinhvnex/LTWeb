@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Read Products</title>
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="./assets/favicon/site.webmanifest" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="./assets/fonts/stylesheet.css" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <link rel="stylesheet" href="./assets/css/layout/index-admin.css">
+
+    <!-- JS -->
+    <script src="./assets/js/scripts.js"></script>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header id="header" class="header"></header>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const user = localStorage.getItem("user") || undefined;
+            // if (user) {
+            //     load("#header", "./templates/header-logined.html");
+            //     updateCartNotification()
+            // } else {
+            //     load("#header", "./templates/header.html");
+            // }
+            load("#header", "./templates/header-admin.html");
+            updateCartNotification()
+            checkLogOut()
+        });
+    </script>
+    <div class="container" style="overflow-x: auto; margin-top: 40px">
+        <table id="productTable">
+            <tr class="table">
+                <th class="id-column">ID User</th>
+                <th class="name-column">Name</th>
+                <th class="account-column">Account</th>
+                <th class="password-column">Password</th>
+                <th class="card-number-column">Card Number</th>
+                <th class="exp-column">Card Number</th>
+                <th class="actions-column">Actions</th>
+            </tr>
+            <tr>
+                <td class="id-column">1</td>
+                <td class="name-column">Nguyen Van A</td>
+                <td class="account-column">
+                    <div class="account-column-item">peachcobbler</div>
+                </td>
+                <td class="password-column">
+                    <div class="password-column-item">Welcome123</div>
+                </td>
+                <td class="card-number-column">
+                    <div class="card-number-column-item">1445455400126</div>
+                </td>
+                <td class="exp-column">
+                    <div class="exp-column-item">09/32</div>
+                </td>
+                <td class="actions-column">
+                    <div class="btn-wrap">
+                        <button class="js-toggle btn-primary btn btn-admin--small btn--no-margin"
+                            toggle-target="#editModal">Edit</button>
+                        <button class="js-toggle btn--danger btn btn-admin--small btn--no-margin"
+                            toggle-target="#deleteModal">Delete</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div style="display: flex; justify-content: center">
+            <div id="tableLoader" class=" loading-spinner"></div>
+        </div>
+
+        <!-- Edit Modal -->
+        <div id="editModal" class="modal-admin hide">
+            <div class="modal-content">
+                <span class="close-btn js-toggle" toggle-target="#editModal">&times;</span>
+                <form id="editProductForm" style="display: flex; flex-direction: column; flex-grow: 1">
+                    <!-- Inside the editProductForm -->
+                    <input type="hidden" id="edit-product-id" name="product-id">
+                    <div class="form__row">
+                        <div class="form__group">
+                            <label for="edit-product-name" class="form__label">Full Name:</label>
+                            <input type="text" id="edit-product-name" class="form__input" value="Sample">
+                        </div>
+
+                    </div>
+
+                    <div class="form__row">
+                        <div class="form__group">
+                            <label for="edit-quantity" class="form__label">Account:</label>
+                            <input type="text" id="edit-quantity" class="form__input" value="Sample">
+                        </div>
+                        <div class="form__group">
+                            <label for="edit-discount" class="form__label">Password:</label>
+                            <input type="text" id="edit-discount" class="form__input" value="1">
+                        </div>
+                    </div>
+                    <div class="form__row">
+                        <div class="form__group">
+                            <label for="edit-quantity" class="form__label">Card Number:</label>
+                            <input type="number" id="edit-quantity" class="form__input" value="1445455400126">
+                        </div>
+                        <div class="form__group">
+                            <label for="edit-discount" class="form__label">Expiration Date:</label>
+                            <input type="date" id="edit-discount" class="form__input" value="3">
+                        </div>
+                    </div>
+
+                    <div class="form__group" style="display: flex; justify-content: right;">
+                        <button type="submit" class="btn btn-primary form__submit-btn js-toggle"
+                            toggle-target="#editModal">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- Delete Product Modal -->
+        <div id="deleteModal" class="modal-admin hide modal-overlay">
+            <div class="modal-content">
+                <div class="confirm-group">
+                    <p>Are you sure you want to delete this bill?</p>
+                    <div class="btn-wrap">
+                        <button id="deleteConfirm" class="js-toggle btn btn-danger"
+                            toggle-target="#deleteModal">Delete</button>
+                        <button class="js-toggle btn btn-secondary btn--no-margin"
+                            toggle-target="#deleteModal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer id="footer" class="footer"></footer>
+    <script>
+        load("#footer", "./templates/footer.html");
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const buttons = document.querySelectorAll('.btn');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function (event) {
+                    event.preventDefault(); // Ngăn hành vi mặc định
+                });
+            });
+        });
+    </script>
+
+    <script src="./assets/js/scripts-admin.js"></script>
+</body>
+
+</html>

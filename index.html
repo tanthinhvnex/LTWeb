@@ -133,7 +133,7 @@
             <div class="col">
                 <a href="./product-detail.html?productId=${product.id}">
                     <article class="cate-item">
-                        <img src="${product.image_src}" alt="" class="cate-item__thumb">
+                        <img src="${product.images[0]}" alt="" class="cate-item__thumb">
                         <div class="cate-item__info">
                             <h3 class="cate-item__title">$${product.price}</h3>
                             <p class="cate-item__desc">
@@ -159,7 +159,7 @@
                         <article class="product-card">
                             <div class="product-card__img-wrap">
                                 <a href="./product-detail.html?productId=${product.id}">
-                                    <img src="${product.image_src}" alt="" class="product-card__thumb">
+                                    <img src="${product.images[0]}" alt="" class="product-card__thumb">
                                 </a>
                                 <button class="like-btn product-card__like-btn">
                                     <img src="./assets/icons/heart.svg" alt="" class="like-btn__icon icon">

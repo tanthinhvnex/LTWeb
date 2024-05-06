@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="top-bar">
+        <!-- More -->
+        <button class="top-bar__more d-none d-lg-block js-toggle" toggle-target="#navbar">
+            <img src="./assets/icons/more.svg" alt="" class="icon top-bar__more-icon" />
+        </button>
+
+        <!-- Logo -->
+        <a href="./index-admin.html" class="logo top-bar__logo">
+            <img src="./assets/icons/logo.svg" alt="grocery" class="logo__img top-bar__logo-img" />
+            <h1 class="logo__title top-bar__logo-title">Grocery</h1>
+        </a>
+
+        <!-- Navbar -->
+        <nav id="navbar" class="navbar hide">
+            <button class="navbar__close-btn js-toggle" toggle-target="#navbar">
+                <img src="./assets/icons/arrow-left.svg" alt="" class="icon" />
+            </button>
+
+            <a href="./checkout.html" class="nav-btn d-none d-md-flex">
+                <img src="./assets/icons/buy.svg" alt="" class="nav-btn__icon icon" />
+                <span class="nav-btn__title">Cart</span>
+                <span class="nav-btn__qnt">3</span>
+            </a>
+
+            <a href="#!" class="nav-btn d-none d-md-flex">
+                <img src="./assets/icons/heart.svg" alt="" class="nav-btn__icon icon" />
+                <span class="nav-btn__title">Cart</span>
+                <span class="nav-btn__qnt">3</span>
+            </a>
+
+            <ul class="navbar__list js-dropdown-list">
+                <li class="navbar__item">
+                    <a href="./bills-admin.html" class="navbar__link">
+                        Bills
+                    </a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./users-admin.html" class="navbar__link">Users
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="navbar__overlay js-toggle" toggle-target="#navbar"></div>
+
+        <!-- Actions -->
+        <div class="top-act">
+            <a href="#!" class="user-menu__link" id="switch-theme-btn">
+                <img src="./assets/icons/sun.svg" alt="" class="icon user-menu__icon" />
+            </a>
+
+            <div class="top-act__user">
+                <img src="./assets/img/avatar.jpg" alt="" class="top-act__avatar" />
+
+                <!-- Dropdown -->
+                <div class="act-dropdown top-act__dropdown">
+                    <div class="act-dropdown__inner user-menu">
+                        <img src="./assets/icons/arrow-up.png" alt=""
+                            class="act-dropdown__arrow top-act__dropdown-arrow" />
+
+                        <div class="user-menu__top">
+                            <img src="./assets/img/avatar.jpg" alt="" class="user-menu__avatar" />
+                            <div>
+                                <p class="user-menu__name">John Smith</p>
+                                <p>@johnsmith</p>
+                            </div>
+                        </div>
+
+                        <ul class="user-menu__list">
+                            <li>
+                                <a href="./profile.html" class="user-menu__link">Profile</a>
+                            </li>
+                            <li>
+                                <a href="./favourite.html" class="user-menu__link">Favourite list</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="user-menu__link">Settings</a>
+                            </li>
+                            <li class="user-menu__separate">
+                                <a id="logout" href="./sign-in.html" class="user-menu__link">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
