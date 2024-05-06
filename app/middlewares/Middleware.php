@@ -6,6 +6,7 @@
     require_once __DIR__ . '/TrimSignUpInput.php';
     require_once __DIR__ . '/TrimSignInInput.php';
     require_once __DIR__ . '/TrimAdminAddProductInput.php';
+    require_once __DIR__ . '/TrimAdminEditProductInput.php';
     class Middleware {
         // mapping middleware key to specific middleware class
         const MAP = [
@@ -15,7 +16,8 @@
             'guest' => Guest::class,
             'trim-signin-input' => TrimSignInInput::class,
             'trim-signup-input' => TrimSignUpInput::class,
-            'trim-admin-add-product-input' => TrimAdminAddProductInput::class
+            'trim-admin-add-product-input' => TrimAdminAddProductInput::class,
+            'trim-admin-edit-product-input' => TrimAdminEditProductInput::class
         ];
 
         public static function drive($middlewareStack) {

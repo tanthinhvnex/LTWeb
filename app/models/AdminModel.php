@@ -1,5 +1,6 @@
 <?php
     require_once __DIR__ . '/example/Product.php';
+    require_once __DIR__ . '/Bill.php';
     require_once __DIR__ . '/Database.php';
 
     class AdminModel {
@@ -23,6 +24,41 @@
                 $allProducts[] = $product;
             }
             return $allProducts;
+        }
+
+        public function getAllBillsDetail() {
+            global $connection;
+            $sql = "SELECT * FROM bill";
+            $allBillsQuery = mysqli_query($connection, $sql);
+            $allBills = array();
+            while ($row = mysqli_fetch_assoc($allBillsQuery)) {
+                $bill = new Bill($row['BID'],$row['created_at'],$row['total_price'],$row['shipping_fee'],$row['credit_card_number']);
+                $customer_email = $row['customer_email'];
+                $query = "SELECT * FROM shipping_address WHERE AID = " . intval($row['AID']) . " AND customer_email = '$customer_email'";
+                $shippingAddressQuery = mysqli_query($connection, $query);
+                $row2 = mysqli_fetch_assoc($shippingAddressQuery);
+                $bill->shippingAddressInfos = new ShippingAddressInfo($row2['reciever_name'],$row2['reciever_phone'],$row2['city_district_town'],$row2['additional_address_info']);
+                
+                $query = "SELECT P.name, B.size, B.quantity FROM bill_have_product as B JOIN product as P ON B.PID = P.PID AND B.size = P.size WHERE BID = " . intval($row['BID']);
+                $billProductInfosQuery = mysqli_query($connection, $query);
+                while ($row2 = mysqli_fetch_assoc($billProductInfosQuery)) {
+                    $bill->productInfos[] = new BillProductInfo($row2['name'],$row2['size'],$row2['quantity']);
+                }
+                $allBills[] = $bill;
+            }
+            return $allBills;
+        }
+
+        public function getAllUsersDetail() {
+            global $connection;
+            $sql = "SELECT email,fullname,phone FROM user WHERE role = 'customer'";
+            $allUsersQuery = mysqli_query($connection, $sql);
+            $allUsers = array();
+            while ($row = mysqli_fetch_assoc($allUsersQuery)) {
+                $user = new CustomerInfo($row['email'],$row['fullname'],$row['phone']);
+                $allUsers[] = $user;
+            }
+            return $allUsers;
         }
 
         public function createNewProduct($name, $price, $description, $size, $quantity, $discount) {

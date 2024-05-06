@@ -21,7 +21,7 @@ table {
 .description-column {
     width: auto;
 }
-.description-column-item {
+.description-column-item, .address-column-item, .account-column-item, .exp-column-item {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
@@ -38,6 +38,7 @@ table {
 
 table, th, td {
     border: 1px solid #ddd;
+    vertical-align: middle;
 }
 
 th, td {
@@ -45,13 +46,13 @@ th, td {
     text-align: left;
 }
 
-th {
+/* th {
     background-color: #f2f2f2;
 }
 
 tr:nth-child(even) {
     background-color: #f9f9f9;
-}
+} */
 
 .btn-primary {
     background-color: #77dae6;
@@ -212,4 +213,11 @@ tr:nth-child(even) {
     .modal-content {
         margin: 25% auto;
     }
+}
+
+.description-column-item img{
+    display: block;
+    object-fit: contain;
+    width: 30% !important;
+    height: 30% !important;
 }

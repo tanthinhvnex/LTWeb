@@ -28,22 +28,9 @@
 
     <!-- Header -->
     <header id="header" class="header"></header>
-        <?php
-            if($_SESSION['user'] ?? FALSE) {
-        ?>
-            <script>
-                load("#header", "/BTL_LTW/LTWeb/app/views/components/header-logined.php");
-            </script>
-        <?php
-            }
-            else {
-        ?>
-                <script>
-                    load("#header", "/BTL_LTW/LTWeb/app/views/components/header.php");
-                </script>
-        <?php   
-            }
-        ?>
+    <script>
+        load("#header", "/BTL_LTW/LTWeb/app/views/components/header-admin.php");
+    </script>
         <div class="container" style="overflow-x: auto;">
         <button style="margin-top: 20px;" class="btn btn-primary js-toggle" toggle-target="#createProductModal">Create New Product</button>
         <table id="productTable"></table>
@@ -243,6 +230,7 @@
                     <td class="discount-column">${product.discount}</td>
                     <td class="actions-column">
                         <div class="btn-wrap">
+                            <button class="btn--success btn btn-admin--small">See</button>
                             <button class="js-toggle btn-primary btn btn-admin--small" toggle-target="#editProductModal">Edit</button>
                             <button class="js-toggle btn--danger btn btn-admin--small btn--no-margin" toggle-target="#deleteProductModal">Delete</button>
                         </div>
@@ -559,6 +547,15 @@
                     const deleteModal = document.getElementById('deleteProductModal');
                     deleteModal.classList.remove('hide');
                     deleteModal.classList.add('show');
+                }
+            }
+
+            // Kiểm tra có nhấn vào nút See hay không, nếu có thì chuyển hướng đến trang có productId tương ứng
+            if (target.classList.contains('btn--success') && target.textContent === "See") {
+                const productId = getProductIdFromRow(target);
+                const size = getSizeFromRow(target);
+                if (productId) {
+                    window.location.href = `/BTL_LTW/LTWeb/detail?id=${productId}`;
                 }
             }
         });
