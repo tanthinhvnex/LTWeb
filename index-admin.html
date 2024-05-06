@@ -540,12 +540,15 @@
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
     <script>
         CKEDITOR.replace('description', {
-            resize_enabled: false, // Không cho resize
+            contentsCss: ['./assets/css/layout/index-admin.css'],
+            resize_enabled: false
         });
 
         CKEDITOR.replace('edit-description', {
-            resize_enabled: false, // Không cho resize
+            contentsCss: ['./assets/css/layout/index-admin.css'],
+            resize_enabled: false
         });
+
     </script>
 
 

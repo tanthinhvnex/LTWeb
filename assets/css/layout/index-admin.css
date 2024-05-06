@@ -1,3 +1,10 @@
+.cke_editable {
+    background-color: #f0f0f0; /* Màu xám */
+}
+.cke_top {
+    background-color: red; /* Màu xám */
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -94,10 +101,10 @@ th, td {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: var(--body-bg);
     margin: 10% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid var(--profile-sidebar-shadow);
     width: 80%; 
     border-radius: 12px;
 }
@@ -112,7 +119,7 @@ th, td {
 
 .close-btn:hover,
 .close-btn:focus {
-    color: black;
+    color: var(--icon-color);
     text-decoration: none;
 }
 
@@ -137,6 +144,8 @@ th, td {
     margin-right: 0; 
 }
 .form__input, .form__text-area-input {
+    color: var(--icon-color);
+    font-weight: 400;
     height: auto;
     border: 1px solid #ccc; /* Màu và độ dày của border */
     border-radius: 4px; /* Độ cong của góc border */
