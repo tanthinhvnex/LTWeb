@@ -405,7 +405,10 @@ document.addEventListener("DOMContentLoaded", function () {
 function checkAll() {
     checkItems = document.getElementsByName("check-item");
     isChecked = document.getElementById("check-all").checked;
-
+    for (var i = 0; i < checkItems.length; i++) {
+        checkItems[i].checked = isChecked;
+        checkItems[i].dispatchEvent(new Event('change'));
+    }
     //update nội dung 2 nút selected delete/checkout ứng với số item được check
     var selectedDeleteButton = document.querySelector('.selected-delete');
     var selectedCheckoutButton = document.querySelector('.selected-checkout');
@@ -430,9 +433,7 @@ function checkAll() {
         selectedCheckoutButton.disabled = !isChecked;
     }
 
-    for (var i = 0; i < checkItems.length; i++) {
-        checkItems[i].checked = isChecked;
-    }
+    
 }
 function handleCheck() {
     var checkItems = document.getElementsByName("check-item");

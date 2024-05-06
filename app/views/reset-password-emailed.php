@@ -60,9 +60,10 @@
                         Enter your email and we'll send you a link to reset your
                         password
                     </p> -->
-                    <div class="auth__message message message--success">
-                        We have email your password reset link
+                    <div class="auth__message message <?php echo ($_SESSION['errorMessage']) ? 'alert alert-danger' : 'message--success'; ?>">
+                        <?php echo ($_SESSION['errorMessage']) ? $_SESSION['errorMessage'] : 'We have emailed your password reset link'; ?>
                     </div>
+
                     <!-- <form
                         action="/indexlogined.html"
                         class="form auth__form auth__form-forgot"
@@ -96,11 +97,9 @@
                     </form> -->
 
                     <p class="auth__text">
-                        <a
-                            href="/BTL_LTW/LTWeb/sign_in"
-                            class="auth__link auth__text-link"
-                            >Back to Sign in</a
-                        >
+                        <a href="<?php echo ($_SESSION['errorMessage']) ? '/BTL_LTW/LTWeb/reset_password' : '/BTL_LTW/LTWeb/sign_in'; ?>" class="auth__link auth__text-link">
+                            <?php echo ($_SESSION['errorMessage']) ? 'Back to Reset Password' : 'Back to Sign in'; ?>
+                        </a>
                     </p>
                 </div>
             </div>

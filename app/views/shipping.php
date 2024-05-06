@@ -80,83 +80,65 @@
                                         <h2 class="user-address__title">Shipping address</h2>
                                         <p class="user-address__desc">Where should we deliver your order?</p>
                                     </div>
-                                    <button class="user-address__btn btn btn--primary btn--rounded btn--small js-toggle"
-                                        toggle-target="#add-new-address" id = "open-modal">
+                                    <button type='button' class="user-address__btn btn btn--primary btn--rounded btn--small js-toggle"
+                                        toggle-target="#add-new-address" id = "open-modal" name='addAddress'>
                                         <img src="/BTL_LTW/LTWeb/public/assets/icons/plus.svg" alt="" />
                                         Add a new address
                                     </button>
                                 </div>
                                 <div class="user-address__list">
-                                    <!-- Empty message -->
-                                    <!-- <p class="user-address__message">
+                                    <?php
+                                    // Check if there are addresses in the list
+                                    if (!empty($listAddress)) {
+                                       
+                                        foreach ($listAddress as $address) {
+                                            ?>
+                                            <!-- Address card -->
+                                            <article class="address-card">
+                                                <div class="address-card__left">
+                                                    <div class="address-card__choose">
+                                                        <label class="cart-info__checkbox">
+                                                            <input type="radio" name="shipping-address" value=<?php echo $address->AID?> class="cart-info__checkbox-input" 
+                                                            <?php echo ($address->isDefault == 1) ? 'checked' : ''; ?>/>
+                                                        </label>
+                                                    </div>
+                                                    <div class="address-card__info">
+                                                        <h3 class="address-card__title"><?php echo $address->receiverName; ?></h3>
+                                                        <p class="address-card__desc">
+                                                            <?php echo $address->additionalAddressInfo . ', ' . $address->cityDistrictTown; ?>
+                                                        </p>
+                                                        <ul class="address-card__list">
+                                                            <li class="address-card__list-item">Shipping</li>
+                                                            <li class="address-card__list-item">Delivery from store</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="address-card__right">
+                                                    <div class="address-card__ctrl">
+                                                        <button type='button' class="cart-info__edit-btn js-toggle" name='editAddress'
+                                                        address-id="<?php echo $address->AID; ?>" toggle-target="#add-new-address">
+                                                            <img class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/edit.svg" alt="" />
+                                                            Edit
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                            <?php
+                                        }
+                                    } else {
+                                        // If there are no addresses, display a message
+                                        ?>
+                                        <!-- Empty message -->
+                                        <p class="user-address__message">
                                             Not address yet.
                                             <a class="user-address__link js-toggle" href="#!" toggle-target="#add-new-address">Add a new address</a>
-                                        </p> -->
-
-                                    <!-- Address card 1 -->
-                                    <article class="address-card">
-                                        <div class="address-card__left">
-                                            <div class="address-card__choose">
-                                                <label class="cart-info__checkbox">
-                                                    <input type="radio" name="shipping-adress" checked
-                                                        class="cart-info__checkbox-input" />
-                                                </label>
-                                            </div>
-                                            <div class="address-card__info">
-                                                <h3 class="address-card__title">Imran Khan</h3>
-                                                <p class="address-card__desc">
-                                                    Museum of Rajas, Sylhet Sadar, Sylhet 3100.
-                                                </p>
-                                                <ul class="address-card__list">
-                                                    <li class="address-card__list-item">Shipping</li>
-                                                    <li class="address-card__list-item">Delivery from store</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="address-card__right">
-                                            <div class="address-card__ctrl">
-                                                <button class="cart-info__edit-btn js-toggle"
-                                                    toggle-target="#add-new-address">
-                                                    <img class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/edit.svg" alt="" />
-                                                    Edit
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </article>
-
-                                    <!-- Address card 2 -->
-                                    <article class="address-card">
-                                        <div class="address-card__left">
-                                            <div class="address-card__choose">
-                                                <label class="cart-info__checkbox">
-                                                    <input type="radio" name="shipping-adress"
-                                                        class="cart-info__checkbox-input" />
-                                                </label>
-                                            </div>
-                                            <div class="address-card__info">
-                                                <h3 class="address-card__title">Imran Khan</h3>
-                                                <p class="address-card__desc">
-                                                    Al Hamra City (10th Floor), Hazrat Shahjalal Road, Sylhet,
-                                                    Sylhet, Bangladesh
-                                                </p>
-                                                <ul class="address-card__list">
-                                                    <li class="address-card__list-item">Shipping</li>
-                                                    <li class="address-card__list-item">Delivery from store</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="address-card__right">
-                                            <div class="address-card__ctrl">
-                                                <button class="cart-info__edit-btn js-toggle"
-                                                    toggle-target="#add-new-address">
-                                                    <img class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/edit.svg" alt="" />
-                                                    Edit
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </article>
+                                        </p>
+                                        <?php
+                                    }
+                                    ?>
                                 </div>
                             </div>
+
 
                             <div class="cart-info__separate"></div>
 
@@ -327,12 +309,12 @@
                             </div>
 
                             <div class="cart-info__bottom d-md-none">
-                                <button class="selected-delete btn btn--danger btn--rounded js-toggle"
+                                <!-- <button class="selected-delete btn btn--danger btn--rounded js-toggle"
                                     style="float: right; margin-bottom: 20px;"
                                     toggle-target="#delete-selected-confirm"
                                     disabled>
                                     Delete (0)
-                                </button>
+                                </button> -->
                                 <div style="clear: right;"></div>
                                 <div class="row">
                                     <div class="col-8 col-xxl-7">
@@ -347,7 +329,7 @@
                                     <div class="col-4 col-xxl-5">
                                         <div class="cart-info__row">
                                             <span>Subtotal:</span>
-                                            <span>$191.65</span>
+                                            <span class='subtotalAmount'>$0</span>
                                         </div>
                                         <div class="cart-info__row">
                                             <span>Shipping:</span>
@@ -356,7 +338,7 @@
                                         <div class="cart-info__separate"></div>
                                         <div class="cart-info__row cart-info__row--bold">
                                             <span>Total:</span>
-                                            <span>$201.65</span>
+                                            <span class='totalAmount'>$10</span>
                                         </div>
                                     </div>
                                 </div>
@@ -367,11 +349,11 @@
                         <div class="cart-info">
                             <div class="cart-info__row">
                                 <span>Subtotal <span class="cart-info__sub-label">(items)</span></span>
-                                <span>3</span>
+                                <span id='numOfItem'>0</span>
                             </div>
                             <div class="cart-info__row">
                                 <span>Price <span class="cart-info__sub-label">(Total)</span></span>
-                                <span>$191.65</span>
+                                <span class='subtotalAmount'>$0.00</span>
                             </div>
                             <div class="cart-info__row">
                                 <span>Shipping</span>
@@ -380,9 +362,9 @@
                             <div class="cart-info__separate"></div>
                             <div class="cart-info__row">
                                 <span>Estimated Total</span>
-                                <span>$201.65</span>
+                                <span class='totalAmount'>$10</span>
                             </div>
-                            <a href="/BTL_LTW/LTWeb/payment" class="cart-info__next-btn btn btn--primary btn--rounded">
+                            <a href="/BTL_LTW/LTWeb/payment" id='checkout-link' class="cart-info__next-btn btn btn--primary btn--rounded">
                                 Continue to checkout
                             </a>
                         </div>
@@ -449,8 +431,9 @@
     <!-- Modal: address new shipping address -->
     <div id="add-new-address" class="modal hide" style="--content-width: 650px">
         <div class="modal__content">
-            <form action="" class="form" id="shippingForm">
+            <form method="post" class="form" id="shippingForm" enctype="multipart/form-data">
                 <h2 class="modal__heading">Add new shipping address</h2>
+                <input type="hidden" name="addressToEdit"> <!-- input không nhập, ẩn, sử dụng trong trường hợp edit address -->
                 <div class="modal__body">
                     <div class="form__row">
                         <div class="form__group">
@@ -466,10 +449,10 @@
                             <label for="phone" class="form__label form__label--small">Phone</label>
                             <div class="form__text-input form__text-input--small">
                                 <input type="tel" name="phone" id="phone" placeholder="Phone" class="form__input"
-                                    required minlength="10" />
+                                    required minlength="10" maxlength="10" />
                                 <img src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
                             </div>
-                            <p class="form__error">Phone must be at least 10 characters</p>
+                            <p class="form__error">Phone must be 10 characters</p>
                         </div>
                     </div>
                     <div class="form__group">
@@ -484,12 +467,12 @@
                     <div class="form__group">
                         <label for="city" class="form__label form__label--small">City/District/Town</label>
                         <div class="form__text-input form__text-input--small">
-                            <input type="text" name="" placeholder="City/District/Town" id="city" readonly
+                            <input type="text" name="city" placeholder="City/District/Town" id="city" readonly
                                 class="form__input js-toggle" toggle-target="#city-dialog" />
                             <img src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
 
                             <!-- Select dialog -->
-                            <div id="city-dialog" class="form__select-dialog hidden">
+                            <div id="city-dialog" name='city' class="form__select-dialog hide">
                                 <h2 class="form__dialog-heading d-none d-sm-block">City/District/Town</h2>
                                 <!--<button class="form__close-dialog d-none d-sm-block js-toggle"
                                     toggle-target="#city-dialog">
@@ -539,20 +522,20 @@
                                 </ul>
                             </div>
                         </div>
-                        <p class="form__error">Phone must be at least 11 characters</p>
+                        <p class="form__error">Address must not empty</p>
                     </div>
                     <div class="form__group form__group--inline">
                         <label class="form__checkbox">
-                            <input type="checkbox" name="" id="" class="form__checkbox-input d-none" />
+                            <input type="checkbox" name="isDefault" id="" class="form__checkbox-input d-none" />
                             <span class="form__checkbox-label">Set as default address</span>
                         </label>
                     </div>
                 </div>
                 <div class="modal__bottom">
-                    <button class="btn btn--small btn--text modal__btn js-toggle" toggle-target="#add-new-address">
+                    <button type='button' id='cancelAddEdit' class="btn btn--small btn--text modal__btn js-toggle" toggle-target="#add-new-address">
                         Cancel
                     </button>
-                    <button class="btn btn--small btn--primary modal__btn btn--no-margin js-toggle"
+                    <button type="submit" class="btn btn--small btn--primary modal__btn btn--no-margin js-toggle"
                         toggle-target="#avoid-faults" id="createButton">
                         Create
                     </button>
@@ -568,8 +551,8 @@
         for (var i = 0; i < checkItems.length; i++) {
             checkItems[i].addEventListener('change', handleCheck);
         }
+        var listAddress = <?php echo json_encode($listAddress); ?>;
     </script>
     <script src="/BTL_LTW/LTWeb/public/assets/js/shipping.js"></script>
 </body>
-
 </html>

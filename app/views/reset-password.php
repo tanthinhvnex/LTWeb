@@ -71,6 +71,7 @@
                             <div class="form__text-input">
                                 <input
                                     type="email"
+                                    name="email"
                                     autofocus
                                     placeholder="Email"
                                     class="form__input"
@@ -90,6 +91,7 @@
                         </div>
                         <div class="form__group auth__btn-group">
                             <button
+                                type='submit'
                                 class="btn btn--primary auth__btn form__submit-btn">
                                 Reset Password
                             </button>
@@ -108,6 +110,7 @@
         </main>
         <script>
             window.dispatchEvent(new Event("template-loaded"));
+            
         </script>
     </body>
 </html>
