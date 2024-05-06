@@ -16,7 +16,6 @@
                 }
             }
             else {
-                echo "<script>alert('Tài khoản hoặc mật khẩu không chính xác')</script>";
                 return null;
             }
         }

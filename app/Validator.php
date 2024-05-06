@@ -1,12 +1,23 @@
 <?php
     class InputValidator {
         public static function isValidLength($value, $min = 1, $max = INF) {
-            $value = trim($value);
             return strlen($value) >= $min && strlen($value) <= $max;
         }
-
+        
         public static function isValidEmail($value) {
             return filter_var($value, FILTER_VALIDATE_EMAIL);
         }
+        
+        public static function isValidURL($url) {
+            return filter_var($url, FILTER_VALIDATE_URL);
+        }
+        
+        public static function isMatchingPassword($passoword, $confirm) {
+            return $passoword == $confirm;
+        }
+
+        public static function isValidArrayPattern($value) {
+            return preg_match('/^(\d+,)*\d*$/', $value) || $value === '';
+        }        
     }
 ?>

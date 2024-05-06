@@ -68,7 +68,8 @@
             }
             if (!empty($password)) {
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                $updates[] = "encoded_password = '$hashedPassword'";
+                // $updates[] = "encoded_password = '$hashedPassword'";
+                $updates[] = "encoded_password = SHA2(CONCAT('$password', 'fc45c92ac5ad37b42824ea724d2f8f32'), 256)";
             }
     
             if (empty($updates)) {
@@ -79,6 +80,8 @@
             $sql .= join(', ', $updates);
             $sql .= " WHERE email = '$currentEmail'";
     
+            // echo $sql;
+            // exit();
 
             if (mysqli_query($connection, $sql)) {
                 $_SESSION['user'] = new User($email, $fullname, 'Customer', $phone);

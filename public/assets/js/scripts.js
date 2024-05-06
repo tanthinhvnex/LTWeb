@@ -1,17 +1,6 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
-document.addEventListener("click", function(event) {
-    const clickTarget = event.target;
-    const cityInput = document.getElementById("city");
-    const cityDialog = document.getElementById("city-dialog");
-
-    // Check if cityDialog exists before accessing its properties
-    if (cityDialog && !clickTarget.closest("#city-dialog") && clickTarget !== cityInput && cityDialog.classList.contains("show")) {
-        cityDialog.classList.remove("show");
-        cityDialog.classList.add("hide");
-    }
-});
 /**
  * Hàm tải template
  *
@@ -26,18 +15,85 @@ function load(selector, path) {
     if (cached) {
         $(selector).innerHTML = cached;
     }
-
+    
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onload = function() {
+        const myObj = JSON.parse(this.responseText);
+        favQuantity = document.getElementsByName("favQuantity");
+        for (i = 0; i < favQuantity.length; i++) {
+            favQuantity[i].innerHTML = myObj.favQuantity;
+        }
+        cartQuantity = document.getElementsByName("cartQuantity");
+        for (i = 0; i < cartQuantity.length; i++) {
+            cartQuantity[i].innerHTML = myObj.cartQuantity;
+        }
+        document.getElementById("cartQuantityInfo").innerHTML = "You have " + myObj.cartQuantity + " item(s)"
+        document.getElementById("favQuantityInfo").innerHTML = "You have " + myObj.favQuantity + " item(s)"
+        for (i = 0; i < myObj.favProducts.length; i++) {
+            col = document.createElement("div");
+            col.setAttribute("class","col");
+            col.innerHTML = `
+            <article class="cart-preview-item">
+                <div class="cart-preview-item__img-wrap">
+                <img src="` + myObj.favProducts[i].img + `"
+                    alt=""
+                    class="cart-preview-item__thumb" />
+                </div>
+                <h3 class="cart-preview-item__title">
+                    ` + myObj.favProducts[i].name + `
+                </h3>
+                <p class="cart-preview-item__price">
+                    $` + myObj.favProducts[i].price + `
+                </p>
+            </article>
+            `;
+            document.getElementById("favProducts").appendChild(col);
+        }
+        cartTotalPrice = 0;
+        for (i = 0; i < myObj.cartProducts.length; i++) {
+            cartTotalPrice += myObj.cartProducts[i].quantity * myObj.cartProducts[i].price;
+            col = document.createElement("div");
+            col.setAttribute("class","col");
+            col.innerHTML = `
+            <article class="cart-preview-item">
+                <div
+                    class="cart-preview-item__img-wrap">
+                    <img
+                        src="` + myObj.cartProducts[i].img + `"
+                        alt=""
+                        class="cart-preview-item__thumb" />
+                </div>
+                <h3 class="cart-preview-item__title">
+                    ` + myObj.cartProducts[i].name + `
+                </h3>
+                <p class="cart-preview-item__price">
+                    $` + myObj.cartProducts[i].price + `
+                </p>
+            </article>
+            `;
+            document.getElementById("cartProducts").appendChild(col);
+        }
+        cartTotalPrices = document.getElementsByName("cartTotalPrice");
+        for (i = 0; i < cartTotalPrices.length; i++) {
+            cartTotalPrices[i].innerHTML = "$" + cartTotalPrice;
+        }
+    }
+    xmlhttp.open("GET", "/BTL_LTW/LTWeb/header", true);
+    
     fetch(path)
-        .then(res => res.text())
-        .then(html => {
-            if (html !== cached) {
-                $(selector).innerHTML = html;
-                localStorage.setItem(path, html);
-            }
-        })
+    .then(res => res.text())
+    .then(html => {
+        if (html !== cached) {
+            $(selector).innerHTML = html;
+            localStorage.setItem(path, html);
+        }
+        if (selector == "#footer") {
+            xmlhttp.send();
+        }
+    })
         .finally(() => {
-            window.dispatchEvent(new Event("template-loaded"));
-        });
+        window.dispatchEvent(new Event("template-loaded"));
+    });
 }
 
 /**
@@ -226,14 +282,7 @@ window.addEventListener("template-loaded", () => {
             const isDark = localStorage.dark === "true";
             document.querySelector("html").classList.toggle("dark", !isDark);
             localStorage.setItem("dark", !isDark);
-            switchBtn.querySelector("span").textContent = isDark
-                ? "Dark mode"
-                : "Light mode";
         };
-        const isDark = localStorage.dark === "true";
-        switchBtn.querySelector("span").textContent = isDark
-            ? "Light mode"
-            : "Dark mode";
     }
 });
 
@@ -413,3 +462,52 @@ function handleCheck() {
     }
 }
 
+//validate input của quantity
+function handleQuantityInput(id) {
+    quantity = document.getElementById("quantity" + id);
+    if (quantity.value < 1 || quantity.value == "") {
+        quantity.value = 1;
+    }
+}
+
+//tăng/giảm quantity khi ấn + -
+function descreaseQuantity(id) {
+    quantity = document.getElementById("quantity" + id);
+    if (quantity.value > 1) {
+        quantity.value--;
+    }
+}
+function increaseQuantity(id) {
+    quantity = document.getElementById("quantity" + id);
+    quantity.value++;
+}
+
+function showSpinner() {
+    document.getElementById('spinner').style.display = 'flex';
+}
+
+function hideSpinner() {
+    document.getElementById('spinner').style.display = 'none';
+}
+
+function checkLogOut() {
+    logOut = document.getElementById("logout")
+    logOut.addEventListener("click", function () {
+        localStorage.removeItem("user")
+    })
+}
+
+// let cartNotification
+function updateCartNotification() {
+    cartNotification = document.querySelector(".cart-notification")
+    cart = JSON.parse(localStorage.getItem("cart"))
+    cartNotification.innerHTML = cart.length
+    cartPrice = document.querySelector(".cart-price")
+    price = 0
+    for (let i = 0; i < cart.length; i++) {
+        if (cart[i].quantity != null) {
+            price += parseInt(cart[i].price) * parseInt(cart[i].quantity)
+        }
+    }
+    cartPrice.innerHTML = `$ ${price}`
+}

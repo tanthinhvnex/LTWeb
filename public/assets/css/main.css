@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -1788,6 +1789,20 @@ html {
   border-radius: 8px;
   cursor: pointer;
 }
+.top-act__icon-wrap {
+  position: relative;
+}
+.cart-notification {
+  font-weight: 500;
+  position: absolute;
+  top: -4px;
+  right: -5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #e65025;
+  font-size: 1.2rem;
+}
 
 .nav-btn {
   height: 50px;
@@ -2025,7 +2040,7 @@ html {
   }
 }
 .input-text-btn {
-  width: 360px;
+  width: 350px;
 }
 @media (max-width: 991.98px) {
   .input-text-btn {
@@ -2478,6 +2493,10 @@ html {
   color: #fff;
   background-color: #ed4337;
 }
+.btn--success {
+  color: #fff;
+  background-color: #28a745;
+}
 .btn[disabled], .btn--disabled {
   opacity: 0.5;
   pointer-events: none;
@@ -2486,8 +2505,14 @@ html {
   opacity: 0.9;
 }
 
+.load-more-btn {
+  margin-top: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .product-card {
-  min-height: 386px;
+  /* min-height: 386px; */
   padding: 16px;
   border-radius: 20px;
   background: var(--product-card-bg);
@@ -2744,17 +2769,13 @@ html {
   display: flex;
   align-items: center;
 }
-.form__group:has(:invalid):has(.form__input:not(:placeholder-shown)) .form__text-input {
-  border-color: #ed4337;
-  background-color: rgba(237, 67, 55, 0.1);
-}
-.form__group:has(:invalid):has(.form__input:not(:placeholder-shown)) .form__error,
-.form__group:has(:invalid):has(.form__input:not(:placeholder-shown)) .form__input-icon-error {
-  display: block;
+.form__group .form__error,
+.form__group .form__input-icon-error {
+  display: none;
   margin-left: 12px;
   animation: shake 0.5s;
 }
-.form__group:has(:invalid):has(.form__input:not(:placeholder-shown)) .form__input-icon {
+.form__group .form__input-icon {
   display: none;
   margin-left: 12px;
 }
@@ -3080,6 +3101,24 @@ html {
   display: none;
 }
 
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #333; /* Màu của đường viền trái */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite; /* Tạo animation với tên là 'spin', thời gian là 1s, chế độ là linear và lặp vô hạn */
+  margin: 0 auto; /* Để giữ spinner ở giữa */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .message {
   padding: 14px;
   border-radius: 10px;
@@ -3107,7 +3146,7 @@ html {
 @media (max-width: 767.98px) {
   .breadcrumbs {
     gap: 16px;
-    radius: 20px;
+    border-radius: 20px;
   }
 }
 .breadcrumbs__link {
@@ -3268,6 +3307,8 @@ html {
   margin: 20px 0;
 }
 .text-content img {
+  object-fit: cover;
+  max-height: 600px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -3655,7 +3696,7 @@ html {
   }
 }
 .auth__content-inner {
-  padding: 50px 0;
+  padding: 30px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3668,7 +3709,7 @@ html {
   }
 }
 .auth__heading {
-  margin-top: 50px;
+  margin-top: 14px;
   font-size: 3rem;
   font-weight: 500;
   line-height: 146.667%;
@@ -3698,7 +3739,7 @@ html {
 }
 .auth__form {
   width: 100%;
-  margin-top: 30px;
+  margin-top: 2px;
 }
 .auth__form-forgot {
   margin-top: 10px;
@@ -3723,7 +3764,7 @@ html {
   display: flex;
   flex-direction: column;
   gap: 30px;
-  margin-top: 50px;
+  margin-top: 40px;
 }
 @media (max-width: 767.98px) {
   .auth__btn-group {
@@ -3735,7 +3776,7 @@ html {
   width: 100%;
 }
 .auth__text {
-  margin-top: 70px;
+  margin-top: 30px;
   font-size: 1.8rem;
   line-height: 144.444%;
   color: #9e9da8;
@@ -3904,9 +3945,6 @@ html {
   gap: 16px;
   margin-top: 30px;
 }
-.prod-prop__icon {
-  align-self: flex-start;
-}
 .prod-prop__title {
   font-size: 1.8rem;
   font-weight: 500;
@@ -3999,6 +4037,7 @@ html {
 }
 .prod-tab__content--current {
   display: block;
+  width: 100%;
 }
 
 .prod-content {
@@ -4598,6 +4637,30 @@ html {
   display: flex;
   justify-content: flex-end;
 }
+
+
+.loading-spinner {
+  text-align: center;
+  padding: 20px;
+  display: none; /* Ẩn spinner mặc định */
+}
+
+/* Ví dụ đơn giản về spinner sử dụng animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner::after {
+  content: "";
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border: 4px solid rgba(0, 0, 0, .1);
+  border-radius: 50%;
+  border-top-color: #000;
+  animation: spin 1s infinite linear;
+}
 .hidden {
   display: none;
 }
@@ -4674,4 +4737,7 @@ input[type=number] {
   justify-content: center;
   margin-top:10px;
 
+}
+.hidden{
+  display: none;
 }

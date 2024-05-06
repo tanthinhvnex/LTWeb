@@ -73,17 +73,17 @@
                             </div>
                             <div class="cart-info__list">
                                 <?php foreach ($products as $product): ?>
-                                    <article class="cart-item">
+                                    <article class="cart-item" id = "product-<?= htmlspecialchars($product->id) ?>">
                                         <label class="cart-info__checkbox">
-                                            <input type="checkbox" class="cart-info__checkbox-input" name="check-item[]" value="<?= htmlspecialchars($product->PID) ?>" />
+                                            <input type="checkbox" class="cart-info__checkbox-input" name="check-item[]" value="<?= htmlspecialchars($product->id) ?>" />
                                         </label>
-                                        <a href="/BTL_LTW/LTWeb/detail?id=<?= htmlspecialchars($product->PID) ?>">
+                                        <a href="/BTL_LTW/LTWeb/detail?id=<?= htmlspecialchars($product->id) ?>">
                                             <img src="<?= htmlspecialchars($product->img) ?>" alt="Image of <?= htmlspecialchars($product->name) ?>" class="cart-item__thumb" />
                                         </a>
                                         <div class="cart-item__content">
                                             <div class="cart-item__content-left">
                                                 <h3 class="cart-item__title">
-                                                    <a href="/BTL_LTW/LTWeb/detail?id=<?= htmlspecialchars($product->PID) ?>">
+                                                    <a href="/BTL_LTW/LTWeb/detail?id=<?= htmlspecialchars($product->id) ?>">
                                                         <?= htmlspecialchars($product->name) ?>
                                                     </a>
                                                 </h3>
@@ -93,23 +93,24 @@
                                                 <div class="cart-item__ctrl-wrap">
                                                     <div class="cart-item__ctrl cart-item__ctrl--md-block">
                                                         <div class="cart-item__input">
-                                                            <button class="cart-item__input-btn" onclick="descreaseQuantity(<?= htmlspecialchars($product->PID) ?>)">
+                                                            <button class="cart-item__input-btn" onclick="descreaseQuantity(<?= htmlspecialchars($product->id) ?>)">
                                                                 <img class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/minus.svg" alt="Decrease quantity" />
                                                             </button>
-                                                            <input type="number" onchange="handleQuantityInput(<?= htmlspecialchars($product->PID) ?>)" class="quantity-input" id="quantity<?= htmlspecialchars($product->PID) ?>" value="1" min="1" />
-                                                            <button class="cart-item__input-btn" onclick="increaseQuantity(<?= htmlspecialchars($product->PID) ?>)">
+                                                            <input type="number" onchange="handleQuantityInput(<?= htmlspecialchars($product->id) ?>)" class="quantity-input" id="quantity<?= htmlspecialchars($product->id) ?>" value="1" min="1" />
+                                                            <button class="cart-item__input-btn" onclick="increaseQuantity(<?= htmlspecialchars($product->id) ?>)">
                                                                 <img class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/plus.svg" alt="Increase quantity" />
                                                             </button>
                                                         </div>
                                                     </div>
                                                     <div class="cart-item__ctrl">
+                                                        <!--
                                                         <button class="cart-item__ctrl-btn">
                                                             <img src="/BTL_LTW/LTWeb/public/assets/icons/heart-2.svg" alt="" />
                                                             Save
                                                         </button>
-                                                        <button class="cart-item__ctrl-btn js-toggle" toggle-target="#delete-confirm-<?= htmlspecialchars($product->PID) ?>">
-                                                            <img src="/BTL_LTW/LTWeb/public/assets/icons/trash.svg" alt="Delete" />
-                                                            Delete
+                                                        -->
+                                                        <button class="cart-item__ctrl-btn" data-pid="<?= htmlspecialchars($product->id) ?>" onclick="openModal(this.getAttribute('data-pid'));">
+                                                            <img src="/BTL_LTW/LTWeb/public/assets/icons/trash.svg" alt="Delete" /> Delete
                                                         </button>
                                                     </div>
                                                 </div>
@@ -117,7 +118,7 @@
                                             <div class="cart-item__content-right">
                                                 <p class="cart-item__total-price">$<?= htmlspecialchars($product->price) ?></p>
                                                 <button class="cart-item__checkout-btn btn btn--primary btn--rounded">
-                                                    Check Out
+                                                    Add to Cart
                                                 </button>
                                             </div>
                                         </div>
@@ -134,17 +135,14 @@
                                             Continue Shopping
                                         </a>
                                     </div>
+                                    <!--
                                     <div class="delete-checkout-button-container">
-                                        <button class="selected-delete btn btn--danger btn--rounded js-toggle"
-                                            toggle-target="#delete-selected-confirm"
-                                            disabled>
-                                            Delete (0)
-                                        </button>
                                         <button class="selected-checkout cart-info__checkout-all btn btn--primary btn--rounded"
                                             disabled>
                                             Check out (0)
                                         </button>
                                     </div>
+                                -->
                                 </div>
                             </div>
                         </div>
@@ -161,23 +159,7 @@
     </script>
 
     <!-- Modal: confirm remove shopping cart item -->
-    <div id="delete-confirm" class="modal modal--small hide">
-        <div class="modal__content">
-            <p class="modal__text">Do you want to remove this item from favourite list?</p>
-            <div class="modal__bottom">
-                <button class="btn btn--small btn--outline modal__btn js-toggle" toggle-target="#delete-confirm">
-                    Cancel
-                </button>
-                <button class="btn btn--small btn--danger btn--primary modal__btn btn--no-margin js-toggle"
-                    toggle-target="#delete-confirm">
-                    Delete
-                </button>
-            </div>
-        </div>
-        <div class="modal__overlay js-toggle" toggle-target="#delete-confirm"></div>
-    </div>
-
-    <div id="delete-selected-confirm" class="modal modal--small hide">
+    <div id = "modal-confirm" class="modal modal--small">
         <div class="modal__content">
             <p class="selected-modal__text">Do you want to remove selected items from favourite list?</p>
             <div class="modal__bottom">
@@ -189,6 +171,7 @@
                     Delete
                 </button>
             </div>
+            <div id="delete-selected-confirm"></div>
         </div>
         <div class="modal__overlay js-toggle" toggle-target="#delete-selected-confirm"></div>
     </div>
@@ -198,10 +181,104 @@
             checkItems[i].addEventListener('change', handleCheck);
         }
         
-        document.querySelector('.cart-info__checkout-all').addEventListener('click', function() {
+        /*document.querySelector('.cart-info__checkout-all').addEventListener('click', function() {
             window.location.href = '/BTL_LTW/LTWeb/checkout';
+        });*/
+        document.addEventListener("DOMContentLoaded", function() {
+            const deleteButtons = document.querySelectorAll('.js-delete');
+            const modal = document.getElementById('modal-confirm');
+            const btnCancel = modal.querySelector('.js-toggle');
+            const btnDelete = modal.querySelector('.btn--danger');
+            let currentProductId = null; 
+
+            window.openModal = function(pid) {
+                currentProductId = pid;  
+                modal.classList.add('show');
+                modal.classList.remove('hidden');
+            };
+
+            
+            btnDelete.addEventListener('click', function() {
+                if (currentProductId) {
+                    fetch(`/BTL_LTW/LTWeb/favourite`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: 'pid=' + currentProductId
+                    })
+                    .then(response => {
+                            modal.classList.remove('show');
+                            modal.classList.add('hidden');
+                            document.querySelector(`#product-${currentProductId}`).classList.add('hidden');
+                    })
+                    .catch(error => console.error('Error:', error));
+                }
+            });
+
+            btnCancel.addEventListener('click', function() {
+                modal.classList.remove('show');
+                modal.classList.add('hidden');
+            });
         });
+        
+        function increaseQuantity(productId) {
+                var inputId = 'quantity' + productId;
+                var quantityInput = document.getElementById(inputId);
+                var currentQuantity = parseInt(quantityInput.value);
+                quantityInput.value = currentQuantity + 1;
+            }
+
+            function descreaseQuantity(productId) {
+                var inputId = 'quantity' + productId;
+                var quantityInput = document.getElementById(inputId);
+                var currentQuantity = parseInt(quantityInput.value);
+                if (currentQuantity > 1) { 
+                    quantityInput.value = currentQuantity - 1;
+                }
+            }
+
+            function handleQuantityInput(productId) {
+                
+                var inputId = 'quantity' + productId;
+                var quantityInput = document.getElementById(inputId);
+                var newQuantity = parseInt(quantityInput.value);
+                if (isNaN(newQuantity) || newQuantity < 1) {
+                    quantityInput.value = 1; 
+                }
+            }
+            document.addEventListener('DOMContentLoaded', function() {
+                const addToCartButtons = document.querySelectorAll('.cart-item__checkout-btn');
+
+                addToCartButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const productElement = this.closest('.cart-item');
+                        const productId = productElement.getAttribute('id').replace('product-', '');
+                        const quantityInput = productElement.querySelector('.quantity-input');
+                        const quantity = quantityInput.value;
+
+                        fetch('/BTL_LTW/LTWeb/favourite', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: `id=${productId}&quantity=${quantity}`
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Success:', data);
+                           
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            
+                        });
+                    });
+                });
+            });
+
     </script>
+
 </body>
 
 </html>

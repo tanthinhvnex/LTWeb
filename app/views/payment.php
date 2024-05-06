@@ -89,8 +89,8 @@
                             <!-- Payment item 1 -->
                             <article class="payment-item">
                                 <div class="payment-item__info">
-                                    <h3 class="payment-item__title">Imran Khan</h3>
-                                    <p class="payment-item__desc">Museum of Rajas, Sylhet Sadar, Sylhet 3100.</p>
+                                    <h3 class="payment-item__title"><?= htmlspecialchars($info->receiverName) ?> </h3>
+                                    <p class="payment-item__desc"><?= htmlspecialchars($info->additional_address_info) ?> </p>
                                 </div>
                             </article>
 
@@ -98,7 +98,7 @@
                             <article class="payment-item">
                                 <div class="payment-item__info">
                                     <h3 class="payment-item__title">Items details</h3>
-                                    <p class="payment-item__desc">2 items</p>
+                                    <p class="payment-item__desc"> <?= htmlspecialchars($info->numberItem) ?> items</p>
                                 </div>
                                 <a href="/BTL_LTW/LTWeb/shipping" class="payment-item__detail">View details</a>
                             </article>
@@ -108,11 +108,10 @@
                             <h2 class="cart-info__heading cart-info__heading--lv2">2. Shipping method</h2>
                             <div class="cart-info__separate"></div>
                             <h3 class="cart-info__sub-heading">Availeble Shipping method</h3>
-
-                            <!-- Payment item 3 -->
+                            <!-- Payment item 3 (Fedex Delivery) -->
                             <label>
                                 <article class="payment-item payment-item--pointer">
-                                    <img src="/BTL_LTW/LTWeb/public/assets/img/payment/delivery-1.png" alt="" class="payment-item__thumb" />
+                                    <img src="/BTL_LTW/LTWeb/public/assets/img/payment/delivery-1.png" alt="Fedex Delivery" class="payment-item__thumb" />
                                     <div class="payment-item__content">
                                         <div class="payment-item__info">
                                             <h3 class="payment-item__title">Fedex Delivery</h3>
@@ -121,19 +120,18 @@
                                             </p>
                                         </div>
                                         <span class="cart-info__checkbox payment-item__checkbox">
-                                            <input type="radio" name="delivery-method" checked
+                                            <input type="radio" name="delivery-method" checked data-cost="0"
                                                 class="cart-info__checkbox-input payment-item__checkbox-input" />
                                             <span class="payment-item__cost">Free</span>
                                         </span>
                                     </div>
-
                                 </article>
                             </label>
 
-                            <!-- Payment item 4 -->
+                            <!-- Payment item 4 (DHL Delivery) -->
                             <label>
                                 <article class="payment-item payment-item--pointer">
-                                    <img src="/BTL_LTW/LTWeb/public/assets/img/payment/delivery-2.png" alt="" class="payment-item__thumb" />
+                                    <img src="/BTL_LTW/LTWeb/public/assets/img/payment/delivery-2.png" alt="DHL Delivery" class="payment-item__thumb" />
                                     <div class="payment-item__content">
                                         <div class="payment-item__info">
                                             <h3 class="payment-item__title">DHL Delivery</h3>
@@ -142,24 +140,22 @@
                                             </p>
                                         </div>
                                         <span class="cart-info__checkbox payment-item__checkbox">
-                                            <input type="radio" name="delivery-method"
+                                            <input type="radio" name="delivery-method" data-cost="12"
                                                 class="cart-info__checkbox-input payment-item__checkbox-input" />
                                             <span class="payment-item__cost">$12.00</span>
                                         </span>
                                     </div>
-
                                 </article>
                             </label>
                         </div>
                     </div>
                     <div class="col-4 col-lg-12">
-                        <form action="your-server-endpoint" class="form cart-info__form" id="payment-details-form"></form>
                             <div class="cart-info">
                                 <h2 class="cart-info__heading cart-info__heading--lv2">Payment Details</h2>
                                 <p class="cart-info__desc">
                                     Complete your purchase item by providing your payment details order.
                                 </p>
-                                <form action="" class="form cart-info__form">
+                                <form action="/BTL_LTW/LTWeb/payment" method="post" class="form cart-info__form">
                                     <div class="form__group">
                                         <label for="email" class="form__label form__label--medium">Email Address</label>
                                         <div class="form__text-input">
@@ -187,12 +183,12 @@
                                             Card Details
                                         </label>
                                         <div class="form__text-input">
-                                            <input type="text" name="card-details" id="card-details"
-                                                placeholder="Card Details" class="form__input" required />
+                                            <input type="text" name="card-number" id="card-number"
+                                                placeholder="Card Number" class="form__input" required/>
                                             <img src="/BTL_LTW/LTWeb/public/assets/icons/form-error.svg" alt=""
                                                 class="form__input-icon-error" />
                                         </div>
-                                        <p class="form__error" style="display: none;">This field is required</p>
+                                        <p class="form__error" id="number-error">This field is required</p>
                                     </div>
                                     <div class="form__row cart-info__form-row">
                                         <div class="form__group">
@@ -214,25 +210,28 @@
                                             <p class="form__error" id = 'cvc-error'>Password must be at least 6 characters</p>
                                         </div>
                                     </div>
+                                    <div class="cart-info__row">
+                                        <span>Subtotal <span class="cart-info__sub-label"></span></span>
+                                        <span><?= htmlspecialchars($info->numberItem) ?></span>
+                                    </div>
+                                    <div class="cart-info__row">
+                                        <span>Price <span class="cart-info__sub-label"></span></span>
+                                        <span id= "base-price">$<?= htmlspecialchars(number_format($info->priceAllItem, 2, '.', ',')) ?></span>
+                                    </div>
+                                    <div class="cart-info__row">
+                                        <span>Shipping</span>
+                                        <span id="shipping-cost">$0.00</span>
+                                        <input type="hidden" name="shippingCost" id="shippingCostInput" value="0">
+                                        
+                                    </div>
+                                    <div class="cart-info__separate"></div>
+                                    <div class="cart-info__row">
+                                        <span>Estimated Total</span>
+                                        <span id="estimated-total"></span>
+                                    </div>
+                                    
+                                    <button type="submit" class="cart-info__next-btn btn btn--primary btn--rounded" id="pay-button" style="width: 100%;">Pay</button>
                                 </form>
-                                <div class="cart-info__row">
-                                    <span>Subtotal <span class="cart-info__sub-label">(items)</span></span>
-                                    <span>3</span>
-                                </div>
-                                <div class="cart-info__row">
-                                    <span>Price <span class="cart-info__sub-label">(Total)</span></span>
-                                    <span>$191.65</span>
-                                </div>
-                                <div class="cart-info__row">
-                                    <span>Shipping</span>
-                                    <span>$10.00</span>
-                                </div>
-                                <div class="cart-info__separate"></div>
-                                <div class="cart-info__row">
-                                    <span>Estimated Total</span>
-                                    <span>$201.65</span>
-                                </div>
-                                <a href="#!" class="cart-info__next-btn btn btn--primary btn--rounded">Pay $201.65</a>
                             </div>
                             <div class="cart-info">
                                 <a href="#!">
@@ -382,7 +381,225 @@
         </div>
         <div class="modal__overlay"></div>
     </div>
-    <script src="/BTL_LTW/LTWeb/public/assets/js/payment.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        validateAndSubmitForm();
+    });
+
+    function validateAndSubmitForm() {
+        const submitButton = document.querySelector('.cart-info__next-btn');
+        const inputs = document.querySelectorAll('.form__input');
+
+        function hideError(input) {
+            const errorParagraph = input.closest('.form__group').querySelector('.form__error');
+            const errorIcon = input.nextElementSibling;
+            errorParagraph.style.display = 'none';
+            errorIcon.style.display = 'none';
+        }
+
+        function checkFirstEmptyInputAndShowError() {
+            for (let input of inputs) {
+                if (input.value.trim() === '') {
+                    const errorParagraph = input.closest('.form__group').querySelector('.form__error');
+                    const errorIcon = input.nextElementSibling;
+                    errorParagraph.textContent = 'This field is required';
+                    errorParagraph.style.display = 'block';
+                    errorIcon.style.display = 'block';
+                    input.focus();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function validateCardNumber() {
+            const cardNumberInput = document.getElementById('card-number');
+            const errorIcon = cardNumberInput.nextElementSibling;
+            const errorMsg = cardNumberInput.closest('.form__group').querySelector('.form__error');
+
+            cardNumberInput.addEventListener('input', function() {
+                const value = cardNumberInput.value;
+                cardNumberInput.setCustomValidity('');
+                errorMsg.style.display = 'none';
+                errorIcon.style.display = 'none';
+
+                if (value.trim() === '') {
+                    cardNumberInput.setCustomValidity('This field is required.');
+                } else if (!/^\d{16}$/.test(value)) {
+                    cardNumberInput.setCustomValidity('Card number must be exactly 16 digits.');
+                }
+
+                errorMsg.textContent = cardNumberInput.validationMessage;
+                if (cardNumberInput.validationMessage) {
+                    errorMsg.style.display = 'block';
+                    errorIcon.style.display = 'block';
+                }
+            });
+
+            return cardNumberInput.checkValidity();
+        }
+
+        function validateExpiryDate() {
+            const expiryInput = document.getElementById('card-expire');
+            const errorIcon = expiryInput.nextElementSibling;
+            const errorMsg = expiryInput.closest('.form__group').querySelector('.form__error');
+            const regex = /^(0[1-9]|1[0-2])\/([0-9]{2})$/;
+
+            expiryInput.addEventListener('input', function () {
+                const value = expiryInput.value;
+                expiryInput.setCustomValidity('');
+                errorMsg.style.display = 'none';
+                errorIcon.style.display = 'none';
+
+                if (value.trim() === '') {
+                    expiryInput.setCustomValidity('This field is required.');
+                } else if (regex.test(value)) {
+                    const [month, year] = value.split('/');
+                    const currentYear = new Date().getFullYear() % 100;
+                    const currentMonth = new Date().getMonth() + 1;
+                    const inputMonth = parseInt(month, 10);
+                    const inputYear = parseInt(year, 10);
+
+                    if (inputYear < currentYear || (inputYear === currentYear && inputMonth < currentMonth)) {
+                        expiryInput.setCustomValidity('The expiry date cannot be in the past.');
+                    }
+                } else {
+                    expiryInput.setCustomValidity('Please enter a valid date in MM/YY format.');
+                }
+
+                errorMsg.textContent = expiryInput.validationMessage;
+                if (expiryInput.validationMessage) {
+                    errorMsg.style.display = 'block';
+                    errorIcon.style.display = 'block';
+                }
+            });
+
+            return expiryInput.checkValidity();
+        }
+
+        function validateCVV() {
+            const cvvInput = document.getElementById('card-cvc');
+            const errorIcon = cvvInput.nextElementSibling;
+            const errorMsg = cvvInput.closest('.form__group').querySelector('.form__error');
+
+            cvvInput.addEventListener('input', function () {
+                const value = cvvInput.value;
+                cvvInput.setCustomValidity('');
+                errorMsg.style.display = 'none';
+                errorIcon.style.display = 'none';
+
+                if (value.trim() === '') {
+                    cvvInput.setCustomValidity('This field is required.');
+                } else if (!/^\d{3,4}$/.test(value)) {
+                    cvvInput.setCustomValidity('CVV must be 3 or 4 digits.');
+                }
+
+                errorMsg.textContent = cvvInput.validationMessage;
+                if (cvvInput.validationMessage) {
+                    errorMsg.style.display = 'block';
+                    errorIcon.style.display = 'block';
+                }
+            });
+
+            return cvvInput.checkValidity();
+        }
+
+        inputs.forEach(input => {
+            if (input.id !== 'card-expire' && input.id !== 'card-cvc' && input.id !== 'card-number') {
+                input.addEventListener('input', () => hideError(input));
+            }
+        });
+
+        validateExpiryDate();
+        validateCVV();
+        validateCardNumber();
+
+        submitButton.addEventListener('submit', function (event) {
+            const isFormValid = checkFirstEmptyInputAndShowError() && validateExpiryDate() && validateCVV() && validateCardNumber();
+
+            if (!isFormValid) {
+                event.preventDefault();
+            }
+            else {
+                window.location.href = '/BTL_LTW/LTWeb/';
+            }
+        });
+    }
+    
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var radios = document.querySelectorAll('.payment-item__checkbox-input');
+        function updateShippingCost() {
+            var cost = this.getAttribute('data-cost');
+            document.getElementById('shipping-cost').textContent = `$${parseFloat(cost).toFixed(2)}`;
+        }
+        radios.forEach(function(radio) {
+            radio.addEventListener('change', updateShippingCost);
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        var radios = document.querySelectorAll('.payment-item__checkbox-input');
+        var basePriceElement = document.getElementById('base-price');
+        var shippingCostElement = document.getElementById('shipping-cost');
+        var totalElement = document.getElementById('estimated-total');
+        var payButton = document.getElementById('pay-button'); 
+
+        function calculateTotal() {
+            var basePrice = parseFloat(basePriceElement.textContent.replace('$', ''));
+            var shippingCost = parseFloat(shippingCostElement.textContent.replace('$', ''));
+            var total = basePrice + shippingCost;
+            var formattedTotal = `$${total.toFixed(2)}`;
+
+            totalElement.textContent = formattedTotal;  
+            payButton.textContent = `Pay ${formattedTotal}`; 
+        }
+
+        function updateShippingCost() {
+            var cost = parseFloat(this.getAttribute('data-cost'));
+            shippingCostElement.textContent = `$${cost.toFixed(2)}`;
+            calculateTotal();
+        }
+
+
+        radios.forEach(function(radio) {
+            radio.addEventListener('change', updateShippingCost);
+        });
+
+
+        calculateTotal();
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('.cart-info__form');
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+
+        if (id) {
+            const currentAction = form.getAttribute('action');
+            form.setAttribute('action', `${currentAction}?id=${id}`);
+        }
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        var radios = document.querySelectorAll('.payment-item__checkbox-input');
+        var shippingCostDisplay = document.getElementById('shipping-cost'); 
+        var shippingCostInput = document.getElementById('shippingCostInput'); 
+
+
+        shippingCostDisplay.textContent = '$0.00';
+        shippingCostInput.value = '0.00';
+
+
+        function updateShippingCost() {
+            var cost = parseFloat(this.dataset.cost).toFixed(2); 
+            shippingCostDisplay.textContent = `$${cost}`;
+            shippingCostInput.value = cost; 
+        }
+
+
+        radios.forEach(function(radio) {
+            radio.addEventListener('change', updateShippingCost);
+        });
+    });
+    </script>
 </body>
 
 </html>

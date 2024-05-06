@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .logo {
   display: flex;
   align-items: center;
@@ -417,6 +418,12 @@
   opacity: 0.9;
 }
 
+.load-more-btn {
+  margin-top: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .product-card {
   min-height: 386px;
   padding: 16px;
@@ -675,17 +682,13 @@
   display: flex;
   align-items: center;
 }
-.form__group:has(:invalid):has(.form__input:not(:placeholder-shown)) .form__text-input {
-  border-color: #ed4337;
-  background-color: rgba(237, 67, 55, 0.1);
-}
-.form__group:has(:invalid):has(.form__input:not(:placeholder-shown)) .form__error,
-.form__group:has(:invalid):has(.form__input:not(:placeholder-shown)) .form__input-icon-error {
-  display: block;
+.form__group .form__error,
+.form__group .form__input-icon-error {
+  display: none;
   margin-left: 12px;
   animation: shake 0.5s;
 }
-.form__group:has(:invalid):has(.form__input:not(:placeholder-shown)) .form__input-icon {
+.form__group .form__input-icon {
   display: none;
   margin-left: 12px;
 }
@@ -1011,6 +1014,24 @@
   display: none;
 }
 
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #333; /* Màu của đường viền trái */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite; /* Tạo animation với tên là 'spin', thời gian là 1s, chế độ là linear và lặp vô hạn */
+  margin: 0 auto; /* Để giữ spinner ở giữa */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .message {
   padding: 14px;
   border-radius: 10px;

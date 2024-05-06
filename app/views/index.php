@@ -6,20 +6,9 @@
         <title>Grocery Mart</title>
 
         <!-- Favicon -->
-        <link
-            rel="apple-touch-icon"
-            sizes="76x76"
-            href="/BTL_LTW/LTWeb/public/assets/favicon/apple-touch-icon.png" />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/BTL_LTW/LTWeb/public/assets/favicon/favicon-32x32.png" />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/BTL_LTW/LTWeb/public/assets/favicon/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="/BTL_LTW/LTWeb/public/assets/favicon/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/BTL_LTW/LTWeb/public/assets/favicon/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/BTL_LTW/LTWeb/public/assets/favicon/favicon-16x16.png" /> 
         <link rel="manifest" href="/BTL_LTW/LTWeb/public/assets/favicon/site.webmanifest" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
@@ -160,10 +149,12 @@
                                     <a href="/BTL_LTW/LTWeb/detail?id=<?= htmlspecialchars($product->id) ?>">
                                         <img src="<?= htmlspecialchars($product->img) ?>" alt="" class="product-card__thumb" />
                                     </a>
+                                    <!--
                                     <button class="like-btn product-card__like-btn">
                                         <img src="/BTL_LTW/LTWeb/public/assets/icons/heart.svg" alt="" class="like-btn__icon icon" />
                                         <img src="/BTL_LTW/LTWeb/public/assets/icons/heart-red.svg" alt="" class="like-btn__icon--liked" />
                                     </button>
+                                    -->
                                 </div>
                                 <h3 class="product-card__title">
                                     <a href="/BTL_LTW/LTWeb/detail?id=<?= htmlspecialchars($product->id) ?>">
@@ -173,7 +164,7 @@
                                 </h3>
                                 <div class="product-card__row">
                                     <span class="product-card__price">$<?= htmlspecialchars($product->price) ?></span>
-                                    <img src="/BTL_LTW/LTWeb/public/assets/icons/star.svg" alt="" class="product-card__star" />
+                                   <img src="/BTL_LTW/LTWeb/public/assets/icons/star.svg" alt="" class="product-card__star" />
                                     <span class="product-card__score"><?= htmlspecialchars($product->rating) ?></span> <!-- Static score for now -->
                                 </div>
                             </article>

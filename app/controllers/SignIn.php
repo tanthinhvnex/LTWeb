@@ -19,12 +19,16 @@
                         exit();
                     }
                     else {
+                        echo "<script>alert('Tài khoản hoặc mật khẩu không chính xác')</script>";
                         require_once __DIR__ . '/../views/sign-in.php';
                         exit();
                     }
                 }
-                require_once __DIR__ . '/../views/sign-in.php';
-                exit();
+                else {
+                    echo "<script>alert('Có lỗi xảy ra')</script>";
+                    require_once __DIR__ . '/../views/sign-in.php';
+                    exit();
+                }
             }
             else {
                 if($_COOKIE['rmb_tk'] ?? false) {

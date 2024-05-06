@@ -60,6 +60,24 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Login` (IN `p_email` VARCHAR(255), 
     END IF;
 END$$
 
+DROP PROCEDURE IF EXISTS `Signup`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Signup` (IN `p_email` VARCHAR(255), IN `p_pass` VARCHAR(255)) BEGIN
+    DECLARE hashed_password varchar(255);
+    DECLARE email_prefix varchar(255);
+    
+    IF NOT EXISTS (SELECT * FROM `User` WHERE `email` = p_email LIMIT 1) THEN
+		SET hashed_password = SHA2(CONCAT(p_pass, 'fc45c92ac5ad37b42824ea724d2f8f32'), 256);
+        SET email_prefix = SUBSTRING_INDEX(p_email, '@', 1);
+        
+        INSERT INTO `user` (`email`,`encoded_password`,`fullname`,`phone`,`role`)
+        VALUES
+			(p_email, hashed_password, email_prefix, NULL, 'customer');
+		SELECT * FROM `user` where email = p_email;
+	ELSE
+		SELECT * FROM `user` where email = null;
+	END IF;
+END$$
+
 DROP PROCEDURE IF EXISTS `show_notification`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `show_notification` (IN `value` VARCHAR(255))   BEGIN
     SIGNAL SQLSTATE '45000'
@@ -67,7 +85,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `show_notification` (IN `value` VARC
 END$$
 
 DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
@@ -76,7 +93,7 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE IF NOT EXISTS `product` (
-  `PID` int(11) NOT NULL,
+  `PID` int(11) auto_increment NOT NULL,
   `name` varchar(255) NOT NULL,
   `listed_unit_price` decimal(10,0) NOT NULL,
   `description` varchar(5000) NOT NULL,
@@ -2868,6 +2885,7 @@ CREATE TABLE IF NOT EXISTS `user_have_remember_me_cookie` (
 --
 
 INSERT INTO `user` (`email`, `encoded_password`, `fullname`, `role`, `phone`) VALUES
+('admin@gmail.com', 'cf38799cb5e58fe29dc18bc563092d33cf262307b736f1e1fa3efd28d6d5161b', 'ADMIN', 'admin', '0909090909'),
 ('abc@gmail.com', 'cf38799cb5e58fe29dc18bc563092d33cf262307b736f1e1fa3efd28d6d5161b', 'avc', 'customer', '0201026777'),
 ('agavenectar@gmail.com', 'cf38799cb5e58fe29dc18bc563092d33cf262307b736f1e1fa3efd28d6d5161b', 'Jayden Rivera', 'customer', '0304838490'),
 ('almondmilk@gmail.com', 'cf38799cb5e58fe29dc18bc563092d33cf262307b736f1e1fa3efd28d6d5161b', 'Aria Mitchell', 'customer', '0163623038'),
@@ -2982,7 +3000,7 @@ ALTER TABLE `bill`
 --
 ALTER TABLE `bill_have_product`
   ADD CONSTRAINT `bill_have_product_ibfk_1` FOREIGN KEY (`BID`) REFERENCES `bill` (`BID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `bill_have_product_ibfk_2` FOREIGN KEY (`PID`,`size`) REFERENCES `product` (`PID`, `size`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `bill_have_product_ibfk_2` FOREIGN KEY (`PID`,`size`) REFERENCES `product` (`PID`, `size`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Constraints for table `credit_card`
@@ -2994,35 +3012,35 @@ ALTER TABLE `credit_card`
 -- Constraints for table `customer_add_to_cart_product`
 --
 ALTER TABLE `customer_add_to_cart_product`
-  ADD CONSTRAINT `customer_add_to_cart_product_ibfk_1` FOREIGN KEY (`PID`,`size`) REFERENCES `product` (`PID`, `size`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `customer_add_to_cart_product_ibfk_1` FOREIGN KEY (`PID`,`size`) REFERENCES `product` (`PID`, `size`) ON UPDATE CASCADE ON DELETE CASCADE,
   ADD CONSTRAINT `customer_add_to_cart_product_ibfk_2` FOREIGN KEY (`customer_email`) REFERENCES `user` (`email`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `customer_add_to_favourite_product`
 --
 ALTER TABLE `customer_add_to_favourite_product`
-  ADD CONSTRAINT `customer_add_to_favourite_product_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `customer_add_to_favourite_product_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE ON DELETE CASCADE,
   ADD CONSTRAINT `customer_add_to_favourite_product_ibfk_2` FOREIGN KEY (`customer_email`) REFERENCES `user` (`email`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_image_src`
 --
 ALTER TABLE `product_image_src`
-  ADD CONSTRAINT `product_image_src_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_image_src_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Constraints for table `product_similar_to_product`
 --
 ALTER TABLE `product_similar_to_product`
-  ADD CONSTRAINT `product_similar_to_product_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_similar_to_product_ibfk_2` FOREIGN KEY (`similar_PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_similar_to_product_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE ON DELETE CASCADE,
+  ADD CONSTRAINT `product_similar_to_product_ibfk_2` FOREIGN KEY (`similar_PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Constraints for table `review`
 --
 ALTER TABLE `review`
   ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`customer_email`) REFERENCES `user` (`email`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `review_ibfk_2` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `review_ibfk_2` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Constraints for table `shipping_address`

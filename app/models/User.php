@@ -6,7 +6,7 @@
         public $phone;
         public $remember_me_cookie;
         // public $credit_card;
-
+        
         public function __construct($pEmail, $pFullname, $pRole, $pPhone, $pRemember_me_cookie = '') {
             $this->email = $pEmail;
             $this->fullname = $pFullname;
@@ -17,4 +17,15 @@
         }
     }
     
+    class CustomerInfo {
+        public $email;
+        public $fullname;
+        public $phone;
+        
+        public function __construct($pEmail, $pFullname, $pPhone) {
+            $this->email = $pEmail;
+            $this->fullname = $pFullname;
+            $this->phone = $pPhone;
+        }
+    }
 ?>
