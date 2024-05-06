@@ -17,7 +17,6 @@
         }
 
         public static function isValidArrayPattern($value) {
-            // Check if the value matches the pattern of comma-separated values
             return preg_match('/^(\d+,)*\d*$/', $value) || $value === '';
         }        
     }

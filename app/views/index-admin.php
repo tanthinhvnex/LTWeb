@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Read Products</title>
+    <title>Admin</title>
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="76x76" href="/BTL_LTW/LTWeb/public/assets/favicon/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/BTL_LTW/LTWeb/public/assets/favicon/favicon-32x32.png" />
@@ -148,7 +148,8 @@
                         <div class="form__group">
                             <label for="edit-similar" class="form__label">Similar Products:</label>
                             <input type="text" id="edit-similar" class="form__input"
-                                placeholder="Enter ID similar products (1,3,5)">
+                                placeholder="Enter similar product IDs separated by commas: 1,2,3,4">
+                            <div id="similarError" class="form__error">Nhập các ID cách nhau bởi dấu phẩy hoặc để trống</div>
                         </div>
                     </div>
                     <div class="form__row">
@@ -156,6 +157,11 @@
                             <label for="edit-img-link" class="form__label">Image Links:</label>
                             <input required type="url" id="edit-img-link" class="form__input" placeholder="URL">
                         </div>
+                    </div>
+                    <div class="form__group">
+                        <label for="edit-size" class="form__label">Size:</label>
+                        <input required type="text" id="edit-size" class="form__input" placeholder="Enter size">
+                        <div class="form__error">Error message</div>
                     </div>
                     <div class="form__group">
                         <label for="edit-description" class="form__label">Description:</label>
@@ -215,22 +221,30 @@
             table.innerHTML = `<tr class="table">
                 <th class="id-column">ID</th>
                 <th class="name-column">Name</th>
+                <th class="size-column">Size</th>
                 <th class="description-column">Description</th>
+                <th class="quantity-column">Quantity</th>
                 <th class="price-column">Price</th>
+                <th class="rating-column">Rating</th>
+                <th class="discount-column">Discount</th>
                 <th class="actions-column">Actions</th>
                 </tr>`;
             // Append new rows for each product
             products.forEach((product) => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
-                    <td class="id-column">${product.id}</td>
-                    <td class="name-column">${product.name}</td>
+                <td class="id-column">${product.id}</td>
+                <td class="name-column">${product.name}</td>
+                    <td class="size-column">${product.size}</td>
                     <td class="description-column"><div class="description-column-item">${product.desc}</div></td>
+                    <td class="quantity-column">${product.quantity}</td>
                     <td class="price-column">$${product.price}</td>
+                    <td class="rating-column">${product.rating}</td>
+                    <td class="discount-column">${product.discount}</td>
                     <td class="actions-column">
                         <div class="btn-wrap">
-                            <button class="js-toggle btn-primary btn btn-admin--small" toggle-target="#editProductModal" >Edit</button>
-                            <button class="js-toggle btn--danger btn btn-admin--small btn--no-margin" toggle-target="#deleteProductModal" >Delete</button>
+                            <button class="js-toggle btn-primary btn btn-admin--small" toggle-target="#editProductModal">Edit</button>
+                            <button class="js-toggle btn--danger btn btn-admin--small btn--no-margin" toggle-target="#deleteProductModal">Delete</button>
                         </div>
                     </td>
                 `;
@@ -259,7 +273,7 @@
 
                 // Lưu vào localStorage
                 localStorage.setItem("products", JSON.stringify(products));
-                displayProductAdmin(products)
+                displayProductAdmin(products);
             } catch (error) {
                 console.log("Fetch error: " + error.message);
             } finally {
@@ -409,31 +423,43 @@
             return null;
         }
 
+        function getSizeFromRow(button) {
+            const row = button.closest('tr');
+            if (row) {
+                return row.querySelector('.size-column').textContent;
+            }
+            return null;
+        }
+
         document.getElementById('productTable').addEventListener('click', function (event) {
             const target = event.target;
             if (target.classList.contains('btn-primary') && target.textContent === "Edit") {
                 const productId = getProductIdFromRow(target);
-                if (productId) {
-                    displayEditProductModal(productId);
+                const size = getSizeFromRow(target);
+                if (productId && size) {
+                    displayEditProductModal(productId,size);
                 }
             }
         });
 
-        function displayEditProductModal(productId) {
+        function displayEditProductModal(productId,size) {
             const products = JSON.parse(localStorage.getItem('products'));
-            const product = products.find(p => p.id === productId);
+            const product = products.find(p => p.id == productId && p.size == size);
             if (product) {
                 document.getElementById('edit-product-id').value = product.id;
                 document.getElementById('edit-product-name').value = product.name;
                 document.getElementById('edit-price').value = product.price;
                 document.getElementById('edit-quantity').value = product.quantity;
+                document.getElementById('edit-size').value = product.size;
                 document.getElementById('edit-discount').value = product.discount || 0;
-                document.getElementById('edit-similar').value = (product.similar_product_ids || []).join(', ');
-                document.getElementById('edit-img-link').value = (product.images && product.images[0]) || '';
+                document.getElementById('edit-similar').value = product.similar;
+                document.getElementById('edit-img-link').value = product.img;
+                // document.getElementById('edit-similar').value = (product.similar_product_ids || []).join(', ');
+                // document.getElementById('edit-img-link').value = (product.images && product.images[0]) || '';
 
                 // Chắc chắn rằng CKEditor đã sẵn sàng
                 if (CKEDITOR.instances['edit-description']) {
-                    CKEDITOR.instances['edit-description'].setData(product.description);
+                    CKEDITOR.instances['edit-description'].setData(product.desc);
                 } else {
                     // Nếu CKEditor chưa sẵn sàng, khởi tạo và thiết lập dữ liệu
                     CKEDITOR.replace('edit-description', {
@@ -456,33 +482,58 @@
 
             // Retrieve productId from hidden input
             const productId = document.getElementById('edit-product-id').value;
+            const productName = document.getElementById("edit-product-name").value;
+            const price = document.getElementById("edit-price").value;
+            const quantity = document.getElementById("edit-quantity").value;
+            const discount = document.getElementById("edit-discount").value;
+            let similarProducts = document.getElementById("edit-similar").value;
+            const imageLink = document.getElementById("edit-img-link").value;
+            const size = document.getElementById("edit-size").value;
+
+            // Lấy nội dung mô tả từ CKEditor
+            const description = CKEDITOR.instances['edit-description'].getData();
+
+            let images = [];
+            if (imageLink) {
+                images.push(imageLink);
+            }
+
+            if (similarProducts.trim() == "") {
+                similarProducts = [];
+            }
+            else {
+                similarProducts = similarProducts.split(",").map(id => parseInt(id.trim()));
+            }
 
             // Gather updated product data from form fields
             const productData = {
                 id: productId,  // Ensure the product ID is included in the data object
-                name: document.getElementById('edit-product-name').value,
-                price: parseFloat(document.getElementById('edit-price').value),
-                quantity: parseInt(document.getElementById('edit-quantity').value),
-                discount: parseInt(document.getElementById('edit-discount').value),
-                similar_product_ids: document.getElementById('edit-similar').value.split(',').map(Number),
-                images: [document.getElementById('edit-img-link').value],
-                description: CKEDITOR.instances['edit-description'].getData() // Get data from CKEditor
+                name: productName,
+                price: price,
+                description: description,
+                similar: similarProducts,
+                image: images,
+                discount: discount,
+                quantity: quantity,
+                size: size,
             };
 
             // Update the product via API call
-            updateProduct(productId, productData);
+            updateProduct(productData);
         });
 
-        async function updateProduct(productId, productData) {
+        async function updateProduct(productData) {
             try {
-                const url = `http://localhost:3000/products`;
+                var formData = new FormData();
+                for (var key in productData) {
+                    formData.append(key, productData[key]);
+                }
+                const url = `http://localhost/BTL_LTW/LTWeb/admin/products/update`;
                 const response = await fetch(url, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(productData)
+                    method: 'POST',
+                    body: formData
                 });
+                // console.log(form)
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -500,9 +551,11 @@
             const target = event.target;
             if (target.classList.contains('btn--danger') && target.textContent === "Delete") {
                 const productId = getProductIdFromRow(target);
-                if (productId) {
+                const size = getSizeFromRow(target);
+                if (productId && size) {
                     // Set the product ID somewhere to retrieve later (e.g., in a hidden input field or a data attribute)
                     document.getElementById('deleteConfirm').setAttribute('data-product-id', productId);
+                    document.getElementById('deleteConfirm').setAttribute('data-size', size);
                     const deleteModal = document.getElementById('deleteProductModal');
                     deleteModal.classList.remove('hide');
                     deleteModal.classList.add('show');
@@ -512,18 +565,16 @@
 
         document.getElementById('deleteConfirm').addEventListener('click', function () {
             const productId = this.getAttribute('data-product-id');
-            deleteProduct(productId);
+            const size = this.getAttribute('data-size');
+            deleteProduct(productId,size);
         });
 
 
-        async function deleteProduct(productId) {
+        async function deleteProduct(productId,size) {
             try {
-                const url = `http://localhost:3000/products/${productId}`; // Adjust the URL as per your API endpoint
+                const url = `http://localhost/BTL_LTW/LTWeb/admin/products/delete?id=${productId}&size=${size}`; // Adjust the URL as per your API endpoint
                 const response = await fetch(url, {
-                    method: 'DELETE', // Method is DELETE
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    method: 'GET', // Method is GET
                 });
 
                 if (!response.ok) {

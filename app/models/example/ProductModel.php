@@ -19,7 +19,6 @@
             return $allProducts;
         }
 
-        
         public function getProductDetail($id) {
             global $connection;
             $detailProductQuery = mysqli_query($connection, "SELECT * FROM products where id = $id");

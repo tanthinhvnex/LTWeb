@@ -7,6 +7,7 @@
             '/BTL_LTW/LTWeb' => ['controller' => __DIR__ . '/controllers/Home.php', 'middleware' => []],
             '/BTL_LTW/LTWeb/admin' => ['controller' => __DIR__ . '/controllers/Admin.php', 'middleware' => ['auth','admin']],
             '/BTL_LTW/LTWeb/admin/products' => ['controller' => __DIR__ . '/controllers/AdminProduct.php', 'middleware' => ['auth','admin']],
+            '/BTL_LTW/LTWeb/admin/products/delete' => ['controller' => __DIR__ . '/controllers/AdminProductDelete.php', 'middleware' => ['auth','admin']],
             '/BTL_LTW/LTWeb/checkout' => ['controller' => __DIR__ . '/controllers/Checkout.php', 'middleware' => ['auth']],
             '/BTL_LTW/LTWeb/detail' => ['controller' => __DIR__ . '/controllers/Detail.php', 'middleware' => ['auth']],
             '/BTL_LTW/LTWeb/favourite' => ['controller' => __DIR__ . '/controllers/Favourite.php', 'middleware' => ['auth']],
@@ -23,6 +24,7 @@
         ],
         'POST' => [
             '/BTL_LTW/LTWeb/admin' => ['controller' => __DIR__ . '/controllers/Admin.php', 'middleware' => ['auth','admin','trim-admin-add-product-input']],
+            '/BTL_LTW/LTWeb/admin/products/update' => ['controller' => __DIR__ . '/controllers/AdminProductUpdate.php', 'middleware' => ['auth','admin']],
             '/BTL_LTW/LTWeb/logout' => ['controller' => __DIR__ . '/controllers/Logout.php', 'middleware' => ['auth']],
             '/BTL_LTW/LTWeb/profile/add_new_card' => ['controller' => __DIR__ . '/controllers/AddNewCart.php', 'middleware' => ['auth']],
             '/BTL_LTW/LTWeb/profile/edit_personal_info' => ['controller' => __DIR__ . '/controllers/EditPersonalInfo.php', 'middleware' => ['auth']],

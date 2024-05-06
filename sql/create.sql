@@ -3000,7 +3000,7 @@ ALTER TABLE `bill`
 --
 ALTER TABLE `bill_have_product`
   ADD CONSTRAINT `bill_have_product_ibfk_1` FOREIGN KEY (`BID`) REFERENCES `bill` (`BID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `bill_have_product_ibfk_2` FOREIGN KEY (`PID`,`size`) REFERENCES `product` (`PID`, `size`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `bill_have_product_ibfk_2` FOREIGN KEY (`PID`,`size`) REFERENCES `product` (`PID`, `size`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Constraints for table `credit_card`
@@ -3012,35 +3012,35 @@ ALTER TABLE `credit_card`
 -- Constraints for table `customer_add_to_cart_product`
 --
 ALTER TABLE `customer_add_to_cart_product`
-  ADD CONSTRAINT `customer_add_to_cart_product_ibfk_1` FOREIGN KEY (`PID`,`size`) REFERENCES `product` (`PID`, `size`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `customer_add_to_cart_product_ibfk_1` FOREIGN KEY (`PID`,`size`) REFERENCES `product` (`PID`, `size`) ON UPDATE CASCADE ON DELETE CASCADE,
   ADD CONSTRAINT `customer_add_to_cart_product_ibfk_2` FOREIGN KEY (`customer_email`) REFERENCES `user` (`email`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `customer_add_to_favourite_product`
 --
 ALTER TABLE `customer_add_to_favourite_product`
-  ADD CONSTRAINT `customer_add_to_favourite_product_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `customer_add_to_favourite_product_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE ON DELETE CASCADE,
   ADD CONSTRAINT `customer_add_to_favourite_product_ibfk_2` FOREIGN KEY (`customer_email`) REFERENCES `user` (`email`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_image_src`
 --
 ALTER TABLE `product_image_src`
-  ADD CONSTRAINT `product_image_src_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_image_src_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Constraints for table `product_similar_to_product`
 --
 ALTER TABLE `product_similar_to_product`
-  ADD CONSTRAINT `product_similar_to_product_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_similar_to_product_ibfk_2` FOREIGN KEY (`similar_PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_similar_to_product_ibfk_1` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE ON DELETE CASCADE,
+  ADD CONSTRAINT `product_similar_to_product_ibfk_2` FOREIGN KEY (`similar_PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Constraints for table `review`
 --
 ALTER TABLE `review`
   ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`customer_email`) REFERENCES `user` (`email`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `review_ibfk_2` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `review_ibfk_2` FOREIGN KEY (`PID`) REFERENCES `product` (`PID`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Constraints for table `shipping_address`
