@@ -49,7 +49,7 @@ class ReviewModel {
                 FROM review
                 JOIN user ON review.customer_email = user.email
                 WHERE review.PID = '$PID'
-                ORDER BY review.PID ASC";
+                ORDER BY review.RID ASC";
         $result = mysqli_query($connection, $sql);
         $reviews = array();
         while ($row = mysqli_fetch_assoc($result)) {

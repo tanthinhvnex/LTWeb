@@ -36,7 +36,7 @@
             '/BTL_LTW/LTWeb/favourite' => ['controller' => __DIR__ . '/controllers/Favourite.php', 'middleware' => ['auth']],
             '/BTL_LTW/LTWeb/logout' => ['controller' => __DIR__ . '/controllers/Logout.php', 'middleware' => ['auth']],
             '/BTL_LTW/LTWeb/payment' => ['controller' => __DIR__ . '/controllers/Payment.php', 'middleware' => ['auth']],
-            '/BTL_LTW/LTWeb/profile/add_new_card' => ['controller' => __DIR__ . '/controllers/AddNewCart.php', 'middleware' => ['auth']],
+            '/BTL_LTW/LTWeb/profile/add_new_card' => ['controller' => __DIR__ . '/controllers/AddNewCard.php', 'middleware' => ['auth']],
             '/BTL_LTW/LTWeb/profile/edit_personal_info' => ['controller' => __DIR__ . '/controllers/EditPersonalInfo.php', 'middleware' => ['auth']],
             '/BTL_LTW/LTWeb/profile/signout' => ['controller' => __DIR__ . '/controllers/Profile.php', 'middleware' => ['auth']],
             '/BTL_LTW/LTWeb/reset_password' => ['controller' => __DIR__ . '/controllers/ResetPasswordEmailed.php', 'middleware' => ['guest']],

@@ -16,6 +16,7 @@ class Shipping {
             
             if ($endpoint === 'add_new_address') {
                 $this->handleAddAddress();
+                header("location:http://localhost/BTL_LTW/LTWeb/shipping");
             } else if ($endpoint === 'edit_address') {
                 $this->handleEditAddress();
             }else if ($endpoint === 'delete_from_cart') {
@@ -58,8 +59,9 @@ class Shipping {
             
             $newAddress = new Address($currentEmail, null, $receiverName, $receiverPhone, $cityDistrictTown, $additionalAddressInfo, $isDefault);
             $newAddress->addAddress();
+            
         } else {
-            echo "Error: Name field not set in POST data.";
+            echo "Error: server error.";
         }
     }
     private function handleEditAddress() {
@@ -84,7 +86,7 @@ class Shipping {
                 $isDefault
             );
             $addressToEdit->editAddress();
-            header("http://localhost/BTL_LTW/LTWeb/profile");
+            header("location:http://localhost/BTL_LTW/LTWeb/shipping");
         } else {
             echo "Error: Name field not set in POST data.";
         }
