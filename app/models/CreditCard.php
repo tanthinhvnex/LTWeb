@@ -37,10 +37,17 @@
                 VALUES ('$cardNumber', '$cvv', '$expDate', '$fullname', '$this->isDefault', '$customerEmail')";
             if (mysqli_query($connection, $sql)) {
                 $_SESSION['errorMessage'] = "card added sucessfull";
-                header("location:http://localhost/BTL_LTW/LTWeb/profile/add_new_card");
+                echo "
+                <script>
+                alert('card added sucessfull!');
+                </script>
+                ";
+                header("location:http://localhost/BTL_LTW/LTWeb/profile");
+                exit();
             } else {
                 $_SESSION['errorMessage'] = "Error adding card: " . mysqli_error($connection);
                 header("location:http://localhost/BTL_LTW/LTWeb/profile/add_new_card");
+                exit();
             }
             
         }
