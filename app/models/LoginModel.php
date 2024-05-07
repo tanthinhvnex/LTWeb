@@ -23,8 +23,13 @@
         public function checkRemember($rmb_tk) {//remember token
             global $connection;
             $rememberQuery = mysqli_query($connection, "SELECT email, fullname, phone, role FROM user as u JOIN user_have_remember_me_cookie as uhrmc ON u.email = uhrmc.customer_email WHERE uhrmc.RMC_ID = '$rmb_tk'");
-            $remember = mysqli_fetch_assoc($rememberQuery);
-            return $remember ?? false;
+            $user = mysqli_fetch_assoc($rememberQuery);
+            if ($user) {
+                return new User($user['email'], $user['fullname'], $user['role'], $user['phone']);
+            }
+            else {
+                return false;
+            }
         }
     }
 ?>
