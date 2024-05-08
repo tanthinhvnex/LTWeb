@@ -42,7 +42,7 @@
             VALUES ('$newAID', '$customerEmail', '$receiverName', '$receiverPhone', '$cityDistrictTown', '$additionalAddressInfo', '$isDefault')";
 
             if (mysqli_query($connection, $sql)) {
-                echo "Address added successfully";
+                // echo "Address added successfully";
             } else {
                 echo "Error adding address: " . mysqli_error($connection);
             }
