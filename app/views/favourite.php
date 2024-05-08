@@ -182,7 +182,7 @@
         }
         
         /*document.querySelector('.cart-info__checkout-all').addEventListener('click', function() {
-            window.location.href = '/BTL_LTW/LTWeb/checkout';
+            window.location.href = '/BTL_LTW/LTWeb/shipping';
         });*/
         document.addEventListener("DOMContentLoaded", function() {
             const deleteButtons = document.querySelectorAll('.js-delete');

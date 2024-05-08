@@ -54,7 +54,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/BTL_LTW/LTWeb/checkout" class="breadcrumbs__link">
+                        <a href="/BTL_LTW/LTWeb/shipping" class="breadcrumbs__link">
                             Checkout
                             <img src="/BTL_LTW/LTWeb/public/assets/icons/arrow-right.svg" alt="" />
                         </a>

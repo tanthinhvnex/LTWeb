@@ -104,7 +104,7 @@
                                     <!-- You have 3 item(s) -->
                                 </h2>
                                 <a
-                                    href="/BTL_LTW/LTWeb/checkout"
+                                    href="/BTL_LTW/LTWeb/shipping"
                                     class="act-dropdown__view-all"
                                     >See All</a
                                 >
@@ -123,7 +123,7 @@
                             </div>
                             <div class="act-dropdown__checkout">
                                 <a
-                                    href="/BTL_LTW/LTWeb/checkout"
+                                    href="/BTL_LTW/LTWeb/shipping"
                                     class="btn btn--primary btn--rounded act-dropdown__checkout-btn">
                                     Check Out All
                                 </a>

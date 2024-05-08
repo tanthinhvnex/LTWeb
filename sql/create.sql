@@ -2992,8 +2992,7 @@ INSERT INTO `user` (`email`, `encoded_password`, `fullname`, `role`, `phone`) VA
 -- Constraints for table `bill`
 --
 ALTER TABLE `bill`
-  ADD CONSTRAINT `bill_ibfk_1` FOREIGN KEY (`credit_card_number`) REFERENCES `credit_card` (`card_number`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `bill_ibfk_2` FOREIGN KEY (`customer_email`,`AID`) REFERENCES `shipping_address` (`customer_email`, `AID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `bill_ibfk_1` FOREIGN KEY (`customer_email`,`AID`) REFERENCES `shipping_address` (`customer_email`, `AID`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `bill_have_product`

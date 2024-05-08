@@ -37,16 +37,6 @@
       <button class="navbar__close-btn js-toggle" toggle-target="#navbar">
         <img alt="" class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/arrow-left.svg" />
       </button>
-      <a class="nav-btn d-none d-md-flex" href="/BTL_LTW/LTWeb/checkout">
-        <img alt="" class="nav-btn__icon icon" src="/BTL_LTW/LTWeb/public/assets/icons/buy.svg" />
-        <span class="nav-btn__title">Cart</span>
-        <span class="nav-btn__qnt">3</span>
-      </a>
-      <a class="nav-btn d-none d-md-flex" href="#!">
-        <img alt="" class="nav-btn__icon icon" src="/BTL_LTW/LTWeb/public/assets/icons/heart.svg" />
-        <span class="nav-btn__title">Cart</span>
-        <span class="nav-btn__qnt">3</span>
-      </a>
       <ul class="navbar__list js-dropdown-list">
         <li class="navbar__item">
           <a class="navbar__link" href="#!">

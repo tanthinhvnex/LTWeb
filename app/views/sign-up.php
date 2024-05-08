@@ -64,7 +64,7 @@
                                 id="inputEmail"
                                 class="form__input"
                                 oninput="validateEmail()"
-                                value="<?= $_POST['email'] ?? 'phuc.dangphanminh@hcmut.edu.vn'?>"
+                                value="<?= $_POST['email'] ?? ''?>"
                                 required />
                             <img
                                 src="/BTL_LTW/LTWeb/public/assets/icons/message.svg"
@@ -89,7 +89,7 @@
                                 name="password"
                                 class="form__input"
                                 id="inputPassword"
-                                value="123456"
+                                value=""
                                 oninput="validatePassword()"
                                 required
                                 minlength="6"
