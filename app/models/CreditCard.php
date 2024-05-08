@@ -28,7 +28,6 @@
             $numExistingCards = $existingCardData['num_cards'];
 
             if ($numExistingCards > 0) {
-                echo "Error adding card: Card number already exists";
                 $_SESSION['errorMessage'] = "Error adding card: Card number already exists";
                 
                 return;
@@ -37,9 +36,18 @@
             $sql = "INSERT INTO credit_card (card_number, cvv, exp_date, fullname, is_default, customer_email) 
                 VALUES ('$cardNumber', '$cvv', '$expDate', '$fullname', '$this->isDefault', '$customerEmail')";
             if (mysqli_query($connection, $sql)) {
-                echo "card added successfully";
+                $_SESSION['errorMessage'] = "card added sucessfull";
+                echo "
+                <script>
+                alert('card added sucessfull!');
+                </script>
+                ";
+                header("location:http://localhost/BTL_LTW/LTWeb/profile");
+                exit();
             } else {
                 $_SESSION['errorMessage'] = "Error adding card: " . mysqli_error($connection);
+                header("location:http://localhost/BTL_LTW/LTWeb/profile/add_new_card");
+                exit();
             }
             
         }

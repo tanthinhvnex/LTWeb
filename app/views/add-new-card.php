@@ -367,9 +367,6 @@
                 toggle-target="#delete-confirm"></div>
         </div>
         <script src="/BTL_LTW/LTWeb/public/assets/js/add-new-cart.js"></script>
-        <?php 
-        echo $errorMessage;
-        ?>
         <script>
             <?php if (isset($_SESSION['errorMessage']) && !empty($_SESSION['errorMessage'])): ?>
                 alert(<?php echo json_encode($_SESSION['errorMessage']); ?>);

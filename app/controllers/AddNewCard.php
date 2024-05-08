@@ -32,6 +32,7 @@
             $isDefault = isset($_POST['isDefault']) ? 1 : 0;
             $creditCard = new CreditCard($cardNumber, $cvv, $expirationDate, $fullname, $isDefault);
             $creditCard->addNewCard();
+            
         }
         private function convertToDateFormat($expDate) {
             $expDateParts = explode('/', $expDate);
