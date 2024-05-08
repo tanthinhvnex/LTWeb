@@ -361,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (xhr.status === 200) {
                     
                     // alert(xhr.responseText);
-                    window.location.href = "/BTL_LTW/LTWeb/payment?BID="+xhr.responseText;
+                    window.location.href = "/BTL_LTW/LTWeb/payment?id="+xhr.responseText;
                 } else {
                     
                     console.error('Failed to checkout: ' + xhr.status);
