@@ -27,7 +27,7 @@
             <button class="navbar__close-btn js-toggle" toggle-target="#navbar">
                 <img class="icon" src="/BTL_LTW/LTWeb/public/assets/icons/arrow-left.svg" alt="" />
             </button>
-            <a href="/BTL_LTW/LTWeb/checkout" class="nav-btn d-none d-md-flex">
+            <a href="/BTL_LTW/LTWeb/shipping" class="nav-btn d-none d-md-flex">
                 <img
                     src="/BTL_LTW/LTWeb/public/assets/icons/buy.svg"
                     alt=""
@@ -4760,7 +4760,7 @@
                                     <!-- You have 3 item(s) -->
                                 </h2>
                                 <a
-                                    href="/BTL_LTW/LTWeb/checkout"
+                                    href="/BTL_LTW/LTWeb/shipping"
                                     class="act-dropdown__view-all"
                                     >See All</a
                                 >
@@ -4779,7 +4779,7 @@
                             </div>
                             <div class="act-dropdown__checkout">
                                 <a
-                                    href="/BTL_LTW/LTWeb/checkout"
+                                    href="/BTL_LTW/LTWeb/shipping"
                                     class="btn btn--primary btn--rounded act-dropdown__checkout-btn">
                                     Check Out All
                                 </a>

@@ -82,7 +82,7 @@ if(isset($_SESSION['signup_success']) && $_SESSION['signup_success']) {
                                     id="inputEmail"
                                     class="form__input"
                                     oninput="validateEmail()"
-                                    value="<?= $_POST['email'] ?? 'phuc.dangphanminh@hcmut.edu.vn'?>"
+                                    value="<?= $_POST['email'] ?? ''?>"
                                     required />
                                 <img
                                     src="/BTL_LTW/LTWeb/public/assets/icons/message.svg"
@@ -107,7 +107,7 @@ if(isset($_SESSION['signup_success']) && $_SESSION['signup_success']) {
                                     name="password"
                                     class="form__input"
                                     id="inputPassword"
-                                    value="123456"
+                                    value=""
                                     oninput="validatePassword()"
                                     required
                                     minlength="6"
